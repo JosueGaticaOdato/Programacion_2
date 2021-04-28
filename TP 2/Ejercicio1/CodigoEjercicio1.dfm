@@ -14,8 +14,8 @@ object Form1: TForm1
   PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel
-    Left = 32
-    Top = 53
+    Left = 8
+    Top = 39
     Width = 61
     Height = 16
     Caption = 'Numero 1:'
@@ -27,7 +27,7 @@ object Form1: TForm1
     ParentFont = False
   end
   object Label2: TLabel
-    Left = 32
+    Left = 8
     Top = 117
     Width = 61
     Height = 16
@@ -55,7 +55,6 @@ object Form1: TForm1
     Height = 25
     Caption = 'Restar'
     TabOrder = 1
-    OnClick = Button2Click
   end
   object Button3: TButton
     Left = 200
@@ -64,7 +63,6 @@ object Form1: TForm1
     Height = 25
     Caption = 'Multiplicar'
     TabOrder = 2
-    OnClick = Button3Click
   end
   object Memo1: TMemo
     Left = 185
@@ -86,7 +84,6 @@ object Form1: TForm1
     Height = 25
     Caption = 'Dividir'
     TabOrder = 4
-    OnClick = Button4Click
   end
   object Button5: TButton
     Left = 392
@@ -95,7 +92,6 @@ object Form1: TForm1
     Height = 25
     Caption = 'Potencia'
     TabOrder = 5
-    OnClick = Button5Click
   end
   object Button6: TButton
     Left = 488
@@ -105,20 +101,36 @@ object Form1: TForm1
     Caption = 'Comparacion'
     TabOrder = 6
   end
-  object Edit1: TEdit
-    Left = 32
-    Top = 75
-    Width = 121
+  object Numerador1: TEdit
+    Left = 8
+    Top = 61
+    Width = 161
     Height = 21
     TabOrder = 7
     Text = '1'
   end
-  object Edit2: TEdit
-    Left = 32
+  object Numerador2: TEdit
+    Left = 8
     Top = 139
-    Width = 121
+    Width = 161
     Height = 21
     TabOrder = 8
+    Text = '1'
+  end
+  object Denominador1: TEdit
+    Left = 8
+    Top = 90
+    Width = 161
+    Height = 21
+    TabOrder = 9
+    Text = '1'
+  end
+  object Denominador2: TEdit
+    Left = 8
+    Top = 166
+    Width = 161
+    Height = 21
+    TabOrder = 10
     Text = '1'
   end
 end
