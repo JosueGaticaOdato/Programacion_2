@@ -25,7 +25,7 @@ type
     procedure Button2Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
     procedure Button4Click(Sender: TObject);
-    //procedure Button5Click(Sender: TObject);
+    procedure Button5Click(Sender: TObject);
 //    procedure Numerador1Change(Sender: TObject);
   private
     { Private declarations }
@@ -83,27 +83,22 @@ Var Numero1: NumerosR;
 begin
   if Numero1.Crear(strtoint(Numerador1.Text),strtoint(Denominador1.Text)) and Numero2.Crear(strtoint(Numerador2.Text),strtoint(Denominador2.Text)) then
   begin
-    Dividir := Numero1.Multiplicar(Numero2);
+    Dividir := Numero1.Dividir(Numero2);
     memo1.Lines.Add('El resultado de la division es ' + Dividir.ToString);
   end;
 end;
 
-//procedure TForm1.Button5Click(Sender: TObject);
-//Var Numero1: Integer;
-//  Numero2: Integer;
-//  Potencia : NumerosR;
-//  Result : Double;
-//begin
-//  Numero1 := strtoint(Edit1.Text);
-//  Numero2 := strtoint(Edit2.Text);
-//  Result := Potencia.Potencia(Numero1,Numero2);
-//  memo1.Lines.Add('El resultado de la potencia es ' + Result.ToString);
-//end;
-//
-//procedure TForm1.Edit1Change(Sender: TObject);
-//begin
-//
-//end;
+procedure TForm1.Button5Click(Sender: TObject);
+Var Numero1: NumerosR;
+  Numero2: NumerosR;
+  Dividir : NumerosR;
+begin
+  if Numero1.Crear(strtoint(Numerador1.Text),strtoint(Denominador1.Text)) and Numero2.Crear(strtoint(Numerador2.Text),strtoint(Denominador2.Text)) then
+  begin
+    Dividir := Numero1.Dividir(Numero2);
+    memo1.Lines.Add('El resultado de la division es ' + Dividir.ToString);
+  end;
+end;
 //
 end.
 

@@ -64,6 +64,7 @@ object Form1: TForm1
     Height = 25
     Caption = 'Multiplicar'
     TabOrder = 2
+    OnClick = Button3Click
   end
   object Memo1: TMemo
     Left = 185
@@ -85,6 +86,7 @@ object Form1: TForm1
     Height = 25
     Caption = 'Dividir'
     TabOrder = 4
+    OnClick = Button4Click
   end
   object Button5: TButton
     Left = 392

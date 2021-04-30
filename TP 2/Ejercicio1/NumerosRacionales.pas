@@ -17,8 +17,9 @@ Type
       function Suma(N2: NumerosR): NumerosR;
       function Resta(N2: NumerosR): NumerosR;
       function Multiplicar(N2: NumerosR): NumerosR;
+      function Simplificar_Entero(N: Integer; D: Integer): Boolean;
       function Dividir(N2: NumerosR): NumerosR;
-      //function Potencia(N2: NumerosR): NumerosR;
+      function Potencia(N2: NumerosR): NumerosR;
   End;
 
 implementation
@@ -63,6 +64,7 @@ function NumerosR.Multiplicar(N2: NumerosR): NumerosR;
 begin
   Multiplicar.Numerador := Numerador * N2.Numerador;
   Multiplicar.Denominador := Denominador * N2.Denominador;
+  Multiplicar.Simplificar;
 end;
 
 function NumerosR.Dividir(N2: NumerosR): NumerosR;
@@ -72,13 +74,23 @@ begin
   Dividir.Simplificar;
 end;
 
-//function NumerosR.Potencia(N1: Extended; N2: Extended): Extended;
-//var s: Extended;
-//  i: Integer;
-//begin
-//   Power: Funcion de delphi para enviar dos parametros y me devuelve la potencia
-//  s := Power(N1, N2);
-//  Potencia := s;
-//end;
-//
+function NumerosR.Simplificar_Entero(N: Integer; D: Integer): Boolean;
+var Entero: Integer;
+begin
+  Simplificar_Entero := True;
+  Numerador := N;
+  Denominador := D;
+  Entero := Numerador / Denominador;
+  if Entero <> Integer then
+  begin
+    Simplificar_Entero := False
+  end;
+end;
+
+
+function Potencia(N2: NumerosR): NumerosR;
+begin
+
+end;
+
 end.

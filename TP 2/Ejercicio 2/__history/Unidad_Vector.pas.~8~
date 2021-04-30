@@ -1,0 +1,47 @@
+unit Unidad_Vector;
+
+interface
+
+Uses
+  SysUtils, Math;
+
+const
+  Min = 1;
+  Max = 10000;
+
+type
+  Vector = Object
+    private
+      Arreglo : Array of LongInt;
+      Tamaño : LongInt;
+    public
+      Procedure Determinar_Tamaño (Valor: Integer);
+      Function CargarAleatorio(Desde, Hasta: Integer);
+      Function Sumatoria();
+      Function MaximoValor();
+      Function MinimoValor();
+      Function Promedio();
+  End;
+
+implementation
+
+Procedure Vector.Determinar_Tamaño(Valor);
+begin
+  if (Valor >= Min) and (Valor <= Max) then
+  begin
+    Tamaño = Valor;
+  end;
+
+end;
+
+Function Vector.CargarAleatorio(Desde, Hasta: Integer);
+var i: Integer;
+begin
+  Randomize;
+  for i := Min to Tamaño do
+  begin
+    Arreglo[i] := Desde + Random(Hasta - Desde);
+  end;
+end;
+
+end.
