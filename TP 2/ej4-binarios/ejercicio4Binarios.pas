@@ -15,15 +15,18 @@ type
     Label1: TLabel;
     Label2: TLabel;
     btnResta: TButton;
-    btnConversion: TButton;
+    btnConversion1: TButton;
     btnAND: TButton;
     btnOR: TButton;
     btnXOR: TButton;
+    btnConversion2: TButton;
     procedure btnSumaClick(Sender: TObject);
     procedure btnANDClick(Sender: TObject);
     procedure btnORClick(Sender: TObject);
     procedure btnXORClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure btnConversion1Click(Sender: TObject);
+    procedure btnConversion2Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -48,6 +51,38 @@ begin
     //Muestro en memo
     memo1.Lines.Add('La operacion AND entre los dos numeros binarios es igual a ' + OperadorAND.toStr);
     memo1.Lines.Add('');
+  end;
+end;
+
+//Click de Conversion
+procedure TForm1.btnConversion1Click(Sender: TObject);
+var nro1: Binario;
+  Conversor: Extended;
+begin
+  //Creo los binarios
+  if nro1.Crear(binario1.Text) then
+  begin
+  //Realizo la operacion
+  Conversor := nro1.convertirADecimal;
+  //Muestro en memo
+  memo1.Lines.Add('La conversion del numero binario a decimal es ' + Conversor.ToString);
+  memo1.Lines.Add('');
+  end;
+end;
+
+//Click de Conversion
+procedure TForm1.btnConversion2Click(Sender: TObject);
+var nro2: Binario;
+  Conversor: Extended;
+begin
+  //Creo los binarios
+  if nro2.Crear(binario2.Text) then
+  begin
+  //Realizo la operacion
+  Conversor := nro2.convertirADecimal;
+  //Muestro en memo
+  memo1.Lines.Add('La conversion del numero binario a decimal es ' + Conversor.ToString);
+  memo1.Lines.Add('');
   end;
 end;
 

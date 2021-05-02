@@ -17,7 +17,7 @@ object Form1: TForm1
   object Label1: TLabel
     Left = 64
     Top = 37
-    Width = 145
+    Width = 126
     Height = 13
     Alignment = taCenter
     Caption = 'Ingrese un n'#250'mero binario'
@@ -25,7 +25,7 @@ object Form1: TForm1
   object Label2: TLabel
     Left = 64
     Top = 100
-    Width = 145
+    Width = 134
     Height = 13
     Alignment = taCenter
     Caption = 'Ingrese otro n'#250'mero binario'
@@ -54,7 +54,7 @@ object Form1: TForm1
     TabOrder = 2
   end
   object btnSuma: TButton
-    Left = 40
+    Left = 48
     Top = 169
     Width = 75
     Height = 25
@@ -63,20 +63,21 @@ object Form1: TForm1
     OnClick = btnSumaClick
   end
   object btnResta: TButton
-    Left = 152
+    Left = 143
     Top = 169
     Width = 75
     Height = 25
     Caption = 'Resta Binaria'
     TabOrder = 4
   end
-  object btnConversion: TButton
-    Left = 96
+  object btnConversion1: TButton
+    Left = 15
     Top = 208
-    Width = 75
+    Width = 108
     Height = 25
-    Caption = 'Conversion'
+    Caption = 'Conversion Binario 1'
     TabOrder = 5
+    OnClick = btnConversion1Click
   end
   object btnAND: TButton
     Left = 15
@@ -104,5 +105,14 @@ object Form1: TForm1
     Caption = 'XOR'
     TabOrder = 8
     OnClick = btnXORClick
+  end
+  object btnConversion2: TButton
+    Left = 143
+    Top = 208
+    Width = 109
+    Height = 25
+    Caption = 'Conversion Binario 2'
+    TabOrder = 9
+    OnClick = btnConversion2Click
   end
 end

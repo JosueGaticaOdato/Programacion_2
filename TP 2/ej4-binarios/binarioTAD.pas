@@ -14,7 +14,7 @@ type
     function Sumador(nro: string) : Binario;
     function toStr() : string;
     //function restar(nro) : string;
-    function convertirADecimal(nro) : string;
+    function convertirADecimal(): Extended;
     function andLogico(nro: String) : Binario;
     function orLogico(nro: String) : Binario;
     function xorLogico(nro: String) : Binario;
@@ -169,8 +169,27 @@ begin
 end;
 
 //------------------------------------//
-function Binario.convertirADecimal(nro) : string;
 
+//Funcion que realiza la conversion de Binario a Decimal
+function Binario.convertirADecimal(): Extended;
+//Declaro las variables
+var i, Transformar: Integer;
+ Valor, Acumulador : Extended;
+begin
+  Acumulador := 0;
+  //Recorro el string de atras para adelante
+  for I := Length(nroBinario) downto 1 do
+    //Si el string en esa posicion es igual a 1
+    if nroBinario[I] = '1' then
+    begin
+      //Realizo la operacion de 2 elevado a la longitud del vector menos el valor que tiene i en ese momento
+      Valor := Power(2,(Length(nroBinario)-i));
+      //Acumulo la potencia
+      Acumulador := Acumulador + Valor;
+    end;
+  //Terminado el ciclo, retorno
+  convertirADecimal := Acumulador;
+end;
 
 //------------------------------------//
 
