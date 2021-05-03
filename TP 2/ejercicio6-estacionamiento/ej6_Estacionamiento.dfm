@@ -16,9 +16,9 @@ object Form1: TForm1
   object Label1: TLabel
     Left = 16
     Top = 152
-    Width = 166
+    Width = 154
     Height = 16
-    Caption = 'Ingresa la patente de tu auto'
+    Caption = 'Ingresa la patente del auto'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -13
@@ -58,5 +58,14 @@ object Form1: TForm1
     Width = 169
     Height = 21
     TabOrder = 3
+  end
+  object autosGuardados: TButton
+    Left = 16
+    Top = 216
+    Width = 169
+    Height = 33
+    Caption = 'Mostrar autos guardados'
+    TabOrder = 4
+    OnClick = autosGuardadosClick
   end
 end

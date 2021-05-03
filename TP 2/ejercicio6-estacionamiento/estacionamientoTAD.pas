@@ -28,39 +28,54 @@ type
       function conseguirLugar() : integer;
       procedure guardarAuto(patente, entrada, salida: string; lugar: integer);
 //      function calcularPago() : String;
-      procedure cargarEstacionamiento();      
+      procedure cargarEstacionamiento();
+//      function AutosGuardados() : ;
 End;
 
 implementation
 
-
+//cargo el campo "estacionado" de todos los elementos del vector con False (para indicar que están libres para estacionar)
 procedure Estacionamiento.cargarEstacionamiento();
 var I: integer;
-begin 
+begin
   for I := min to max do begin
     Autos[I].estacionado := False;
   end;
 end;
 
+//devuelve el lugar que esté libre sino devuelve -1
 function Estacionamiento.conseguirLugar() : integer;
 var I: integer;
 begin
-  Result := -1;
-  for I := min to max do begin
-    if Autos[I].estacionado = False then begin
-      Result := I;
-      exit;
-    end;
+  I := 0;
+
+  while (Autos[I].estacionado = True) and (I <= max) do begin
+    I := I + 1;
   end;
+
+  if I > 50 then begin
+    Result := -1;
+  end
+  else begin
+    Result := I;
+  end;
+
 end;
 
+//guarda en el vector los datos del auto que va a estacionar en el lugar indicado
 procedure Estacionamiento.guardarAuto(patente, entrada, salida: string; lugar: integer);
 begin
   Autos[lugar].estacionado := True;
   Autos[lugar].patente := patente;
   Autos[lugar].horarioEntrada := entrada;
-  Autos[lugar].horarioSalida := salida;  
+  Autos[lugar].horarioSalida := salida;
 end;
+
+//SE SUPONE QUE DEVUELVE EL VECTOR AUTOS PERO NO SE PUEDE PORQUE ES PRIVADO
+//function Estacionamiento.AutosGuardados() : array[min..max] of Auto;
+//begin
+//  Result := Autos;
+//end;
 
 //function Estacionamiento.calcularPago() : String;
 //var horas: integer;
