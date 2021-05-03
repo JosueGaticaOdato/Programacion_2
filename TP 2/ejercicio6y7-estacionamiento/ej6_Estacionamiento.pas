@@ -15,7 +15,6 @@ type
     Label1: TLabel;
     autosGuardados: TButton;
     procedure Button1Click(Sender: TObject);
-//    procedure autosGuardadosClick(Sender: TObject);
     procedure mostrarAuto(lugar: integer);
   private
     { Private declarations }

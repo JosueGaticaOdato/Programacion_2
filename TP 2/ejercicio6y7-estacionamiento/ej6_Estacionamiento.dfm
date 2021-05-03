@@ -13,6 +13,19 @@ object Form1: TForm1
   OldCreateOrder = False
   PixelsPerInch = 96
   TextHeight = 13
+  object Label1: TLabel
+    Left = 16
+    Top = 152
+    Width = 154
+    Height = 16
+    Caption = 'Ingresa la patente del auto'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
   object Memo1: TMemo
     Left = 232
     Top = 48
@@ -29,6 +42,7 @@ object Form1: TForm1
     Height = 33
     Caption = 'Guardar auto'
     TabOrder = 1
+    OnClick = Button1Click
   end
   object Button2: TButton
     Left = 16
@@ -37,5 +51,20 @@ object Form1: TForm1
     Height = 33
     Caption = 'Retirar auto'
     TabOrder = 2
+  end
+  object Patente: TEdit
+    Left = 16
+    Top = 176
+    Width = 169
+    Height = 21
+    TabOrder = 3
+  end
+  object autosGuardados: TButton
+    Left = 16
+    Top = 216
+    Width = 169
+    Height = 33
+    Caption = 'Mostrar autos guardados'
+    TabOrder = 4
   end
 end
