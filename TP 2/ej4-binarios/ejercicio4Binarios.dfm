@@ -69,6 +69,7 @@ object Form1: TForm1
     Height = 25
     Caption = 'Resta Binaria'
     TabOrder = 4
+    OnClick = btnRestaClick
   end
   object btnConversion1: TButton
     Left = 15

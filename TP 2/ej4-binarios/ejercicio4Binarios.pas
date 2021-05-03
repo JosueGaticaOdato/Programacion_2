@@ -27,6 +27,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure btnConversion1Click(Sender: TObject);
     procedure btnConversion2Click(Sender: TObject);
+    procedure btnRestaClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -96,6 +97,20 @@ begin
     OperadorOR := nro1.orLogico(nro2.toStr);
     //Muestro en memo
     memo1.Lines.Add('La operacion OR entre los dos numeros binarios es igual a ' + OperadorOR.toStr);
+    memo1.Lines.Add('');
+  end;
+end;
+
+procedure TForm1.btnRestaClick(Sender: TObject);
+var nro1, nro2, resta: Binario;
+begin
+  //Creo los binarios
+  if nro1.Crear(binario1.Text) and nro2.Crear(binario2.Text) then
+  begin
+    //Realizo la suma
+    resta := nro1.Restar(nro2.toStr);
+    //Muestro en memo
+    memo1.Lines.Add('La resta entre los dos numeros binarios es igual a ' + resta.toStr);
     memo1.Lines.Add('');
   end;
 end;
