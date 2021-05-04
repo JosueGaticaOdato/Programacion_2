@@ -14,6 +14,10 @@ type
     Patente: TEdit;
     Label1: TLabel;
     autosGuardados: TButton;
+    horarioEntrada: TEdit;
+    Label2: TLabel;
+    horarioSalida: TEdit;
+    Label3: TLabel;
     procedure btnGuardarClick(Sender: TObject);
     procedure mostrarAuto(autoGuardado: Auto; lugar: integer);
     procedure autosGuardadosClick(Sender: TObject);
@@ -50,7 +54,7 @@ begin
 
   //si hay lugar lo guarda en vector y lo muestra
   if lugar <> -1 then begin
-    autoGuardado := E.guardarAuto(Patente.Text,DateTimeToStr(now),' ',lugar);
+    autoGuardado := E.guardarAuto(Patente.Text,horarioEntrada.Text,horarioSalida.Text,lugar);
     mostrarAuto(autoGuardado,lugar);
   end
   else begin

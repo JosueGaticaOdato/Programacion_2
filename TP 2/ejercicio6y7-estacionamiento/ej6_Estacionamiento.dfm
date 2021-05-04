@@ -1,6 +1,7 @@
 object Form1: TForm1
   Left = 0
   Top = 0
+  ActiveControl = Memo1
   Caption = 'Form1'
   ClientHeight = 442
   ClientWidth = 799
@@ -25,6 +26,20 @@ object Form1: TForm1
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
+  end
+  object Label2: TLabel
+    Left = 16
+    Top = 208
+    Width = 95
+    Height = 13
+    Caption = 'Horario de entrada:'
+  end
+  object Label3: TLabel
+    Left = 16
+    Top = 269
+    Width = 84
+    Height = 13
+    Caption = 'Horario de salida:'
   end
   object Memo1: TMemo
     Left = 232
@@ -62,11 +77,25 @@ object Form1: TForm1
   end
   object autosGuardados: TButton
     Left = 16
-    Top = 216
+    Top = 320
     Width = 169
     Height = 33
     Caption = 'Mostrar autos guardados'
     TabOrder = 4
     OnClick = autosGuardadosClick
+  end
+  object horarioEntrada: TEdit
+    Left = 16
+    Top = 232
+    Width = 169
+    Height = 21
+    TabOrder = 5
+  end
+  object horarioSalida: TEdit
+    Left = 16
+    Top = 288
+    Width = 169
+    Height = 21
+    TabOrder = 6
   end
 end
