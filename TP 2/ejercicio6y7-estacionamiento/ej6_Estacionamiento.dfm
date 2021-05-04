@@ -33,16 +33,17 @@ object Form1: TForm1
     Height = 369
     Lines.Strings = (
       'Memo1')
+    ScrollBars = ssVertical
     TabOrder = 0
   end
-  object Button1: TButton
+  object btnGuardar: TButton
     Left = 16
     Top = 48
     Width = 169
     Height = 33
     Caption = 'Guardar auto'
     TabOrder = 1
-    OnClick = Button1Click
+    OnClick = btnGuardarClick
   end
   object Button2: TButton
     Left = 16
@@ -66,5 +67,6 @@ object Form1: TForm1
     Height = 33
     Caption = 'Mostrar autos guardados'
     TabOrder = 4
+    OnClick = autosGuardadosClick
   end
 end

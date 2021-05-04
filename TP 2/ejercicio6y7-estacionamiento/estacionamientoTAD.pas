@@ -25,11 +25,11 @@ type
     private
       Autos: Array[min..max] of Auto;
     public
-      function conseguirLugar() : integer;
-      procedure guardarAuto(patente, entrada, salida: string; lugar: integer);
-//      function calcularPago() : String;
       procedure cargarEstacionamiento();
-//      function AutosGuardados() : ;
+      function conseguirLugar() : integer;
+      function guardarAuto(patente, entrada, salida: string; lugar: integer) : Auto;
+
+      //      function calcularPago() : String;
 End;
 
 implementation
@@ -63,19 +63,15 @@ begin
 end;
 
 //guarda en el vector los datos del auto que va a estacionar en el lugar indicado
-procedure Estacionamiento.guardarAuto(patente, entrada, salida: string; lugar: integer);
+function Estacionamiento.guardarAuto(patente, entrada, salida: string; lugar: integer) : Auto;
 begin
   Autos[lugar].estacionado := True;
   Autos[lugar].patente := patente;
   Autos[lugar].horarioEntrada := entrada;
   Autos[lugar].horarioSalida := salida;
+  Result := Autos[lugar];
 end;
 
-//SE SUPONE QUE DEVUELVE EL VECTOR AUTOS PERO NO SE PUEDE PORQUE ES PRIVADO
-//function Estacionamiento.AutosGuardados() : array[min..max] of Auto;
-//begin
-//  Result := Autos;
-//end;
 
 //function Estacionamiento.calcularPago() : String;
 //var horas: integer;
