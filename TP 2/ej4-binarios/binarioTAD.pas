@@ -15,6 +15,7 @@ type
     function toStr() : string;
     function Restar(nro: string) : Binario;
     function convertirADecimal(): Extended;
+    procedure ConvertirABinario(NroDecimal: Integer);
     function andLogico(nro: String) : Binario;
     function orLogico(nro: String) : Binario;
     function xorLogico(nro: String) : Binario;
@@ -22,11 +23,14 @@ type
 
 implementation
 
+//Funcion que sirve para mostrar el binario y usarlo en el formulario
 function Binario.toStr() : string;
 begin
   toStr := nroBinario;
 end;
 
+//Funcion que crea el binario y devuelve un booleano en caso de que sea
+//verdadero o falso
 function Binario.Crear(nro: string) : boolean;
 var I: Integer;
 begin
@@ -428,6 +432,34 @@ begin
     end;
   //Terminado el ciclo, retorno
   convertirADecimal := Acumulador;
+end;
+
+//Funcion que realiza la conversion de Decimal a Binario
+procedure Binario.ConvertirABinario(NroDecimal: Integer);
+var Acumulador: String;
+begin
+  //Inicializo acumuladora
+  Acumulador := '';
+  //Siempre que mi numero sea mayor a 1 continuo
+  while (NroDecimal > 1)  do
+    //Si el resto es 1
+    if NroDecimal MOD 2 = 1 then
+    begin
+      //Divido el numero y acumuluo 1
+      NroDecimal := NroDecimal DIV 2;
+      Acumulador := '1' + Acumulador;
+    end
+    else
+    begin
+      //Si el resto fuera 0, divido y acumulo el 0
+      NroDecimal := NroDecimal DIV 2;
+      Acumulador := '0' + Acumulador;
+    end;
+  //Una vez terminado el ciclo, lo que me resta (que tiene que ser 0 y 1)
+  //Lo acumulo primero en el acumulador
+  Acumulador := NroDecimal.ToString + Acumulador;
+  //Devuelvo el binario
+  nroBinario := Acumulador;
 end;
 
 //------------------------------------//

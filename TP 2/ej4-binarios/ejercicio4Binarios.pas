@@ -8,7 +8,6 @@ uses
 
 type
   TForm1 = class(TForm)
-    Memo1: TMemo;
     binario1: TEdit;
     binario2: TEdit;
     btnSuma: TButton;
@@ -20,11 +19,18 @@ type
     btnOR: TButton;
     btnXOR: TButton;
     btnConversion2: TButton;
+    Label3: TLabel;
+    Result: TEdit;
+    CBinario: TEdit;
+    CDecimal: TEdit;
+    ResultBD: TEdit;
+    ResultDB: TEdit;
+    Label4: TLabel;
+    Label5: TLabel;
     procedure btnSumaClick(Sender: TObject);
     procedure btnANDClick(Sender: TObject);
     procedure btnORClick(Sender: TObject);
     procedure btnXORClick(Sender: TObject);
-    procedure FormCreate(Sender: TObject);
     procedure btnConversion1Click(Sender: TObject);
     procedure btnConversion2Click(Sender: TObject);
     procedure btnRestaClick(Sender: TObject);
@@ -49,9 +55,12 @@ begin
   if nro1.Crear(binario1.Text) and nro2.Crear(binario2.Text) then begin
     //Realizo la operacion
     OperadorAND := nro1.andLogico(nro2.toStr);
-    //Muestro en memo
-    memo1.Lines.Add('La operacion AND entre los dos numeros binarios es igual a ' + OperadorAND.toStr);
-    memo1.Lines.Add('');
+    //Muestro
+    Result.Text := OperadorAND.toStr;
+  end
+  else
+  begin
+    Result.Text := 'ERROR';
   end;
 end;
 
@@ -61,30 +70,30 @@ var nro1: Binario;
   Conversor: Extended;
 begin
   //Creo los binarios
-  if nro1.Crear(binario1.Text) then
+  if nro1.Crear(CBinario.Text) then
   begin
   //Realizo la operacion
-  Conversor := nro1.convertirADecimal;
-  //Muestro en memo
-  memo1.Lines.Add('La conversion del numero binario a decimal es ' + Conversor.ToString);
-  memo1.Lines.Add('');
+    Conversor := nro1.convertirADecimal;
+  //Muestro
+  //memo1.Lines.Add(Conversor.);
+    ResultBD.Text := Conversor.ToString;
+  end
+  else
+  begin
+    Result.Text := 'ERROR';
   end;
 end;
 
-//Click de Conversion
+//Click de Conversion2
 procedure TForm1.btnConversion2Click(Sender: TObject);
-var nro2: Binario;
-  Conversor: Extended;
+var Numero: Integer;
+  Conversor : Binario;
 begin
-  //Creo los binarios
-  if nro2.Crear(binario2.Text) then
-  begin
+  Numero := strtoint(CDecimal.Text);
   //Realizo la operacion
-  Conversor := nro2.convertirADecimal;
-  //Muestro en memo
-  memo1.Lines.Add('La conversion del numero binario a decimal es ' + Conversor.ToString);
-  memo1.Lines.Add('');
-  end;
+  Conversor.ConvertirABinario(Numero);
+  //Muestro
+  ResultDB.Text := Conversor.toStr;
 end;
 
 //Click de OR
@@ -95,9 +104,12 @@ begin
   if nro1.Crear(binario1.Text) and nro2.Crear(binario2.Text) then begin
     //Realizo la operacion
     OperadorOR := nro1.orLogico(nro2.toStr);
-    //Muestro en memo
-    memo1.Lines.Add('La operacion OR entre los dos numeros binarios es igual a ' + OperadorOR.toStr);
-    memo1.Lines.Add('');
+    //Muestro
+    Result.Text := OperadorOR.toStr;
+  end
+  else
+  begin
+    Result.Text := 'ERROR';
   end;
 end;
 
@@ -110,14 +122,12 @@ begin
   begin
     //Realizo la suma
     resta := nro1.Restar(nro2.toStr);
-    //Muestro en memo
-    memo1.Lines.Add('La resta entre los dos numeros binarios es igual a ' + resta.toStr);
-    memo1.Lines.Add('');
+    //Muestro
+    Result.Text := resta.toStr;
   end
-  //ESTO HABRÍA QUE AGREGARSELO A TODOS LOS BOTONES ?
   else
   begin
-    memo1.Lines.Add('El número ingresado no es binario.');
+    Result.Text := 'ERROR';
   end;
 end;
 
@@ -129,9 +139,12 @@ begin
   if nro1.Crear(binario1.Text) and nro2.Crear(binario2.Text) then begin
     //Realizo la suma
     suma := nro1.Sumador(nro2.toStr);
-    //Muestro en memo
-    memo1.Lines.Add('La suma entre los dos numeros binarios es igual a ' + suma.toStr);
-    memo1.Lines.Add('');
+    //Muestro
+    Result.Text := suma.toStr;
+  end
+  else
+  begin
+    Result.Text := 'ERROR';
   end;
 end;
 
@@ -143,16 +156,13 @@ begin
   if nro1.Crear(binario1.Text) and nro2.Crear(binario2.Text) then begin
     //Realizo la operacion
     OperadorXOR := nro1.xorLogico(nro2.toStr);
-    //Muestro en memo
-    memo1.Lines.Add('La operacion XOR entre los dos numeros binarios es igual a ' + OperadorXOR.toStr);
-    memo1.Lines.Add('');
+    //Muestro
+    Result.Text := OperadorXOR.toStr;
+  end
+  else
+  begin
+    Result.Text := 'ERROR';
   end;
-end;
-
-//Limpieza de memo
-procedure TForm1.FormCreate(Sender: TObject);
-begin
-  memo1.Clear;
 end;
 
 end.
