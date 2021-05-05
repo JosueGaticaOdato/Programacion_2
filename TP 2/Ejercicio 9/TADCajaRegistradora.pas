@@ -5,34 +5,20 @@ interface
 Uses
   SysUtils, Math;
 
-Const
-  //Definio las constantes Max para la definicion del vector billete y moneda
-  Min = 1;
-  Max_Billete = 7;
-  Max_Moneda = 9;
+const
+  Billetes : Array [1..15] of Real = (0.01,0.05,0.10,0.25,0.50,1,2,5,10,20,50,100,200,500,1000);
 
 type
   CajaRegistradora = Object
   //Defini los datos
     private
-      //Este dato es un vector donde guardo los valores de los billetes
-      Billetes : Array [Min..Max_Billete] of Integer;
-      //En este vector guardo la cantidad de cada billete
-      Cantidad_Billetes : Array [Min..Max_Billete] of Integer;
-      //En este vector estan los valores de las monedas vigentes
-      Monedas : Array [Min..Max_Moneda] of Double;
-      //Aca estan las cantidad presentes de cada moneda
-      Cantidad_Monedas : Array [Min..Max_Moneda] of Integer;
-      //Tanto los vectores de cantidad y los valores, tanto de billetes y monedas,
-      //funcionan como vectores apareados
+      //Este dato es un vector donde guardo los valores de los billetes y monedas
+      Cantidades : Array [1..15] of Integer;
     public
       procedure Determinar_billetes_monedas();
       function Cargar_Billetes(Valor_a_cargar, Cantidad: Integer): Boolean;
-      function Cargar_Monedas(Valor_a_cargar : Double; Cantidad: Integer): Boolean;
       function Devuelve_billete(Posicion: Integer): Integer;
       function Devuelve_cantidad_billete(Posicion: Integer): Integer;
-      function Devuelve_moneda(Posicion: Integer): Double;
-      function Devuelve_cantidad_moneda(Posicion: Integer): Integer;
       function EstadoYSaldo(): Extended;
   end;
 
@@ -43,43 +29,13 @@ implementation
 procedure CajaRegistradora.Determinar_billetes_monedas();
 var i:Integer;
 begin
-  i := 1;
-  //Billete de 10 pesos y moneda de 1 centavo
-  Billetes[i] :=  10;
-  Monedas[i] := 0.01;
-  i := i + 1;
-  //Billete de 20 y moneda de 5 centavos
-  Billetes[i] :=  20;
-  Monedas[i] := 0.5;
-  i := i + 1;
-  //Billete de 50 pesos y moneda de 10 centavos
-  Billetes[i] :=  50;
-  Monedas[i] := 0.10;
-  i := i + 1;
-  //Billete de 100 pesos y moneda de 25 centavos
-  Billetes[i] :=  100;
-  Monedas[i] := 0.25;
-  i := i + 1;
-  //Billete de 200 pesos y moneda de 50 centavos
-  Billetes[i] :=  200;
-  Monedas[i] := 0.50;
-  i := i + 1;
-  //Billete de 500 pesos y moneda de 1 peso
-  Billetes[i] :=  500;
-  Monedas[i] := 1;
-  i := i + 1;
-  //Billete de 1000 pesos y moneda de 2 peso
-  Billetes[i] :=  1000;
-  Monedas[i] := 2;
-  i := i + 1;
-  //Moneda 5 pesos
-  Monedas[i] := 5;
-  i := i + 1;
-  //Moneda 10 pesos
-  Monedas[i] := 10;
+  for i in Cantidades do
+  begin
+    Cantidades[i] := 0;
+  end;
 end;
 
-//Funcion que realizar la carga de billetes
+{//Funcion que realizar la carga de billetes
 function CajaRegistradora.Cargar_Billetes(Valor_a_cargar, Cantidad: Integer): Boolean;
 var i: Integer;
   Cargado: Boolean;
@@ -169,5 +125,5 @@ function CajaRegistradora.Devuelve_cantidad_moneda(Posicion: Integer): Integer;
   begin
     Devuelve_cantidad_moneda := Cantidad_Monedas[Posicion];
   end;
-
+}
 end.

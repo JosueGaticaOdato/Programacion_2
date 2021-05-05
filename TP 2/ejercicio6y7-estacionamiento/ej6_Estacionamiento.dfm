@@ -12,6 +12,7 @@ object Form1: TForm1
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel
@@ -50,6 +51,7 @@ object Form1: TForm1
       'Memo1')
     ScrollBars = ssVertical
     TabOrder = 0
+    OnChange = Memo1Change
   end
   object btnGuardar: TButton
     Left = 16
@@ -97,5 +99,15 @@ object Form1: TForm1
     Width = 169
     Height = 21
     TabOrder = 6
+  end
+  object DateTimePicker1: TDateTimePicker
+    Left = 16
+    Top = 376
+    Width = 186
+    Height = 21
+    Date = 44320.000000000000000000
+    Time = 0.840964224538765800
+    TabOrder = 7
+    OnChange = DateTimePicker1Change
   end
 end

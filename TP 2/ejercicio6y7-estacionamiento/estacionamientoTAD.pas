@@ -6,7 +6,7 @@ const
   tarifaHora = 50;
   mediaEstadia = 350;
   estadiaCompleta = 800;
-  min = 0;
+  min = 1;
   max = 50;
 
 type
@@ -19,8 +19,6 @@ type
     estacionado: boolean;
   End;
 
-
-type
   Estacionamiento = Object
     private
       Autos: Array[min..max] of Auto;
@@ -47,13 +45,13 @@ end;
 function Estacionamiento.conseguirLugar() : integer;
 var I: integer;
 begin
-  I := 0;
+  I := Min;
 
   while (Autos[I].estacionado = True) and (I <= max) do begin
     I := I + 1;
   end;
 
-  if I > 50 then begin
+  if I > max then begin
     Result := -1;
   end
   else begin

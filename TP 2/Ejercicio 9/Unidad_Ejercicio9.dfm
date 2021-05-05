@@ -2,7 +2,7 @@ object Ejercicio9: TEjercicio9
   Left = 0
   Top = 0
   Caption = 'Ejercicio 9'
-  ClientHeight = 298
+  ClientHeight = 667
   ClientWidth = 593
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -28,7 +28,7 @@ object Ejercicio9: TEjercicio9
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
-    ExplicitTop = 8
+    ExplicitWidth = 159
   end
   object Label2: TLabel
     Left = 48
