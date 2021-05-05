@@ -11,7 +11,7 @@ type
   TForm1 = class(TForm)
     Memo1: TMemo;
     btnGuardar: TButton;
-    Button2: TButton;
+    btnRetirar: TButton;
     Patente: TEdit;
     Label1: TLabel;
     autosGuardados: TButton;
@@ -26,6 +26,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure Memo1Change(Sender: TObject);
     procedure DateTimePicker1Change(Sender: TObject);
+    procedure btnRetirarClick(Sender: TObject);
   private
     E: Estacionamiento;
   public
@@ -43,7 +44,7 @@ implementation
 procedure TForm1.autosGuardadosClick(Sender: TObject);
 var cantidadAutos: integer;
 begin
-  cantidadAutos := E.conseguirLugar();
+//  cantidadAutos := E.conseguirLugar();
   memo1.Lines.Add('La cantidad de autos estacionados es: ' + cantidadAutos.ToString);
 end;
 
@@ -51,11 +52,12 @@ end;
 procedure TForm1.btnGuardarClick(Sender: TObject);
 var lugar: integer;
     autoGuardado: Auto;
+    patenteAuto: boolean;
 begin
-  lugar := E.conseguirLugar();
-
+//  lugar := E.conseguirLugar();
+  patenteAuto := E.validarPatente(Patente.Text);
   //si hay lugar lo guarda en vector y lo muestra
-  if lugar <> -1 then begin
+  if (lugar <> Error) and (patenteAuto = True) then begin
     autoGuardado := E.guardarAuto(Patente.Text,horarioEntrada.Text,horarioSalida.Text,lugar);
     mostrarAuto(autoGuardado,lugar);
   end
@@ -63,6 +65,11 @@ begin
     memo1.Lines.Add('No hay lugar en el estacionamiento');
   end;
 
+end;
+
+procedure TForm1.btnRetirarClick(Sender: TObject);
+begin
+  //comprobarPatente(patente: string);
 end;
 
 //Manejo de fechas
@@ -89,7 +96,7 @@ begin
   memo1.Lines.Add('Auto ingresado.');
   memo1.Lines.Add('Patente: ' + autoGuardado.patente);
   memo1.Lines.Add('Hora de ingreso: ' + autoGuardado.horarioEntrada);
-  memo1.Lines.Add('Lugar en el estacionamiento: ' + (lugar).ToString);
+  //memo1.Lines.Add('Lugar en el estacionamiento: ' + (lugar).ToString);
   memo1.Lines.Add('-------------------------------------------');
 end;
 

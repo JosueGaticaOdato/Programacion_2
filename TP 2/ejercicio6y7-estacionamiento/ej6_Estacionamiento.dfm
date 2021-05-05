@@ -4,7 +4,7 @@ object Form1: TForm1
   ActiveControl = Memo1
   Caption = 'Form1'
   ClientHeight = 442
-  ClientWidth = 799
+  ClientWidth = 866
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -16,8 +16,8 @@ object Form1: TForm1
   PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel
-    Left = 16
-    Top = 152
+    Left = 232
+    Top = 48
     Width = 154
     Height = 16
     Caption = 'Ingresa la patente del auto'
@@ -30,23 +30,23 @@ object Form1: TForm1
   end
   object Label2: TLabel
     Left = 16
-    Top = 208
+    Top = 128
     Width = 95
     Height = 13
     Caption = 'Horario de entrada:'
   end
   object Label3: TLabel
-    Left = 16
-    Top = 269
+    Left = 672
+    Top = 128
     Width = 84
     Height = 13
     Caption = 'Horario de salida:'
   end
   object Memo1: TMemo
     Left = 232
-    Top = 48
-    Width = 457
-    Height = 369
+    Top = 96
+    Width = 401
+    Height = 321
     Lines.Strings = (
       'Memo1')
     ScrollBars = ssVertical
@@ -62,17 +62,18 @@ object Form1: TForm1
     TabOrder = 1
     OnClick = btnGuardarClick
   end
-  object Button2: TButton
-    Left = 16
-    Top = 104
+  object btnRetirar: TButton
+    Left = 672
+    Top = 48
     Width = 169
     Height = 33
     Caption = 'Retirar auto'
     TabOrder = 2
+    OnClick = btnRetirarClick
   end
   object Patente: TEdit
-    Left = 16
-    Top = 176
+    Left = 400
+    Top = 47
     Width = 169
     Height = 21
     TabOrder = 3
@@ -88,21 +89,21 @@ object Form1: TForm1
   end
   object horarioEntrada: TEdit
     Left = 16
-    Top = 232
+    Top = 201
     Width = 169
     Height = 21
     TabOrder = 5
   end
   object horarioSalida: TEdit
-    Left = 16
-    Top = 288
+    Left = 672
+    Top = 147
     Width = 169
     Height = 21
     TabOrder = 6
   end
   object DateTimePicker1: TDateTimePicker
     Left = 16
-    Top = 376
+    Top = 158
     Width = 186
     Height = 21
     Date = 44320.000000000000000000
