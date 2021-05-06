@@ -3,7 +3,7 @@ object Ejercicio9: TEjercicio9
   Top = 0
   Caption = 'Ejercicio 9'
   ClientHeight = 667
-  ClientWidth = 593
+  ClientWidth = 477
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -17,7 +17,7 @@ object Ejercicio9: TEjercicio9
   object Label1: TLabel
     Left = 0
     Top = 0
-    Width = 593
+    Width = 477
     Height = 24
     Align = alTop
     Alignment = taCenter
@@ -31,8 +31,8 @@ object Ejercicio9: TEjercicio9
     ExplicitWidth = 159
   end
   object Label2: TLabel
-    Left = 48
-    Top = 38
+    Left = 67
+    Top = 30
     Width = 40
     Height = 16
     Caption = 'Billetes'
@@ -43,9 +43,61 @@ object Ejercicio9: TEjercicio9
     Font.Style = []
     ParentFont = False
   end
-  object Label4: TLabel
-    Left = 488
-    Top = 38
+  object Label3: TLabel
+    Left = 131
+    Top = 232
+    Width = 68
+    Height = 16
+    Caption = 'Compra de:'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label5: TLabel
+    Left = 172
+    Top = 270
+    Width = 112
+    Height = 16
+    Caption = 'El cliente paga con:'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
+  object uncenta: TLabel
+    Left = 317
+    Top = 308
+    Width = 25
+    Height = 16
+    Caption = '0.01'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label6: TLabel
+    Left = 12
+    Top = 308
+    Width = 40
+    Height = 16
+    Caption = 'Billetes'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label7: TLabel
+    Left = 235
+    Top = 308
     Width = 51
     Height = 16
     Caption = 'Monedas'
@@ -56,12 +108,376 @@ object Ejercicio9: TEjercicio9
     Font.Style = []
     ParentFont = False
   end
-  object Label3: TLabel
-    Left = 27
-    Top = 234
-    Width = 111
+  object diez: TLabel
+    Left = 85
+    Top = 308
+    Width = 14
     Height = 16
-    Caption = 'Calcular vuelto de: '
+    Caption = '10'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
+  object veinte: TLabel
+    Left = 85
+    Top = 348
+    Width = 14
+    Height = 16
+    Caption = '20'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
+  object cincuenta: TLabel
+    Left = 85
+    Top = 388
+    Width = 14
+    Height = 16
+    Caption = '50'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
+  object cien: TLabel
+    Left = 78
+    Top = 428
+    Width = 21
+    Height = 16
+    Caption = '100'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
+  object doscientos: TLabel
+    Left = 78
+    Top = 468
+    Width = 21
+    Height = 16
+    Caption = '200'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
+  object quinientos: TLabel
+    Left = 78
+    Top = 508
+    Width = 21
+    Height = 16
+    Caption = '500'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
+  object mil: TLabel
+    Left = 70
+    Top = 539
+    Width = 28
+    Height = 16
+    Caption = '1000'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
+  object diezcenta: TLabel
+    Left = 317
+    Top = 392
+    Width = 25
+    Height = 16
+    Caption = '0.10'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label16: TLabel
+    Left = 317
+    Top = 348
+    Width = 25
+    Height = 16
+    Caption = '0.05'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
+  object veinticincocenta: TLabel
+    Left = 317
+    Top = 428
+    Width = 25
+    Height = 16
+    Caption = '0.25'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
+  object cincuentacenta: TLabel
+    Left = 317
+    Top = 468
+    Width = 25
+    Height = 16
+    Caption = '0.50'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
+  object un: TLabel
+    Left = 317
+    Top = 508
+    Width = 7
+    Height = 16
+    Caption = '1'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
+  object dos: TLabel
+    Left = 317
+    Top = 548
+    Width = 7
+    Height = 16
+    Caption = '2'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
+  object cinco: TLabel
+    Left = 317
+    Top = 580
+    Width = 7
+    Height = 16
+    Caption = '5'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label22: TLabel
+    Left = 105
+    Top = 308
+    Width = 33
+    Height = 16
+    Caption = 'pesos'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label23: TLabel
+    Left = 105
+    Top = 348
+    Width = 33
+    Height = 16
+    Caption = 'pesos'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label24: TLabel
+    Left = 105
+    Top = 388
+    Width = 33
+    Height = 16
+    Caption = 'pesos'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label25: TLabel
+    Left = 105
+    Top = 428
+    Width = 33
+    Height = 16
+    Caption = 'pesos'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label26: TLabel
+    Left = 104
+    Top = 539
+    Width = 33
+    Height = 16
+    Caption = 'pesos'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label27: TLabel
+    Left = 105
+    Top = 468
+    Width = 33
+    Height = 16
+    Caption = 'pesos'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label28: TLabel
+    Left = 105
+    Top = 508
+    Width = 33
+    Height = 16
+    Caption = 'pesos'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label29: TLabel
+    Left = 330
+    Top = 580
+    Width = 33
+    Height = 16
+    Caption = 'pesos'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label30: TLabel
+    Left = 330
+    Top = 548
+    Width = 33
+    Height = 16
+    Caption = 'pesos'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label31: TLabel
+    Left = 348
+    Top = 308
+    Width = 44
+    Height = 16
+    Caption = 'centavo'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label32: TLabel
+    Left = 348
+    Top = 348
+    Width = 50
+    Height = 16
+    Caption = 'centavos'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label33: TLabel
+    Left = 348
+    Top = 468
+    Width = 50
+    Height = 16
+    Caption = 'centavos'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label34: TLabel
+    Left = 348
+    Top = 428
+    Width = 50
+    Height = 16
+    Caption = 'centavos'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label35: TLabel
+    Left = 348
+    Top = 391
+    Width = 50
+    Height = 16
+    Caption = 'centavos'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label36: TLabel
+    Left = 330
+    Top = 508
+    Width = 27
+    Height = 16
+    Caption = 'peso'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -13
@@ -70,8 +486,8 @@ object Ejercicio9: TEjercicio9
     ParentFont = False
   end
   object Memo1: TMemo
-    Left = 144
-    Top = 38
+    Left = 164
+    Top = 30
     Width = 297
     Height = 171
     Lines.Strings = (
@@ -80,82 +496,190 @@ object Ejercicio9: TEjercicio9
     TabOrder = 0
   end
   object BtnBilletes: TButton
-    Left = 32
-    Top = 160
+    Left = 46
+    Top = 132
     Width = 81
     Height = 25
     Caption = 'Cargar Billete'
     TabOrder = 1
     OnClick = BtnBilletesClick
   end
-  object BtnMoneda: TButton
-    Left = 472
-    Top = 160
-    Width = 89
-    Height = 25
-    Caption = 'Cargar Moneda'
+  object Carga_Billlete: TEdit
+    Left = 27
+    Top = 60
+    Width = 121
+    Height = 21
+    Alignment = taCenter
     TabOrder = 2
-    OnClick = BtnMonedaClick
+    Text = 'Carga_Billlete'
   end
-  object Carga_Moneda: TEdit
-    Left = 458
-    Top = 77
+  object CantidadB: TEdit
+    Left = 27
+    Top = 97
     Width = 121
     Height = 21
     Alignment = taCenter
     TabOrder = 3
-    Text = 'Carga_Moneda'
-  end
-  object Carga_Billlete: TEdit
-    Left = 8
-    Top = 77
-    Width = 121
-    Height = 21
-    Alignment = taCenter
-    TabOrder = 4
-    Text = 'Carga_Billlete'
-  end
-  object CantidadB: TEdit
-    Left = 8
-    Top = 114
-    Width = 121
-    Height = 21
-    Alignment = taCenter
-    TabOrder = 5
     Text = 'CantidadB'
   end
   object btnSaldo: TButton
-    Left = 392
-    Top = 245
+    Left = 27
+    Top = 169
     Width = 121
     Height = 26
     Caption = 'Estado y Saldo'
-    TabOrder = 6
+    TabOrder = 4
     OnClick = btnSaldoClick
   end
-  object CantidadM: TEdit
-    Left = 458
-    Top = 115
-    Width = 121
-    Height = 21
-    Alignment = taCenter
-    TabOrder = 7
-    Text = 'CantidadB'
-  end
-  object Edit1: TEdit
-    Left = 144
+  object Valor_Compra: TEdit
+    Left = 205
     Top = 231
     Width = 121
     Height = 21
-    TabOrder = 8
-    Text = 'Edit1'
+    TabOrder = 5
   end
   object btnVuelto: TButton
-    Left = 96
-    Top = 258
-    Width = 75
+    Left = 172
+    Top = 618
+    Width = 120
     Height = 25
-    Caption = 'Calcular'
+    Caption = 'Calcular Vuelto'
+    TabOrder = 6
+    OnClick = btnVueltoClick
+  end
+  object diezpesos: TEdit
+    Left = 149
+    Top = 307
+    Width = 50
+    Height = 21
+    Alignment = taCenter
+    TabOrder = 7
+    Text = '0'
+  end
+  object veientepesos: TEdit
+    Left = 148
+    Top = 347
+    Width = 50
+    Height = 21
+    Alignment = taCenter
+    TabOrder = 8
+    Text = '0'
+  end
+  object cincuentapesos: TEdit
+    Left = 149
+    Top = 387
+    Width = 50
+    Height = 21
+    Alignment = taCenter
     TabOrder = 9
+    Text = '0'
+  end
+  object cienpesos: TEdit
+    Left = 149
+    Top = 427
+    Width = 50
+    Height = 21
+    Alignment = taCenter
+    TabOrder = 10
+    Text = '0'
+  end
+  object doscientospesos: TEdit
+    Left = 148
+    Top = 467
+    Width = 50
+    Height = 21
+    Alignment = taCenter
+    TabOrder = 11
+    Text = '0'
+  end
+  object quinientospesos: TEdit
+    Left = 148
+    Top = 507
+    Width = 50
+    Height = 21
+    Alignment = taCenter
+    TabOrder = 12
+    Text = '0'
+  end
+  object milpesos: TEdit
+    Left = 149
+    Top = 539
+    Width = 50
+    Height = 21
+    Alignment = taCenter
+    TabOrder = 13
+    Text = '0'
+  end
+  object cincocentavos: TEdit
+    Left = 411
+    Top = 347
+    Width = 50
+    Height = 21
+    Alignment = taCenter
+    TabOrder = 14
+    Text = '0'
+  end
+  object uncentavo: TEdit
+    Left = 411
+    Top = 307
+    Width = 50
+    Height = 21
+    Alignment = taCenter
+    TabOrder = 15
+    Text = '0'
+  end
+  object diezcentavos: TEdit
+    Left = 411
+    Top = 390
+    Width = 50
+    Height = 21
+    Alignment = taCenter
+    TabOrder = 16
+    Text = '0'
+  end
+  object veinticincocentavos: TEdit
+    Left = 411
+    Top = 427
+    Width = 50
+    Height = 21
+    Alignment = taCenter
+    TabOrder = 17
+    Text = '0'
+  end
+  object cincuentacentavos: TEdit
+    Left = 411
+    Top = 467
+    Width = 50
+    Height = 21
+    Alignment = taCenter
+    TabOrder = 18
+    Text = '0'
+  end
+  object unpeso: TEdit
+    Left = 411
+    Top = 507
+    Width = 50
+    Height = 21
+    Alignment = taCenter
+    TabOrder = 19
+    Text = '0'
+  end
+  object dospesos: TEdit
+    Left = 411
+    Top = 543
+    Width = 50
+    Height = 21
+    Alignment = taCenter
+    TabOrder = 20
+    Text = '0'
+  end
+  object cincopesos: TEdit
+    Left = 411
+    Top = 579
+    Width = 50
+    Height = 21
+    Alignment = taCenter
+    TabOrder = 21
+    Text = '0'
   end
 end

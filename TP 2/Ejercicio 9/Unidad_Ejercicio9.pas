@@ -4,28 +4,73 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Math, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, TADCajaRegistradora;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, TADCajaRegistradora,
+  Vcl.ExtCtrls;
 
 type
   TEjercicio9 = class(TForm)
     Memo1: TMemo;
     Label1: TLabel;
     Label2: TLabel;
-    Label4: TLabel;
     BtnBilletes: TButton;
-    BtnMoneda: TButton;
-    Carga_Moneda: TEdit;
     Carga_Billlete: TEdit;
     CantidadB: TEdit;
     btnSaldo: TButton;
-    CantidadM: TEdit;
-    Edit1: TEdit;
+    Valor_Compra: TEdit;
     Label3: TLabel;
     btnVuelto: TButton;
+    Label5: TLabel;
+    uncenta: TLabel;
+    Label6: TLabel;
+    Label7: TLabel;
+    veinte: TLabel;
+    cincuenta: TLabel;
+    cien: TLabel;
+    doscientos: TLabel;
+    quinientos: TLabel;
+    mil: TLabel;
+    diezcenta: TLabel;
+    Label16: TLabel;
+    veinticincocenta: TLabel;
+    cincuentacenta: TLabel;
+    un: TLabel;
+    dos: TLabel;
+    cinco: TLabel;
+    diezpesos: TEdit;
+    veientepesos: TEdit;
+    cincuentapesos: TEdit;
+    cienpesos: TEdit;
+    doscientospesos: TEdit;
+    quinientospesos: TEdit;
+    milpesos: TEdit;
+    cincocentavos: TEdit;
+    uncentavo: TEdit;
+    diezcentavos: TEdit;
+    veinticincocentavos: TEdit;
+    cincuentacentavos: TEdit;
+    unpeso: TEdit;
+    dospesos: TEdit;
+    cincopesos: TEdit;
+    Label22: TLabel;
+    Label23: TLabel;
+    Label24: TLabel;
+    Label25: TLabel;
+    Label26: TLabel;
+    Label27: TLabel;
+    Label28: TLabel;
+    Label29: TLabel;
+    Label30: TLabel;
+    Label31: TLabel;
+    Label32: TLabel;
+    Label33: TLabel;
+    Label34: TLabel;
+    Label35: TLabel;
+    Label36: TLabel;
+    diez: TLabel;
     procedure BtnBilletesClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-    procedure BtnMonedaClick(Sender: TObject);
     procedure btnSaldoClick(Sender: TObject);
+    procedure btnVueltoClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -41,6 +86,12 @@ implementation
 
 {$R *.dfm}
 
+{procedure Carga_Plata_Cliente(Plata_C : CajaRegistradora;);
+var Uno: TLabel;
+begin
+end;}
+
+
 //Carga de billete
 procedure TEjercicio9.BtnBilletesClick(Sender: TObject);
 var
@@ -55,8 +106,17 @@ begin
   if not(Se_Cargo) then
     begin
       //Si es falso, quiere decir que cargo el billete
-      memo1.Lines.Add('');
-      memo1.Lines.Add('Billete de ' + Billete.ToString + ' pesos cargado exitosamente!')
+      if Billete >= 10 then
+        begin
+        memo1.Lines.Add('');
+        memo1.Lines.Add('Billete de ' + Billete.ToString + ' pesos cargado exitosamente!');
+        end
+      else
+      begin
+        memo1.Lines.Add('');
+        memo1.Lines.Add('Moneda de ' + Billete.ToString + ' pesos cargado exitosamente!');
+      end;
+
     end
   else
     begin
@@ -66,72 +126,44 @@ begin
     end;
 end;
 
-//Carga de Moneda
-procedure TEjercicio9.BtnMonedaClick(Sender: TObject);
-var
-  Moneda: Double;
-  Cantidad: Integer;
-  Se_Cargo: Boolean;
-begin
-  //Uso una variable para guardar el valor de la moneda y en la otra la cantidad
-  Moneda := strtofloat(Carga_Moneda.Text);
-  Cantidad := strtoint(CantidadM.Text);
-  //Utilizo la funcion cargar moneda que me devuelve un booleano
-  Se_Cargo := Caja.Cargar_Monedas(Moneda,Cantidad);
-  if not(Se_Cargo) then
-    begin
-      //Si es falso quiere decir que se cargo la moneda
-      memo1.Lines.Add('');
-      memo1.Lines.Add('Moneda de ' + Moneda.ToString + ' pesos cargado exitosamente!')
-    end
-  else
-    begin
-      //Si es verdad quiere decir que la moneda es invalida
-      memo1.Lines.Add('');
-      memo1.Lines.Add('Esa moneda no existe')
-    end;
-end;
-
 //Consulta de saldo
 procedure TEjercicio9.btnSaldoClick(Sender: TObject);
 var Total: Extended;
-i : Integer;
+  i : Integer;
 begin
   memo1.Clear;
   //Uso la funcion estado y saldo para saber el total en la caja registradora
   Total := Caja.EstadoYSaldo();
   memo1.Lines.Add('El total entre todos los billetes y monedas es ' + Total.ToString + ' pesos.');
   memo1.Lines.Add('Cantidades:');
-  memo1.Lines.Add('Billetes:');
-  //Para saber las cantidad de cada billete, recorro el vector apareados de billetes y cantidad
-  for i := 1 to Max_Billete do
-  begin
-    //Uso devuelve billete para mostar el billete y devuelve cantidad para indicar cuantos
-    //billetes de ese tipo existen
-    memo1.Lines.Add('.Billete de ' + Caja.Devuelve_billete(i).ToString + ' pesos: ' + Caja.Devuelve_cantidad_billete(i).ToString);
-  end;
+//Para saber las cantidad, recorro el vector billetes y cantidad
   memo1.Lines.Add('');
-  memo1.Lines.Add('Moneda:');
-  //Recorro el vector de monedas y cantidad
-  for i := 1 to Max_Moneda do
-  begin
-    //Uso devuelve moneda para mostar la moneda y devuelve cantidad para indicar cuantas
-    //moneda de ese tipo existen
-    //cada condicional es usado solamente para mostrar en vez de la palabra "peso", "centavo".
-    if Caja.Devuelve_Moneda(i) > 1 then
-      begin
-        memo1.Lines.Add('.Moneda de ' + Caja.Devuelve_Moneda(i).ToString + ' pesos: ' + Caja.Devuelve_cantidad_moneda(i).ToString);
-      end
-    else if Caja.Devuelve_Moneda(i) = 1 then
-      begin
-      memo1.Lines.Add('.Moneda de ' + Caja.Devuelve_Moneda(i).ToString + ' peso: ' + Caja.Devuelve_cantidad_moneda(i).ToString);
-      end
-    else
+  memo1.Lines.Add('Monedas:');
+  i := 1;
+  while (i < Length(Billetes)) and (Caja.Devuelve_billete(i) < 10) do
     begin
-      memo1.Lines.Add('.Moneda de ' + Caja.Devuelve_Moneda(i).ToString + ' centavos: ' + Caja.Devuelve_cantidad_moneda(i).ToString);
+      memo1.Lines.Add('.Moneda de ' + FloatToStr(Caja.Devuelve_billete(i)) + ' pesos: ' + Caja.Devuelve_cantidad_billete(i).ToString);
+      i := i + 1;
     end;
-  end;
+  memo1.Lines.Add('');
+  memo1.Lines.Add('Billete:');
+  while (i <= Length(Billetes)) and (Caja.Devuelve_billete(i) >= 10) do
+    begin
+      memo1.Lines.Add('.Billete de ' + FloatToStr(Caja.Devuelve_billete(i)) + ' pesos: ' + Caja.Devuelve_cantidad_billete(i).ToString);
+      i := i + 1;
+    end;
 
+end;
+
+procedure TEjercicio9.btnVueltoClick(Sender: TObject);
+var i: Integer;
+  Plata_Cliente: CajaRegistradora;
+  Total_Plata_Cliente: Real;
+  Compra: Integer;
+begin
+  Plata_Cliente.Cargar_Billetes(i,strtoint(diezpesos.Text));
+  Compra := strtoint(Valor_Compra.Text);
+  Total_Plata_Cliente := Plata_Cliente.EstadoYSaldo;
 end;
 
 procedure TEjercicio9.FormCreate(Sender: TObject);
