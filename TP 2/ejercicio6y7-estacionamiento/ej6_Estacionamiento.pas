@@ -20,19 +20,27 @@ type
     Patente: TEdit;
     Label1: TLabel;
     autosGuardados: TButton;
-    horarioEntrada: TEdit;
+    horarioEntrada_hora: TEdit;
     Label2: TLabel;
-    horarioSalida: TEdit;
     Label3: TLabel;
-    DateTimePicker1: TDateTimePicker;
+    Fecha_Entrada: TDateTimePicker;
     Label4: TLabel;
+    Button1: TButton;
+    Fecha_Salida: TDateTimePicker;
+    Label5: TLabel;
+    horarioEntrada_minutos: TEdit;
+    Label6: TLabel;
+    Label7: TLabel;
+    horarioSalida_minutos: TEdit;
+    horarioSalida_hora: TEdit;
     procedure btnGuardarClick(Sender: TObject);
-    procedure mostrarAuto(autoGuardado: Auto; lugar: integer);
+    procedure mostrarAuto(autoGuardado: Auto; lugar: integer; Fecha: TDate);
     procedure autosGuardadosClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure Memo1Change(Sender: TObject);
-    procedure DateTimePicker1Change(Sender: TObject);
+    procedure Fecha_EntradaChange(Sender: TObject);
     procedure btnRetirarClick(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
   private
     E: Estacionamiento;
   public
@@ -59,14 +67,19 @@ procedure TForm1.btnGuardarClick(Sender: TObject);
 var lugar: integer;
     autoGuardado: Auto;
     patenteCorrecta: boolean;
+    horarioEntrada, horarioSalida: String;
+    Fecha: TDate;
 begin
+  Fecha:= Fecha_Entrada.Date;
+  horarioEntrada := horarioEntrada_hora.Text + ':' + horarioEntrada_minutos.Text;
+  horarioSalida := horarioSalida_hora.Text + ':' + horarioSalida_minutos.Text;
   lugar := E.conseguirLugar();
   patenteCorrecta := E.validarPatente(Patente.Text);
   //si hay lugar lo guarda en vector y lo muestra
   if (lugar <> Error) and (patenteCorrecta = True) and (E.buscarPatenteRepetida(Patente.Text) = False) then
   begin
-    autoGuardado := E.guardarAuto(Patente.Text,horarioEntrada.Text,horarioSalida.Text,lugar);
-    mostrarAuto(autoGuardado,lugar);
+    autoGuardado := E.guardarAuto(Patente.Text,horarioEntrada,horarioSalida,lugar);
+    mostrarAuto(autoGuardado,lugar, Fecha);
   end
   else if patenteCorrecta = False then
   begin
@@ -107,26 +120,27 @@ begin
   //calcular pago segun horario de salida
 end;
 
+procedure TForm1.Button1Click(Sender: TObject);
+var Dia1, Dia2: TDateTime;
+begin
+  // Set up our date variables
+  Dia1 := Fecha_Entrada.Date;
+  Dia2 := Fecha_Salida.Date;
+
+  // Display these dates and the days between them
+  memo1.Lines.Add('From date = '+DateTimeToStr(Dia1));
+  memo1.Lines.Add('To   date = '+DateTimeToStr(Dia2));
+  memo1.Lines.Add('Fractional days difference = '+
+              FloatToStr(DaySpan(Dia2, Dia1))+' days');
+end;
 //Manejo de fechas
-procedure TForm1.DateTimePicker1Change(Sender: TObject);
+procedure TForm1.Fecha_EntradaChange(Sender: TObject);
 var hEntrada: TDateTime;
     entradaFormateada: string;
     anio, mes, dia, hora, minutos: Word;
 //formatear la fecha que pone el usuario
 //hacer la cuenta sumando
-begin
-//
-  hEntrada := DateTimePicker1.DateTime;
-  DecodeDate(hEntrada,anio,mes,dia);
-  16:00
-  horarioEntrada.Text
-  Memo1.Lines.Add( 'Día: ' + IntToStr( dia ) );
-  Memo1.Lines.Add( 'Mes: ' + IntToStr( mes ) );
-  Memo1.Lines.Add( 'Año: ' + IntToStr(anio ) );
-
-//  entradaFormateada := FormatDateTime('hhnn:ssd/m/yyyy ', hEntrada);
- // memo1.Lines.Add(entradaFormateada);
-//6/5/2021 20:10:59
+begin;
 end;
 
 procedure TForm1.FormCreate(Sender: TObject);
@@ -140,12 +154,12 @@ begin
 end;
 
 //muestra en pantalla los datos del auto ingresado
-procedure TForm1.mostrarAuto(autoGuardado: Auto; lugar: integer);
+procedure TForm1.mostrarAuto(autoGuardado: Auto; lugar: integer; Fecha: TDate);
 begin
   memo1.Lines.Add('Auto ingresado.');
   memo1.Lines.Add('Patente: ' + autoGuardado.patente);
   memo1.Lines.Add('Hora de ingreso: ' + autoGuardado.horarioEntrada);
-  //memo1.Lines.Add('Lugar en el estacionamiento: ' + (lugar).ToString);
+  memo1.Lines.Add('Fecha de ingreso: ' + datetostr(Fecha));
   memo1.Lines.Add('-------------------------------------------');
 end;
 

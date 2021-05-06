@@ -36,18 +36,39 @@ object Form1: TForm1
     Caption = 'Fecha de entrada:'
   end
   object Label3: TLabel
-    Left = 672
+    Left = 655
     Top = 128
-    Width = 84
+    Width = 186
     Height = 13
-    Caption = 'Horario de salida:'
+    Caption = 'Fecha de salida:'
   end
   object Label4: TLabel
     Left = 16
-    Top = 192
+    Top = 200
     Width = 130
     Height = 13
     Caption = 'Ingrese horario de entrada'
+  end
+  object Label5: TLabel
+    Left = 689
+    Top = 200
+    Width = 133
+    Height = 13
+    Caption = 'Ingrese horario de salida'
+  end
+  object Label6: TLabel
+    Left = 80
+    Top = 222
+    Width = 31
+    Height = 21
+    Caption = ':'
+  end
+  object Label7: TLabel
+    Left = 744
+    Top = 222
+    Width = 4
+    Height = 13
+    Caption = ':'
   end
   object Memo1: TMemo
     Left = 232
@@ -94,28 +115,61 @@ object Form1: TForm1
     TabOrder = 4
     OnClick = autosGuardadosClick
   end
-  object horarioEntrada: TEdit
-    Left = 16
-    Top = 211
-    Width = 186
+  object horarioEntrada_hora: TEdit
+    Left = 25
+    Top = 219
+    Width = 49
     Height = 21
     TabOrder = 5
   end
-  object horarioSalida: TEdit
-    Left = 672
-    Top = 147
-    Width = 169
-    Height = 21
-    TabOrder = 6
-  end
-  object DateTimePicker1: TDateTimePicker
+  object Fecha_Entrada: TDateTimePicker
     Left = 16
-    Top = 158
+    Top = 147
     Width = 186
     Height = 21
     Date = 44320.000000000000000000
     Time = 0.840964224538765800
+    TabOrder = 6
+    OnChange = Fecha_EntradaChange
+  end
+  object Button1: TButton
+    Left = 720
+    Top = 352
+    Width = 75
+    Height = 25
+    Caption = 'Button1'
     TabOrder = 7
-    OnChange = DateTimePicker1Change
+    OnClick = Button1Click
+  end
+  object Fecha_Salida: TDateTimePicker
+    Left = 655
+    Top = 147
+    Width = 186
+    Height = 21
+    Date = 44320.000000000000000000
+    Time = 0.840964224538765800
+    TabOrder = 8
+    OnChange = Fecha_EntradaChange
+  end
+  object horarioEntrada_minutos: TEdit
+    Left = 90
+    Top = 219
+    Width = 49
+    Height = 21
+    TabOrder = 9
+  end
+  object horarioSalida_minutos: TEdit
+    Left = 754
+    Top = 219
+    Width = 49
+    Height = 21
+    TabOrder = 10
+  end
+  object horarioSalida_hora: TEdit
+    Left = 689
+    Top = 219
+    Width = 49
+    Height = 21
+    TabOrder = 11
   end
 end
