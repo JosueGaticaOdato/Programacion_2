@@ -37,10 +37,8 @@ type
     procedure mostrarAuto(autoGuardado: Auto; lugar: integer; Fecha: TDate);
     procedure autosGuardadosClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-    procedure Memo1Change(Sender: TObject);
     procedure Fecha_EntradaChange(Sender: TObject);
     procedure btnRetirarClick(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
   private
     E: Estacionamiento;
   public
@@ -103,7 +101,7 @@ end;
 procedure TForm1.btnRetirarClick(Sender: TObject);
 var patenteAuto: string;
     posicion: integer;
-    horaSalCorrecta, fechaCorrecta: boolean;
+    fechaCorrecta: boolean;
     fechaSalida: TDate;
     hSalida: TTime;
 begin
@@ -122,7 +120,7 @@ begin
   //guardo el resultado de buscar la patente
   posicion := E.buscarPatente(patenteAuto);
 
-  if (posicion <> Error) and (horaSalCorrecta) and (fechaCorrecta) then
+  if (posicion <> Error) and (fechaCorrecta) then
   begin
     E.sacarAuto(posicion);
     memo1.Lines.Add('Vehículo retirado.');
@@ -140,24 +138,7 @@ begin
   //calcular pago segun horario de salida
 end;
 
-procedure TForm1.Button1Click(Sender: TObject);
-var Dia1, Dia2: TDateTime;
-    dif: double;
-    hEntrada, hSalida: string;
-begin
-  // Set up our date variables
 
-  Dia1 := Fecha_Entrada.Date;
-  Dia2 := Fecha_Salida.Date;
-  dif := Dia2 - Dia1;
-
-
-  // Display these dates and the days between them
-  memo1.Lines.Add('From date = '+DateTimeToStr(Dia1));
-  memo1.Lines.Add('To   date = '+DateTimeToStr(Dia2));
-  memo1.Lines.Add('Fractional days difference = '+
-            FloatToStr(DaySpan(Dia2, Dia1))+' days');
-end;
 //Manejo de fechas
 procedure TForm1.Fecha_EntradaChange(Sender: TObject);
 var hEntrada: TDateTime;
@@ -173,10 +154,6 @@ begin
    E.cargarEstacionamiento();
 end;
 
-procedure TForm1.Memo1Change(Sender: TObject);
-begin
-
-end;
 
 //muestra en pantalla los datos del auto ingresado
 procedure TForm1.mostrarAuto(autoGuardado: Auto; lugar: integer; Fecha: TDate);

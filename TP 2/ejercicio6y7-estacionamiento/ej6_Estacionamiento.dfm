@@ -65,7 +65,6 @@ object Form1: TForm1
       'Memo1')
     ScrollBars = ssVertical
     TabOrder = 0
-    OnChange = Memo1Change
   end
   object btnGuardar: TButton
     Left = 16
@@ -118,7 +117,6 @@ object Form1: TForm1
     Height = 25
     Caption = 'Button1'
     TabOrder = 6
-    OnClick = Button1Click
   end
   object Fecha_Salida: TDateTimePicker
     Left = 655
