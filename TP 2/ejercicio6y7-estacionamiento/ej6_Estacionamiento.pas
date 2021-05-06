@@ -7,6 +7,11 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, estacionamientoTAD, Vcl.StdCtrls,
   Vcl.ComCtrls;
 
+const
+  errorPatente = 'La patente no es correcta';
+  errorEstacionamiento = 'No hay lugar en el estacionamiento';
+  errorRepetido = 'Ese vehículo ya está estacionado';
+
 type
   TForm1 = class(TForm)
     Memo1: TMemo;
@@ -52,24 +57,53 @@ end;
 procedure TForm1.btnGuardarClick(Sender: TObject);
 var lugar: integer;
     autoGuardado: Auto;
-    patenteAuto: boolean;
+    patenteCorrecta: boolean;
 begin
-//  lugar := E.conseguirLugar();
-  patenteAuto := E.validarPatente(Patente.Text);
+  lugar := E.conseguirLugar();
+  patenteCorrecta := E.validarPatente(Patente.Text);
   //si hay lugar lo guarda en vector y lo muestra
-  if (lugar <> Error) and (patenteAuto = True) then begin
+  if (lugar <> Error) and (patenteCorrecta = True) and (E.buscarPatenteRepetida(Patente.Text) = False) then
+  begin
     autoGuardado := E.guardarAuto(Patente.Text,horarioEntrada.Text,horarioSalida.Text,lugar);
     mostrarAuto(autoGuardado,lugar);
   end
-  else begin
-    memo1.Lines.Add('No hay lugar en el estacionamiento');
+  else if patenteCorrecta = False then
+  begin
+    memo1.Lines.Add(errorPatente);
+  end
+  else if lugar = Error then
+  begin
+    memo1.Lines.Add(errorEstacionamiento);
+  end
+  else
+  begin
+    memo1.Lines.Add(errorRepetido);
   end;
+
 
 end;
 
 procedure TForm1.btnRetirarClick(Sender: TObject);
+var patenteAuto: string;
+    posicion: integer;
+    encontro: boolean;
 begin
-  //comprobarPatente(patente: string);
+  //guardo el input que escribe el usuario
+  patenteAuto := Patente.Text;
+
+  //guardo el resultado de buscar la patente
+  encontro := E.buscarPatente(patenteAuto);
+
+  if encontro = True then
+  begin
+    memo1.Lines.Add('Vehículo retirado.');
+  end
+  else
+  begin
+    memo1.Lines.Add('No se encontró un vehículo con esa patente.');
+  end;
+  //tomar una patente, buscar la patente en el vector y sacar del vector si esta la patente
+  //calcular pago segun horario de salida
 end;
 
 //Manejo de fechas

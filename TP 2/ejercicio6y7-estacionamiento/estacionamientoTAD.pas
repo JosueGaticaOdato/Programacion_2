@@ -24,12 +24,14 @@ type
   Estacionamiento = Object
     private
       Autos: Array[min..max] of Auto;
-      function conseguirLugar() : integer;
+
     public
+      function conseguirLugar() : integer;
       procedure cargarEstacionamiento();
       function validarPatente(patente: string) : boolean;
       function guardarAuto(patente, entrada, salida: string; lugar: integer) : Auto;
-
+      function buscarPatente(patente: string) : boolean;
+      function buscarPatenteRepetida(patente: string) : boolean;
       //      function calcularPago() : String;
 End;
 
@@ -66,6 +68,10 @@ begin
 //  patente.Split
   bool := True;
   I := 1;
+  if Length(patente) <> largoPatente then
+  begin
+    bool := False;
+  end;
   while (bool) and (I < largoPatente) do
   begin
     if ((I >= 1) and (I <= 2)) or ((I >= 8) and (I <= 9)) then
@@ -131,6 +137,57 @@ begin
   Autos[lugar].horarioEntrada := entrada;
   Autos[lugar].horarioSalida := salida;
   Result := Autos[lugar];
+end;
+
+function Estacionamiento.buscarPatente(patente: string) : boolean;
+var I: integer;
+    posicion: integer;
+    encontrado: boolean;
+begin
+  I := 1;
+  encontrado := False;
+  posicion := Error;
+
+  while (not encontrado) and (I <= max) do
+  begin
+    if Autos[I].patente = patente then
+    begin
+      encontrado := True;
+      posicion := I;
+    end;
+    I := I + 1;
+  end;
+
+  //si encontró la patente del auto lo "saca" del estacionamiento
+  if posicion <> Error then
+  begin
+    Autos[I].estacionado := False;
+    Autos[I].patente := '';
+  end;
+
+  Result := encontrado;
+end;
+
+function Estacionamiento.buscarPatenteRepetida(patente: string) : boolean;
+var I: integer;
+    posicion: integer;
+    encontrado: boolean;
+begin
+  I := 1;
+  encontrado := False;
+  posicion := Error;
+
+  while (not encontrado) and (I <= max) do
+  begin
+    if Autos[I].patente = patente then
+    begin
+      encontrado := True;
+      posicion := I;
+    end;
+    I := I + 1;
+  end;
+
+  Result := encontrado;
 end;
 
 //function Estacionamiento.calcularPago() : String;
