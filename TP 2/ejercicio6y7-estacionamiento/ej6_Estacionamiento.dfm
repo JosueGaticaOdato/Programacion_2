@@ -50,25 +50,11 @@ object Form1: TForm1
     Caption = 'Ingrese horario de entrada'
   end
   object Label5: TLabel
-    Left = 689
+    Left = 672
     Top = 200
     Width = 119
     Height = 13
     Caption = 'Ingrese horario de salida'
-  end
-  object Label6: TLabel
-    Left = 80
-    Top = 222
-    Width = 4
-    Height = 13
-    Caption = ':'
-  end
-  object Label7: TLabel
-    Left = 744
-    Top = 222
-    Width = 4
-    Height = 13
-    Caption = ':'
   end
   object Memo1: TMemo
     Left = 232
@@ -115,13 +101,6 @@ object Form1: TForm1
     TabOrder = 4
     OnClick = autosGuardadosClick
   end
-  object horarioEntrada_hora: TEdit
-    Left = 25
-    Top = 219
-    Width = 49
-    Height = 21
-    TabOrder = 5
-  end
   object Fecha_Entrada: TDateTimePicker
     Left = 16
     Top = 147
@@ -129,7 +108,7 @@ object Form1: TForm1
     Height = 21
     Date = 44320.000000000000000000
     Time = 0.840964224538765800
-    TabOrder = 6
+    TabOrder = 5
     OnChange = Fecha_EntradaChange
   end
   object Button1: TButton
@@ -138,7 +117,7 @@ object Form1: TForm1
     Width = 75
     Height = 25
     Caption = 'Button1'
-    TabOrder = 7
+    TabOrder = 6
     OnClick = Button1Click
   end
   object Fecha_Salida: TDateTimePicker
@@ -148,28 +127,31 @@ object Form1: TForm1
     Height = 21
     Date = 44320.000000000000000000
     Time = 0.840964224538765800
-    TabOrder = 8
+    TabOrder = 7
     OnChange = Fecha_EntradaChange
   end
-  object horarioEntrada_minutos: TEdit
-    Left = 90
+  object horaEntrada: TTimePicker
+    Left = 16
     Top = 219
-    Width = 49
-    Height = 21
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    TabOrder = 8
+    Time = 44322.813285115740000000
+    TimeFormat = 'hh:mm'
+  end
+  object horaSalida: TTimePicker
+    Left = 672
+    Top = 219
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'Segoe UI'
+    Font.Style = []
     TabOrder = 9
-  end
-  object horarioSalida_minutos: TEdit
-    Left = 754
-    Top = 219
-    Width = 49
-    Height = 21
-    TabOrder = 10
-  end
-  object horarioSalida_hora: TEdit
-    Left = 689
-    Top = 219
-    Width = 49
-    Height = 21
-    TabOrder = 11
+    Time = 44322.813285115740000000
+    TimeFormat = 'hh:mm'
   end
 end

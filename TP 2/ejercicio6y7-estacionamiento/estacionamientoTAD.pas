@@ -27,51 +27,19 @@ type
       Autos: Array[min..max] of Auto;
 
     public
-      function validarHora(horario: string) : boolean;
       function conseguirLugar() : integer;
       procedure cargarEstacionamiento();
       function validarPatente(patente: string) : boolean;
       function guardarAuto(patente, entrada, salida: string; lugar: integer) : Auto;
-      function buscarPatente(patente: string) : boolean;
+      function buscarPatente(patente: string) : integer;
       function buscarPatenteRepetida(patente: string) : boolean;
+      procedure sacarAuto(posicion: integer);
       //      function calcularPago() : String;
 End;
 
 implementation
 
 //VALIDAR
-function Estacionamiento.validarHora(horario: string) : boolean;
-var bool: boolean;
-begin
-  bool := True;
-  if Length(horario) <= largoHorario then
-  begin
-    if (Ord(horario[1]) < Ord('0')) or (Ord(horario[1]) > Ord('2')) then
-    begin
-      bool := False;
-    end;
-    if (Ord(horario[2]) < Ord('0')) or (Ord(horario[2]) > Ord('9')) then
-    begin
-      bool := False;
-    end;
-    if (Ord(horario[4]) < Ord('0')) or (Ord(horario[4]) > Ord('5')) then
-    begin
-      bool := False;
-    end;
-    if (Ord(horario[5]) < Ord('0')) or (Ord(horario[5]) > Ord('9')) then
-    begin
-      bool := False;
-    end;
-  end
-  else
-  begin
-    bool := False;
-  end;
-  Result := bool;
-end;
-
-
-
 function Estacionamiento.validarPatente(patente: string) : boolean;
 var I: integer;
     bool: boolean;
@@ -147,8 +115,8 @@ begin
   Result := Autos[lugar];
 end;
 
-//RETIRAR
-function Estacionamiento.buscarPatente(patente: string) : boolean;
+
+function Estacionamiento.buscarPatente(patente: string) : integer;
 var I: integer;
     posicion: integer;
     encontrado: boolean;
@@ -167,14 +135,17 @@ begin
     I := I + 1;
   end;
 
-  //si encontró la patente del auto lo "saca" del estacionamiento
+  Result := posicion;
+end;
+
+procedure Estacionamiento.sacarAuto(posicion: integer);
+begin
+    //si encontró la patente del auto lo "saca" del estacionamiento
   if posicion <> Error then
   begin
     Autos[posicion].estacionado := False;
     Autos[posicion].patente := '';
   end;
-
-  Result := encontrado;
 end;
 
 function Estacionamiento.buscarPatenteRepetida(patente: string) : boolean;

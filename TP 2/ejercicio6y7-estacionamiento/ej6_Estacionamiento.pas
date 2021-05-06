@@ -5,13 +5,13 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, estacionamientoTAD, Vcl.StdCtrls,
-  Vcl.ComCtrls, DateUtils;
+  Vcl.ComCtrls, DateUtils, IdBaseComponent, IdComponent, IdTCPConnection,
+  IdTCPClient, IdTime, Vcl.WinXPickers;
 
 const
   errorPatente = 'La patente no es correcta';
   errorEstacionamiento = 'No hay lugar en el estacionamiento';
   errorRepetido = 'Ese vehículo ya está estacionado';
-  errorHora = 'El horario ingresado no es correcto';
   errorEncontrado = 'No se encontró un vehículo con esa patente.';
   errorFechaSal = 'La fecha de salida ingresada es anterior a la fecha de entrada';
   errorFechaEnt = 'La fecha de entrada ingresada es posterior a la fecha de salida';
@@ -24,7 +24,6 @@ type
     Patente: TEdit;
     Label1: TLabel;
     autosGuardados: TButton;
-    horarioEntrada_hora: TEdit;
     Label2: TLabel;
     Label3: TLabel;
     Fecha_Entrada: TDateTimePicker;
@@ -32,11 +31,8 @@ type
     Button1: TButton;
     Fecha_Salida: TDateTimePicker;
     Label5: TLabel;
-    horarioEntrada_minutos: TEdit;
-    Label6: TLabel;
-    Label7: TLabel;
-    horarioSalida_minutos: TEdit;
-    horarioSalida_hora: TEdit;
+    horaEntrada: TTimePicker;
+    horaSalida: TTimePicker;
     procedure btnGuardarClick(Sender: TObject);
     procedure mostrarAuto(autoGuardado: Auto; lugar: integer; Fecha: TDate);
     procedure autosGuardadosClick(Sender: TObject);
@@ -66,27 +62,25 @@ begin
   memo1.Lines.Add('La cantidad de autos estacionados es: ' + cantidadAutos.ToString);
 end;
 
-//botón guardar auto, llama a función que guarda en vector si hay lugar
+//botón GUARDAR auto, llama a función que guarda en vector si hay lugar
 procedure TForm1.btnGuardarClick(Sender: TObject);
 var lugar: integer;
     autoGuardado: Auto;
     patenteCorrecta, horaEntCorrecta, fechaCorrecta: boolean;
-    horarioEntrada, horarioSalida: String;
+    horarioEntrada, horarioSalida: TTime;
     Fecha: TDate;
 begin
   Fecha:= Fecha_Entrada.Date;
 
+  horarioEntrada := horaEntrada.Time;
+  horarioSalida := horaSalida.Time;
 
-  horarioEntrada := horarioEntrada_hora.Text + ':' + horarioEntrada_minutos.Text;
-  horarioSalida := horarioSalida_hora.Text + ':' + horarioSalida_minutos.Text;
-  horaEntCorrecta := E.validarHora(horarioEntrada);
   lugar := E.conseguirLugar();
   patenteCorrecta := E.validarPatente(Patente.Text);
   //si hay lugar lo guarda en vector y lo muestra
-  if (lugar <> Error) and (patenteCorrecta = True) and (E.buscarPatenteRepetida(Patente.Text) = False)
-      and (horaEntCorrecta) then
+  if (lugar <> Error) and (patenteCorrecta = True) and (E.buscarPatenteRepetida(Patente.Text) = False) then
   begin
-    autoGuardado := E.guardarAuto(Patente.Text,horarioEntrada,horarioSalida,lugar);
+    autoGuardado := E.guardarAuto(Patente.Text,timeToStr(horarioEntrada),timeToStr(horarioSalida),lugar);
     mostrarAuto(autoGuardado,lugar, Fecha);
   end
   else if patenteCorrecta = False then
@@ -97,10 +91,6 @@ begin
   begin
     memo1.Lines.Add(errorEstacionamiento);
   end
-  else if horaEntCorrecta = False then
-  begin
-    memo1.Lines.Add(errorHora);
-  end
   else
   begin
     memo1.Lines.Add(errorRepetido);
@@ -109,14 +99,15 @@ begin
 
 end;
 
+//RETIRAR
 procedure TForm1.btnRetirarClick(Sender: TObject);
-var patenteAuto, hSalida: string;
+var patenteAuto: string;
     posicion: integer;
-    encontro, horaSalCorrecta, fechaCorrecta: boolean;
+    horaSalCorrecta, fechaCorrecta: boolean;
     fechaSalida: TDate;
+    hSalida: TTime;
 begin
-  hSalida := horarioSalida_hora.Text + ':' + horarioSalida_minutos.Text;
-  horaSalCorrecta := E.validarHora(hSalida);
+  hSalida := horaSalida.Time;
 
   fechaCorrecta := False;
   fechaSalida := Fecha_Salida.Date;
@@ -129,19 +120,16 @@ begin
   patenteAuto := Patente.Text;
 
   //guardo el resultado de buscar la patente
-  encontro := E.buscarPatente(patenteAuto);
+  posicion := E.buscarPatente(patenteAuto);
 
-  if (encontro) and (horaSalCorrecta) and (fechaCorrecta) then
+  if (posicion <> Error) and (horaSalCorrecta) and (fechaCorrecta) then
   begin
+    E.sacarAuto(posicion);
     memo1.Lines.Add('Vehículo retirado.');
   end
-  else if not encontro then
+  else if posicion = Error then
   begin
     memo1.Lines.Add(errorEncontrado);
-  end
-  else if not horaSalCorrecta then
-  begin
-    memo1.Lines.Add(errorHora);
   end
   else
   begin
