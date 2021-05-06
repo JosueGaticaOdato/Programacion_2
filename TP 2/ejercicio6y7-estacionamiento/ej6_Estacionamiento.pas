@@ -11,6 +11,10 @@ const
   errorPatente = 'La patente no es correcta';
   errorEstacionamiento = 'No hay lugar en el estacionamiento';
   errorRepetido = 'Ese vehículo ya está estacionado';
+  errorHora = 'El horario ingresado no es correcto';
+  errorEncontrado = 'No se encontró un vehículo con esa patente.';
+  errorFechaSal = 'La fecha de salida ingresada es anterior a la fecha de entrada';
+  errorFechaEnt = 'La fecha de entrada ingresada es posterior a la fecha de salida';
 
 type
   TForm1 = class(TForm)
@@ -66,17 +70,21 @@ end;
 procedure TForm1.btnGuardarClick(Sender: TObject);
 var lugar: integer;
     autoGuardado: Auto;
-    patenteCorrecta: boolean;
+    patenteCorrecta, horaEntCorrecta, fechaCorrecta: boolean;
     horarioEntrada, horarioSalida: String;
     Fecha: TDate;
 begin
   Fecha:= Fecha_Entrada.Date;
+
+
   horarioEntrada := horarioEntrada_hora.Text + ':' + horarioEntrada_minutos.Text;
   horarioSalida := horarioSalida_hora.Text + ':' + horarioSalida_minutos.Text;
+  horaEntCorrecta := E.validarHora(horarioEntrada);
   lugar := E.conseguirLugar();
   patenteCorrecta := E.validarPatente(Patente.Text);
   //si hay lugar lo guarda en vector y lo muestra
-  if (lugar <> Error) and (patenteCorrecta = True) and (E.buscarPatenteRepetida(Patente.Text) = False) then
+  if (lugar <> Error) and (patenteCorrecta = True) and (E.buscarPatenteRepetida(Patente.Text) = False)
+      and (horaEntCorrecta) then
   begin
     autoGuardado := E.guardarAuto(Patente.Text,horarioEntrada,horarioSalida,lugar);
     mostrarAuto(autoGuardado,lugar, Fecha);
@@ -89,6 +97,10 @@ begin
   begin
     memo1.Lines.Add(errorEstacionamiento);
   end
+  else if horaEntCorrecta = False then
+  begin
+    memo1.Lines.Add(errorHora);
+  end
   else
   begin
     memo1.Lines.Add(errorRepetido);
@@ -98,40 +110,65 @@ begin
 end;
 
 procedure TForm1.btnRetirarClick(Sender: TObject);
-var patenteAuto: string;
+var patenteAuto, hSalida: string;
     posicion: integer;
-    encontro: boolean;
+    encontro, horaSalCorrecta, fechaCorrecta: boolean;
+    fechaSalida: TDate;
 begin
+  hSalida := horarioSalida_hora.Text + ':' + horarioSalida_minutos.Text;
+  horaSalCorrecta := E.validarHora(hSalida);
+
+  fechaCorrecta := False;
+  fechaSalida := Fecha_Salida.Date;
+  if (fechaSalida - Fecha_Entrada.Date) >= 0 then
+  begin
+    fechaCorrecta := True;
+  end;
+
   //guardo el input que escribe el usuario
   patenteAuto := Patente.Text;
 
   //guardo el resultado de buscar la patente
   encontro := E.buscarPatente(patenteAuto);
 
-  if encontro = True then
+  if (encontro) and (horaSalCorrecta) and (fechaCorrecta) then
   begin
     memo1.Lines.Add('Vehículo retirado.');
   end
+  else if not encontro then
+  begin
+    memo1.Lines.Add(errorEncontrado);
+  end
+  else if not horaSalCorrecta then
+  begin
+    memo1.Lines.Add(errorHora);
+  end
   else
   begin
-    memo1.Lines.Add('No se encontró un vehículo con esa patente.');
+    memo1.Lines.Add(errorFechaSal);
   end;
+
   //tomar una patente, buscar la patente en el vector y sacar del vector si esta la patente
   //calcular pago segun horario de salida
 end;
 
 procedure TForm1.Button1Click(Sender: TObject);
 var Dia1, Dia2: TDateTime;
+    dif: double;
+    hEntrada, hSalida: string;
 begin
   // Set up our date variables
+
   Dia1 := Fecha_Entrada.Date;
   Dia2 := Fecha_Salida.Date;
+  dif := Dia2 - Dia1;
+
 
   // Display these dates and the days between them
   memo1.Lines.Add('From date = '+DateTimeToStr(Dia1));
   memo1.Lines.Add('To   date = '+DateTimeToStr(Dia2));
   memo1.Lines.Add('Fractional days difference = '+
-              FloatToStr(DaySpan(Dia2, Dia1))+' days');
+            FloatToStr(DaySpan(Dia2, Dia1))+' days');
 end;
 //Manejo de fechas
 procedure TForm1.Fecha_EntradaChange(Sender: TObject);

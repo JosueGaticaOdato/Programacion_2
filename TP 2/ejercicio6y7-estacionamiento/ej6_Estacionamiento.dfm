@@ -38,7 +38,7 @@ object Form1: TForm1
   object Label3: TLabel
     Left = 655
     Top = 128
-    Width = 186
+    Width = 78
     Height = 13
     Caption = 'Fecha de salida:'
   end
@@ -52,15 +52,15 @@ object Form1: TForm1
   object Label5: TLabel
     Left = 689
     Top = 200
-    Width = 133
+    Width = 119
     Height = 13
     Caption = 'Ingrese horario de salida'
   end
   object Label6: TLabel
     Left = 80
     Top = 222
-    Width = 31
-    Height = 21
+    Width = 4
+    Height = 13
     Caption = ':'
   end
   object Label7: TLabel

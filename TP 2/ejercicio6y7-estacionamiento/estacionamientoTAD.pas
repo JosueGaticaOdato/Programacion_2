@@ -9,7 +9,8 @@ const
   min = 1;
   max = 50;
   Error = -1;
-  largoPatente = 9;
+  largoPatente = 7;
+  largoHorario = 5;
 
 type
   Auto = Record
@@ -26,7 +27,7 @@ type
       Autos: Array[min..max] of Auto;
 
     public
-      function validarHorario(horario: string) : boolean;
+      function validarHora(horario: string) : boolean;
       function conseguirLugar() : integer;
       procedure cargarEstacionamiento();
       function validarPatente(patente: string) : boolean;
@@ -38,20 +39,38 @@ End;
 
 implementation
 
-function Estacionamiento.validarHorario(horario: string) : boolean;
-var I: integer;
-    bool: boolean;
+//VALIDAR
+function Estacionamiento.validarHora(horario: string) : boolean;
+var bool: boolean;
 begin
-  for I := 1 to 5 do
+  bool := True;
+  if Length(horario) <= largoHorario then
   begin
-    if I <> 3 then
+    if (Ord(horario[1]) < Ord('0')) or (Ord(horario[1]) > Ord('2')) then
     begin
-      if horario[I] >= '0' then
-      begin
-      end;// and horario[I] >=
+      bool := False;
     end;
+    if (Ord(horario[2]) < Ord('0')) or (Ord(horario[2]) > Ord('9')) then
+    begin
+      bool := False;
+    end;
+    if (Ord(horario[4]) < Ord('0')) or (Ord(horario[4]) > Ord('5')) then
+    begin
+      bool := False;
+    end;
+    if (Ord(horario[5]) < Ord('0')) or (Ord(horario[5]) > Ord('9')) then
+    begin
+      bool := False;
+    end;
+  end
+  else
+  begin
+    bool := False;
   end;
+  Result := bool;
 end;
+
+
 
 function Estacionamiento.validarPatente(patente: string) : boolean;
 var I: integer;
@@ -67,19 +86,12 @@ begin
   end;
   while (bool) and (I < largoPatente) do
   begin
-    if ((I >= 1) and (I <= 2)) or ((I >= 8) and (I <= 9)) then
+    if ((I >= 1) and (I <= 2)) or ((I >= 6) and (I <= 7)) then
     begin
       if ((Ord(patente[I]) < Ord('a')) and (Ord(patente[I]) > Ord('z'))) or ((Ord(patente[I]) < Ord('A')) and (Ord(patente[I]) > Ord('Z'))) then
         begin
           bool := False;
         end;
-    end
-    else if (I = 3) or (I = 7) then
-    begin
-      if (Ord(patente[I]) <> Ord(' ')) then
-      begin
-        bool := False;
-      end;
     end
     else
     begin
@@ -91,8 +103,9 @@ begin
     I := I + 1;
   end;
   Result := bool;
-
 end;
+
+//-------------------------------------------------
 
 //cargo el campo "estacionado" de todos los elementos del vector con False (para indicar que están libres para estacionar)
 procedure Estacionamiento.cargarEstacionamiento();
@@ -122,6 +135,8 @@ begin
 
 end;
 
+//RETIRAR
+
 //guarda en el vector los datos del auto que va a estacionar en el lugar indicado
 function Estacionamiento.guardarAuto(patente, entrada, salida: string; lugar: integer) : Auto;
 begin
@@ -132,6 +147,7 @@ begin
   Result := Autos[lugar];
 end;
 
+//RETIRAR
 function Estacionamiento.buscarPatente(patente: string) : boolean;
 var I: integer;
     posicion: integer;
