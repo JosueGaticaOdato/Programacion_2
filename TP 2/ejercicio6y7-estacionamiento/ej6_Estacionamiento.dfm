@@ -31,9 +31,9 @@ object Form1: TForm1
   object Label2: TLabel
     Left = 16
     Top = 128
-    Width = 95
+    Width = 89
     Height = 13
-    Caption = 'Horario de entrada:'
+    Caption = 'Fecha de entrada:'
   end
   object Label3: TLabel
     Left = 672
@@ -41,6 +41,13 @@ object Form1: TForm1
     Width = 84
     Height = 13
     Caption = 'Horario de salida:'
+  end
+  object Label4: TLabel
+    Left = 16
+    Top = 192
+    Width = 130
+    Height = 13
+    Caption = 'Ingrese horario de entrada'
   end
   object Memo1: TMemo
     Left = 232
@@ -89,8 +96,8 @@ object Form1: TForm1
   end
   object horarioEntrada: TEdit
     Left = 16
-    Top = 201
-    Width = 169
+    Top = 211
+    Width = 186
     Height = 21
     TabOrder = 5
   end

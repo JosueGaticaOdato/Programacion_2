@@ -26,6 +26,7 @@ type
       Autos: Array[min..max] of Auto;
 
     public
+      function validarHorario(horario: string) : boolean;
       function conseguirLugar() : integer;
       procedure cargarEstacionamiento();
       function validarPatente(patente: string) : boolean;
@@ -59,6 +60,19 @@ implementation
 //  // Retorno el array
 //  Parsing := V;
 //End;
+
+function Estacionamiento.validarHorario(horario: string) : boolean;
+var I: integer;
+    bool: boolean;
+begin
+  for I := 1 to 5 do
+  begin
+    if I <> 3 then
+    begin
+      if horario[I] >= 0 and horario[I] >=
+    end;
+  end;
+end;
 
 function Estacionamiento.validarPatente(patente: string) : boolean;
 var I: integer;
@@ -161,8 +175,8 @@ begin
   //si encontró la patente del auto lo "saca" del estacionamiento
   if posicion <> Error then
   begin
-    Autos[I].estacionado := False;
-    Autos[I].patente := '';
+    Autos[posicion].estacionado := False;
+    Autos[posicion].patente := '';
   end;
 
   Result := encontrado;

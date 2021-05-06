@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, estacionamientoTAD, Vcl.StdCtrls,
-  Vcl.ComCtrls;
+  Vcl.ComCtrls, DateUtils;
 
 const
   errorPatente = 'La patente no es correcta';
@@ -25,6 +25,7 @@ type
     horarioSalida: TEdit;
     Label3: TLabel;
     DateTimePicker1: TDateTimePicker;
+    Label4: TLabel;
     procedure btnGuardarClick(Sender: TObject);
     procedure mostrarAuto(autoGuardado: Auto; lugar: integer);
     procedure autosGuardadosClick(Sender: TObject);
@@ -108,10 +109,24 @@ end;
 
 //Manejo de fechas
 procedure TForm1.DateTimePicker1Change(Sender: TObject);
-var Dia1: TDateTime;
+var hEntrada: TDateTime;
+    entradaFormateada: string;
+    anio, mes, dia, hora, minutos: Word;
+//formatear la fecha que pone el usuario
+//hacer la cuenta sumando
 begin
-  Dia1 := DateTimePicker1.DateTime;
-  memo1.Lines.Add(datetimetostr(Dia1));
+//
+  hEntrada := DateTimePicker1.DateTime;
+  DecodeDate(hEntrada,anio,mes,dia);
+  16:00
+  horarioEntrada.Text
+  Memo1.Lines.Add( 'Día: ' + IntToStr( dia ) );
+  Memo1.Lines.Add( 'Mes: ' + IntToStr( mes ) );
+  Memo1.Lines.Add( 'Año: ' + IntToStr(anio ) );
+
+//  entradaFormateada := FormatDateTime('hhnn:ssd/m/yyyy ', hEntrada);
+ // memo1.Lines.Add(entradaFormateada);
+//6/5/2021 20:10:59
 end;
 
 procedure TForm1.FormCreate(Sender: TObject);
