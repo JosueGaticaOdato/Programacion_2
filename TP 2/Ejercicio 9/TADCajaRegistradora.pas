@@ -10,6 +10,7 @@ const
   Billetes : Array [1..15] of Real = (0.01,0.05,0.10,0.25,0.50,1,2,5,10,20,50,100,200,500,1000);
   //Tamaño de billetes y cantidades
   Tamaño = 15;
+  Error_Caja = 'La caja no cuenta con dinero suficiente';
 
 type
   //Este vecto es utilizado para calcular el vuelto, a la hora de devolver las
@@ -176,7 +177,9 @@ end;
 function CajaRegistradora.Mostrar_Vuelto(Vector: Vector_Vuelto; Diferencia:Real): string;
 var Texto : String;
   i: Integer;
+  Hay_Plata: Boolean;
 begin
+  Hay_Plata := False;
   //El #13#10 es usado para hacer el salto de linea
   Texto := ('El vuelto es de: ' + floattostr(Diferencia) + ' pesos.' + #13#10);
   Texto := Texto + 'Hay que pagar de la siguiente manera:' + #13#10;
@@ -185,10 +188,15 @@ begin
       //Si el vector que contiene el vuelto es distinto de 0, quiere decir que use un billete de esos como vuelto
       if Vector[i] <> 0 then
       begin
+        Hay_Plata := True;
         //Muestro el billete que use y su cantidad
         Texto := Texto + Vector[i].tostring + ' billete de '+ floattostr(Billetes[i])+ ' pesos.' + #13#10;
       end;
     end;
+  if Hay_Plata = False then
+  begin
+    Texto := Error_Caja;
+  end;
   Result := Texto;
 end;
 end.

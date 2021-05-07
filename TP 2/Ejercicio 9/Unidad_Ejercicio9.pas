@@ -171,7 +171,6 @@ begin
   Compra := strtofloat(Valor_Compra.Text);
   //Calculo el total de lo que va a pagar el Cliente
   Total_Plata_Cliente := Plata_Cliente.EstadoYSaldo();
-
   //Saco la diferencia
   Diferencia := Total_Plata_Cliente - Compra;
 
@@ -188,15 +187,17 @@ begin
   end
   else //Si paga de mas, calculo vuelto
   begin
-    //Guardo la plata que me da el cliente a la caja
-    Caja.Cargar_Plata_Cliente(Plata_Cliente);
-
     //Paso el vector que contiene el vuelto
     Vector := Caja.Calcular_Vuelta(Diferencia);
 
     //Obtengo el texto que contiene el dinero que le voy a devolver al usuario
     //con los billetes y cantidades
     Texto := Caja.Mostrar_Vuelto(Vector,Diferencia);
+
+    //En el caso que el contenido de la caja tendra el dinero para hacer el vuelto, entonces...
+    if Texto <> Error_Caja then
+      //Guardo la plata que me da el cliente a la caja
+      Caja.Cargar_Plata_Cliente(Plata_Cliente);
     //Muestro en memo
     memo1.Lines.Add(Texto);
   end;
