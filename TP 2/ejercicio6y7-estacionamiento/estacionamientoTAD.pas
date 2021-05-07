@@ -18,6 +18,7 @@ const
   //Minimo y maximo del estacionamiento
   min = 1;
   max = 50;
+  LargoFechas = 30; //Valor de prueba
   Error = -1;
   //Largo fijo de una patente
   largoPatente = 7;
@@ -34,11 +35,21 @@ type
     estacionado: boolean;
   End;
 
+  Fechas = Record
+    Fecha: TDate;
+    TarifaHora: Real;
+    MediaEstadia: Real;
+    EstadiaCompleta: Real;
+    Recaudado: Real;
+    Calculado: Boolean;
+  End;
+
   //Luego, se define el objjeto
   Estacionamiento = Object
     private
       //El objeto es un array de autos(record)
       Autos: Array[min..max] of Auto;
+      Fechas_Estacionamiento: Array [min..LargoFechas] of Fechas;
     public
       function mostrarAuto(lugar: integer) : string;
       function conseguirLugar() : integer;
@@ -48,7 +59,11 @@ type
       function buscarPatente(patente: string) : integer;
       function buscarPatenteRepetida(patente: string) : boolean;
       procedure sacarAuto(posicion: integer);
-      function calcularPago(lugar: integer; fechaSalida: TDateTime) : double;
+      function calcularPago(lugar: integer; fechaSalida: TDate) : double;
+      function ConseguirLugarVacioFecha(FechaSalida: TDate) : integer;
+      function Mostrar_Contenido_Fecha(Fecha: TDateTime): String;
+      procedure Calcular_Total_Dia();
+      function Mostrar_Recaudado_En_Rango(FechaInicio, FechaFin: TDate): string;
 End;
 
 implementation
@@ -212,12 +227,13 @@ begin
 end;
 
 //Funcion que realiza el calculo de la tarifa
-function Estacionamiento.calcularPago(lugar: integer; fechaSalida: TDateTime) : double;
+function Estacionamiento.calcularPago(lugar: integer; fechaSalida: TDate) : double;
 var diferencia, tarifa: double;
   ResultadoFormateado: string;
     fechaEntrada: TDateTimePicker;
     horaEntrada: TTimePicker;
     entrada: string;
+    Posicion: Integer;
 begin
   //Paso fecha y hora de entrada como string para poder trabajarlos
   entrada := DateToStr(Autos[lugar].fechaEntrada) + ' ' + timeToStr(Autos[lugar].horarioEntrada);
@@ -227,20 +243,123 @@ begin
   //Formateo el resultado para calcular la tarifa
   ResultadoFormateado := formatfloat('0.##',diferencia);
 
+  Posicion := ConseguirLugarVacioFecha(fechaSalida);
+
   if StrToFloat(ResultadoFormateado) > horaEstCompleta then
   begin
      //Si es mayor a horacompleta, paga estadia completa
     tarifa := estadiaCompleta;
+    Fechas_Estacionamiento[Posicion].Fecha := fechaSalida;
+    Fechas_Estacionamiento[Posicion].EstadiaCompleta := Fechas_Estacionamiento[Posicion].EstadiaCompleta + tarifa;
+    Fechas_Estacionamiento[Posicion].Calculado := True;
   end
     //Si es mayor a horamedia y menor a horacompleta, paga media estadia
   else if (StrToFloat(ResultadoFormateado) > horaEstMedia)  and (StrToFloat(ResultadoFormateado) < horaEstCompleta) then begin
     tarifa := mediaEstadia;
+    Fechas_Estacionamiento[Posicion].Fecha := fechaSalida;
+    Fechas_Estacionamiento[Posicion].MediaEstadia := Fechas_Estacionamiento[Posicion].MediaEstadia + tarifa;
+    Fechas_Estacionamiento[Posicion].Calculado := True;
   end
   else begin //Sino, pagara en base al tiempo que estuvo
     tarifa := StrToFloat(ResultadoFormateado) * tarifaHora;
+
+    Fechas_Estacionamiento[Posicion].Fecha := fechaSalida;
+    Fechas_Estacionamiento[Posicion].tarifaHora := Fechas_Estacionamiento[Posicion].tarifaHora + tarifa;
+    Fechas_Estacionamiento[Posicion].Calculado := True;
 
   end;
   Result := tarifa;
 end;
 
+function Estacionamiento.ConseguirLugarVacioFecha(FechaSalida: TDate) : integer;
+var I: integer;
+  Resultado: Integer;
+  Encontrado: Boolean;
+begin
+  I := 1;
+  Encontrado := False;
+  //Recorre las fehcas para averiguar si existe alguna identica
+  while ((not Encontrado) and (i <= LargoFechas)) do
+  begin
+    if (DateToStr(Fechas_Estacionamiento[i].Fecha) = DateToStr(FechaSalida))then
+    begin
+      Resultado := I;
+      Encontrado := True;
+    end
+    else
+    begin
+      I := I + 1;
+    end;
+  end;
+
+  i := 1;
+  while ((not Encontrado) and (i <= LargoFechas)) do
+  begin
+    if (Fechas_Estacionamiento[i].Calculado = False) then
+    begin
+      Resultado := I;
+      Encontrado := True;
+    end
+    else
+    begin
+      I := I + 1;
+    end;
+  end;
+
+  Result := Resultado;
+end;
+
+function Estacionamiento.Mostrar_Contenido_Fecha(Fecha: TDateTime): String;
+var Posicion: Integer;
+  Texto: String;
+begin
+  Calcular_Total_Dia();
+  Posicion := ConseguirLugarVacioFecha(Fecha);
+  Texto := 'En la fecha: ' + DateTimeToStr(Fecha) + ' se percibio lo siguiente:' +
+    #13#10 + 'Estadia Completa: ' + floattostr(Fechas_Estacionamiento[Posicion].EstadiaCompleta) +
+    #13#10 + 'Media Estadia: ' + floattostr(Fechas_Estacionamiento[Posicion].MediaEstadia) +
+    #13#10 + 'Estadia por Hora: ' + floattostr(Fechas_Estacionamiento[Posicion].TarifaHora)+
+    #13#10 + 'Recaudado total: ' + floattostr(Fechas_Estacionamiento[Posicion].Recaudado);
+
+
+  Result := Texto;
+end;
+
+procedure Estacionamiento.Calcular_Total_Dia();
+var i: Integer;
+  Completa,Media,Hora: Real;
+begin
+  i := 0;
+  Completa := 0;
+  Media := 0;
+  Hora := 0;
+  for i := 1 to LargoFechas do
+    begin
+      Completa := Fechas_Estacionamiento[i].EstadiaCompleta;
+      Media := Fechas_Estacionamiento[i].MediaEstadia;
+      Hora := Fechas_Estacionamiento[i].TarifaHora;
+      Fechas_Estacionamiento[i].Recaudado := Completa + Media + Hora;
+    end;
+end;
+
+function Estacionamiento.Mostrar_Recaudado_En_Rango(FechaInicio, FechaFin: TDate): string;
+var Texto: String;
+  i: Integer;
+begin
+  Texto := '';
+  if FechaInicio < FechaFin then
+  begin
+    Texto := 'La fecha de inicio no puede ser mas chica que la fecha fin';
+  end
+  else
+  begin
+    for i := DateToStr(FechaInicio) to DateToStr(FechaFin) do
+    begin
+      if Fechas_Estacionamiento[i].Recaudado > 0 then
+      begin
+        Texto := Texto + 'El dia ' + datetostr(Fechas_Estacionamiento[i].Fecha) + ' fue de ' + datetostr(Fechas_Estacionamiento[i].Recaudado) + #13#10;
+      end;
+    end;
+  end;
+end;
 end.

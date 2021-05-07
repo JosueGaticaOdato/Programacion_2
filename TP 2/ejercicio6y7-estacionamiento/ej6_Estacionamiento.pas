@@ -18,7 +18,7 @@ const
   errorFechaEnt = 'La fecha de entrada ingresada es posterior a la fecha de salida';
 
 type
-  TForm1 = class(TForm)
+  TEjercicico6y7 = class(TForm)
     Memo1: TMemo;
     btnGuardar: TButton;
     btnRetirar: TButton;
@@ -33,10 +33,21 @@ type
     horaEntrada: TTimePicker;
     horaSalida: TTimePicker;
     Label6: TLabel;
+    Fecha_a_Percibir: TDateTimePicker;
+    Label7: TLabel;
+    BtnPercibir: TButton;
+    DateTimePicker1: TDateTimePicker;
+    DateTimePicker2: TDateTimePicker;
+    Label8: TLabel;
+    Label9: TLabel;
+    Label10: TLabel;
+    BtnRangoFechas: TButton;
     procedure btnGuardarClick(Sender: TObject);
     procedure mostrarAutoIngresado(lugar: integer);
     procedure FormCreate(Sender: TObject);
     procedure btnRetirarClick(Sender: TObject);
+    procedure BtnPercibirClick(Sender: TObject);
+    procedure BtnRangoFechasClick(Sender: TObject);
   private
     //Se define el TAD dentro del formulario de forma privada
     E: Estacionamiento;
@@ -45,14 +56,14 @@ type
   end;
 
 var
-  Form1: TForm1;
+  Ejercicico6y7: TEjercicico6y7;
 
 implementation
 
 {$R *.dfm}
 
 //botón GUARDAR auto, llama a función que guarda en vector si hay lugar
-procedure TForm1.btnGuardarClick(Sender: TObject);
+procedure TEjercicico6y7.btnGuardarClick(Sender: TObject);
 //Defino las variables
 var lugar: integer;
     patenteCorrecta, horaEntCorrecta: boolean;
@@ -91,8 +102,22 @@ begin
 
 end;
 
+
+procedure TEjercicico6y7.BtnPercibirClick(Sender: TObject);
+var Texto: String;
+begin
+  memo1.Clear;
+  Texto := E.Mostrar_Contenido_Fecha(Fecha_a_percibir.DateTime);
+  memo1.Lines.Add(Texto);
+end;
+
+procedure TEjercicico6y7.BtnRangoFechasClick(Sender: TObject);
+begin
+
+end;
+
 //RETIRAR AUTO
-procedure TForm1.btnRetirarClick(Sender: TObject);
+procedure TEjercicico6y7.btnRetirarClick(Sender: TObject);
 var patenteAuto, salida: string;
     posicion: integer;
     fechaCorrecta, patenteCorrecta: boolean;
@@ -145,14 +170,14 @@ end;
 
 //Proceso que realiza la limpieza del memo y crea
 //el formulario cuando inicia el programa
-procedure TForm1.FormCreate(Sender: TObject);
+procedure TEjercicico6y7.FormCreate(Sender: TObject);
 begin
    E.cargarEstacionamiento();
    Memo1.Clear;
 end;
 
 //Proceso que muestra el auto en el memo
-procedure TForm1.mostrarAutoIngresado(lugar: integer);
+procedure TEjercicico6y7.mostrarAutoIngresado(lugar: integer);
 begin
   memo1.Lines.Add(E.mostrarAuto(lugar));
 end;

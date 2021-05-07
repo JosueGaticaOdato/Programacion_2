@@ -2,7 +2,7 @@ program prj_Ej6_Estacionamiento;
 
 uses
   Vcl.Forms,
-  ej6_Estacionamiento in 'ej6_Estacionamiento.pas' {Form1},
+  ej6_Estacionamiento in 'ej6_Estacionamiento.pas' {Ejercicico6y7},
   estacionamientoTAD in 'estacionamientoTAD.pas';
 
 {$R *.res}
@@ -10,6 +10,6 @@ uses
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
-  Application.CreateForm(TForm1, Form1);
+  Application.CreateForm(TEjercicico6y7, Ejercicico6y7);
   Application.Run;
 end.

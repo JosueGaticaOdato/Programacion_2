@@ -1,9 +1,9 @@
-object Form1: TForm1
+object Ejercicico6y7: TEjercicico6y7
   Left = 0
   Top = 0
   ActiveControl = Memo1
-  Caption = 'Form1'
-  ClientHeight = 449
+  Caption = 'Ejercicico6y7'
+  ClientHeight = 520
   ClientWidth = 866
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -45,7 +45,7 @@ object Form1: TForm1
   object Label4: TLabel
     Left = 16
     Top = 200
-    Width = 186
+    Width = 130
     Height = 13
     Alignment = taCenter
     Caption = 'Ingrese horario de entrada'
@@ -53,7 +53,7 @@ object Form1: TForm1
   object Label5: TLabel
     Left = 655
     Top = 200
-    Width = 186
+    Width = 119
     Height = 13
     Alignment = taCenter
     Caption = 'Ingrese horario de salida'
@@ -61,10 +61,62 @@ object Form1: TForm1
   object Label6: TLabel
     Left = 232
     Top = 56
-    Width = 337
+    Width = 176
     Height = 16
     Alignment = taCenter
     Caption = 'Ejemplo de Patente:  AB123CD'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label7: TLabel
+    Left = 90
+    Top = 349
+    Width = 318
+    Height = 21
+    Caption = 'Ingrese la fecha para determinar cuanto se percibio'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label8: TLabel
+    Left = 58
+    Top = 420
+    Width = 104
+    Height = 23
+    Caption = 'Rango de fechas: '
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label9: TLabel
+    Left = 182
+    Top = 421
+    Width = 35
+    Height = 22
+    Caption = 'Desde'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label10: TLabel
+    Left = 436
+    Top = 421
+    Width = 36
+    Height = 22
+    Caption = 'hasta:'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -13
@@ -76,7 +128,7 @@ object Form1: TForm1
     Left = 224
     Top = 88
     Width = 401
-    Height = 329
+    Height = 209
     Lines.Strings = (
       'Memo1')
     ScrollBars = ssVertical
@@ -148,5 +200,50 @@ object Form1: TForm1
     TabOrder = 7
     Time = 44323.338924027780000000
     TimeFormat = 'hh:mm'
+  end
+  object Fecha_a_Percibir: TDateTimePicker
+    Left = 423
+    Top = 344
+    Width = 186
+    Height = 27
+    Date = 44320.000000000000000000
+    Time = 0.840964224538765800
+    TabOrder = 8
+  end
+  object BtnPercibir: TButton
+    Left = 655
+    Top = 345
+    Width = 78
+    Height = 27
+    Caption = 'Calcular'
+    TabOrder = 9
+    OnClick = BtnPercibirClick
+  end
+  object DateTimePicker1: TDateTimePicker
+    Left = 487
+    Top = 416
+    Width = 186
+    Height = 27
+    Date = 44320.000000000000000000
+    Time = 0.840964224538765800
+    TabOrder = 10
+  end
+  object DateTimePicker2: TDateTimePicker
+    Left = 232
+    Top = 416
+    Width = 186
+    Height = 27
+    Date = 44320.000000000000000000
+    Time = 0.840964224538765800
+    TabOrder = 11
+  end
+  object BtnRangoFechas: TButton
+    Left = 696
+    Top = 417
+    Width = 78
+    Height = 25
+    Caption = 'Calcular'
+    TabOrder = 12
+    OnClick = BtnRangoFechasClick
   end
 end

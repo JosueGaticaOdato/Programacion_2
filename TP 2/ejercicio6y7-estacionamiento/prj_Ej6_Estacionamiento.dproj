@@ -99,7 +99,7 @@
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
         <DCCReference Include="ej6_Estacionamiento.pas">
-            <Form>Form1</Form>
+            <Form>Ejercicico6y7</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="estacionamientoTAD.pas"/>
