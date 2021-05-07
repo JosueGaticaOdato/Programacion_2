@@ -2,7 +2,14 @@ unit estacionamientoTAD;
 
 interface
 
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls,
+  Vcl.ComCtrls, DateUtils, IdBaseComponent, IdComponent, IdTCPConnection,
+  IdTCPClient, IdTime, Vcl.WinXPickers;
+
 const
+//numeros aleatorios para tarifa
   tarifaHora = 50;
   mediaEstadia = 350;
   estadiaCompleta = 800;
@@ -11,14 +18,16 @@ const
   Error = -1;
   largoPatente = 7;
   largoHorario = 5;
+  horasDia = 24;
+  horaEstCompleta = 6;
+  horaEstMedia = 3;
+
 
 type
   Auto = Record
     patente: string;
-    //horarioEntrada: integer;
-    //horarioSalida: integer;
-    horarioEntrada: String;
-    horarioSalida: String;
+    fechaEntrada: TDateTime;
+    horarioEntrada: TTime;
     estacionado: boolean;
   End;
 
@@ -27,17 +36,29 @@ type
       Autos: Array[min..max] of Auto;
 
     public
+      function mostrarAuto(lugar: integer) : string;
       function conseguirLugar() : integer;
       procedure cargarEstacionamiento();
       function validarPatente(patente: string) : boolean;
-      function guardarAuto(patente, entrada, salida: string; lugar: integer) : Auto;
+      procedure guardarAuto(patente: string; horaEntrada: TTime; fEntrada: TDate; lugar: integer);
       function buscarPatente(patente: string) : integer;
       function buscarPatenteRepetida(patente: string) : boolean;
       procedure sacarAuto(posicion: integer);
-      //      function calcularPago() : String;
+      function calcularPago(lugar: integer; fechaSalida: TDateTimePicker) : double;
 End;
 
 implementation
+
+//muestra en pantalla los datos del auto ingresado
+function Estacionamiento.mostrarAuto(lugar: integer) : string;
+var mostrar: string;
+begin
+  mostrar := 'Auto ingresado.' + #13#10 + 'Patente: ' + Autos[lugar].patente + #13#10 +
+  'Hora de ingreso: ' + timeToStr(Autos[lugar].horarioEntrada) + #13#10 +
+  'Fecha de ingreso: ' + datetostr(Autos[lugar].fechaEntrada);
+
+  Result := mostrar;
+end;
 
 //VALIDAR
 function Estacionamiento.validarPatente(patente: string) : boolean;
@@ -103,18 +124,18 @@ begin
 
 end;
 
-//RETIRAR
+//GUARDAR
 
 //guarda en el vector los datos del auto que va a estacionar en el lugar indicado
-function Estacionamiento.guardarAuto(patente, entrada, salida: string; lugar: integer) : Auto;
+procedure Estacionamiento.guardarAuto(patente: string; horaEntrada: TTime; fEntrada: TDate; lugar: integer);
 begin
   Autos[lugar].estacionado := True;
   Autos[lugar].patente := patente;
-  Autos[lugar].horarioEntrada := entrada;
-  Autos[lugar].horarioSalida := salida;
-  Result := Autos[lugar];
+  Autos[lugar].horarioEntrada := horaEntrada;
+  Autos[lugar].fechaEntrada := fEntrada;
 end;
 
+//RETIRAR
 
 function Estacionamiento.buscarPatente(patente: string) : integer;
 var I: integer;
@@ -170,21 +191,26 @@ begin
   Result := encontrado;
 end;
 
-//function Estacionamiento.calcularPago() : String;
-//var horas: integer;
-//begin
-//  if (Auto.horarioSalida - Auto.horarioEntrada) > 600 then begin
-//    Result := estadiaCompleta;
-//  end
-//  else if ((Auto.horarioSalida - Auto.horarioEntrada) > 300)  and ((Auto.horarioSalida - Auto.horarioEntrada) < 600) then begin
-//    Result := mediaEstadia;
-//  end
-//  else begin
-//    horas := (Auto.horarioSalida - Auto.horarioEntrada);
-//
-//  end;
-//
-//
-//end;
+function Estacionamiento.calcularPago(lugar: integer; fechaSalida: TDateTimePicker) : double;
+var diferencia, tarifa: double;
+    fechaEntrada: TDateTimePicker;
+begin
+  fechaEntrada.DateTime := Autos[lugar].fechaEntrada;
+  fechaEntrada.Time := Autos[lugar].horarioEntrada;
+  diferencia := hourSpan(fechaSalida.DateTime,fechaEntrada.DateTime);
+
+  if diferencia > horaEstCompleta then
+  begin
+    tarifa := estadiaCompleta;
+  end
+  else if (diferencia > horaEstMedia)  and (diferencia < horaEstCompleta) then begin
+    tarifa := mediaEstadia;
+  end
+  else begin
+    tarifa := diferencia;
+  end;
+
+  Result := tarifa;
+end;
 
 end.

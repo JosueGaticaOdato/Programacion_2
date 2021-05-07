@@ -34,7 +34,7 @@ type
     horaEntrada: TTimePicker;
     horaSalida: TTimePicker;
     procedure btnGuardarClick(Sender: TObject);
-    procedure mostrarAuto(autoGuardado: Auto; lugar: integer; Fecha: TDate);
+    procedure mostrarAutoIngresado(lugar: integer);
     procedure autosGuardadosClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure Fecha_EntradaChange(Sender: TObject);
@@ -68,7 +68,7 @@ var lugar: integer;
     horarioEntrada, horarioSalida: TTime;
     Fecha: TDate;
 begin
-  Fecha:= Fecha_Entrada.Date;
+  Fecha := Fecha_Entrada.Date;
 
   horarioEntrada := horaEntrada.Time;
   horarioSalida := horaSalida.Time;
@@ -78,8 +78,8 @@ begin
   //si hay lugar lo guarda en vector y lo muestra
   if (lugar <> Error) and (patenteCorrecta = True) and (E.buscarPatenteRepetida(Patente.Text) = False) then
   begin
-    autoGuardado := E.guardarAuto(Patente.Text,timeToStr(horarioEntrada),timeToStr(horarioSalida),lugar);
-    mostrarAuto(autoGuardado,lugar, Fecha);
+    E.guardarAuto(Patente.Text,horarioEntrada,Fecha,lugar);
+    mostrarAutoIngresado(lugar);
   end
   else if patenteCorrecta = False then
   begin
@@ -102,17 +102,22 @@ procedure TForm1.btnRetirarClick(Sender: TObject);
 var patenteAuto: string;
     posicion: integer;
     fechaCorrecta: boolean;
-    fechaSalida: TDate;
+    fechaSalida: TDateTimePicker;
     hSalida: TTime;
+    tarifa: double;
 begin
   hSalida := horaSalida.Time;
+  fecha_Salida.Time := hSalida;
 
+  //validar
   fechaCorrecta := False;
-  fechaSalida := Fecha_Salida.Date;
-  if (fechaSalida - Fecha_Entrada.Date) >= 0 then
+  fechaSalida := Fecha_Salida;
+  if (fecha_Salida.Date - Fecha_Entrada.Date) >= 0 then
   begin
     fechaCorrecta := True;
   end;
+
+
 
   //guardo el input que escribe el usuario
   patenteAuto := Patente.Text;
@@ -120,10 +125,13 @@ begin
   //guardo el resultado de buscar la patente
   posicion := E.buscarPatente(patenteAuto);
 
+
   if (posicion <> Error) and (fechaCorrecta) then
   begin
     E.sacarAuto(posicion);
     memo1.Lines.Add('Vehículo retirado.');
+    tarifa := E.calcularPago(posicion, fechaSalida);
+    memo1.Lines.Add('Usted tiene que pagar ' + tarifa.ToString);
   end
   else if posicion = Error then
   begin
@@ -152,17 +160,13 @@ end;
 procedure TForm1.FormCreate(Sender: TObject);
 begin
    E.cargarEstacionamiento();
+   Memo1.Clear;
 end;
 
 
-//muestra en pantalla los datos del auto ingresado
-procedure TForm1.mostrarAuto(autoGuardado: Auto; lugar: integer; Fecha: TDate);
+procedure TForm1.mostrarAutoIngresado(lugar: integer);
 begin
-  memo1.Lines.Add('Auto ingresado.');
-  memo1.Lines.Add('Patente: ' + autoGuardado.patente);
-  memo1.Lines.Add('Hora de ingreso: ' + autoGuardado.horarioEntrada);
-  memo1.Lines.Add('Fecha de ingreso: ' + datetostr(Fecha));
-  memo1.Lines.Add('-------------------------------------------');
+  memo1.Lines.Add(E.mostrarAuto(lugar));
 end;
 
 end.

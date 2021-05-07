@@ -137,7 +137,6 @@ object Form1: TForm1
     Font.Name = 'Segoe UI'
     Font.Style = []
     TabOrder = 8
-    Time = 44322.813285115740000000
     TimeFormat = 'hh:mm'
   end
   object horaSalida: TTimePicker
@@ -149,7 +148,6 @@ object Form1: TForm1
     Font.Name = 'Segoe UI'
     Font.Style = []
     TabOrder = 9
-    Time = 44322.813285115740000000
     TimeFormat = 'hh:mm'
   end
 end
