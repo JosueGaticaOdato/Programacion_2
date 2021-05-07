@@ -36,8 +36,8 @@ type
     Fecha_a_Percibir: TDateTimePicker;
     Label7: TLabel;
     BtnPercibir: TButton;
-    DateTimePicker1: TDateTimePicker;
-    DateTimePicker2: TDateTimePicker;
+    Fecha_Hasta: TDateTimePicker;
+    Fecha_Desde: TDateTimePicker;
     Label8: TLabel;
     Label9: TLabel;
     Label10: TLabel;
@@ -112,8 +112,10 @@ begin
 end;
 
 procedure TEjercicico6y7.BtnRangoFechasClick(Sender: TObject);
+var Texto: String;
 begin
-
+  Texto := E.Mostrar_Recaudado_En_Rango(Fecha_Desde.DateTime,Fecha_Hasta.DateTime);
+  memo1.Lines.Add(Texto);
 end;
 
 //RETIRAR AUTO

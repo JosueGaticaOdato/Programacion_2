@@ -75,8 +75,8 @@ object Ejercicico6y7: TEjercicico6y7
   object Label7: TLabel
     Left = 90
     Top = 349
-    Width = 318
-    Height = 21
+    Width = 297
+    Height = 16
     Caption = 'Ingrese la fecha para determinar cuanto se percibio'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -89,7 +89,7 @@ object Ejercicico6y7: TEjercicico6y7
     Left = 58
     Top = 420
     Width = 104
-    Height = 23
+    Height = 16
     Caption = 'Rango de fechas: '
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -102,7 +102,7 @@ object Ejercicico6y7: TEjercicico6y7
     Left = 182
     Top = 421
     Width = 35
-    Height = 22
+    Height = 16
     Caption = 'Desde'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -115,7 +115,7 @@ object Ejercicico6y7: TEjercicico6y7
     Left = 436
     Top = 421
     Width = 36
-    Height = 22
+    Height = 16
     Caption = 'hasta:'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -219,7 +219,7 @@ object Ejercicico6y7: TEjercicico6y7
     TabOrder = 9
     OnClick = BtnPercibirClick
   end
-  object DateTimePicker1: TDateTimePicker
+  object Fecha_Hasta: TDateTimePicker
     Left = 487
     Top = 416
     Width = 186
@@ -228,7 +228,7 @@ object Ejercicico6y7: TEjercicico6y7
     Time = 0.840964224538765800
     TabOrder = 10
   end
-  object DateTimePicker2: TDateTimePicker
+  object Fecha_Desde: TDateTimePicker
     Left = 232
     Top = 416
     Width = 186

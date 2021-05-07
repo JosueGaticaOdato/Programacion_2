@@ -25,6 +25,7 @@ const
   //Cuanto es en horas la estadia completa y media
   horaEstCompleta = 6;
   horaEstMedia = 3;
+  Salto_linea = #13#10;
 
 //Defino auto de tipo record, que contendra tres campos
 type
@@ -63,7 +64,8 @@ type
       function ConseguirLugarVacioFecha(FechaSalida: TDate) : integer;
       function Mostrar_Contenido_Fecha(Fecha: TDateTime): String;
       procedure Calcular_Total_Dia();
-      function Mostrar_Recaudado_En_Rango(FechaInicio, FechaFin: TDate): string;
+      function Mostrar_Recaudado_En_Rango(FechaInicio, FechaFin: TDateTime): string;
+      function Buscar_Fecha(Fecha: TDate): Integer;
 End;
 
 implementation
@@ -73,8 +75,8 @@ function Estacionamiento.mostrarAuto(lugar: integer) : string;
 var mostrar: string;
 begin
   //EL #13#10 es utilizado para hacer el salto de linea en delphi
-  mostrar := 'Auto ingresado.' + #13#10 + 'Patente: ' + Autos[lugar].patente + #13#10 +
-  'Hora de ingreso: ' + timeToStr(Autos[lugar].horarioEntrada) + #13#10 +
+  mostrar := 'Auto ingresado.' + Salto_linea + 'Patente: ' + Autos[lugar].patente + Salto_linea +
+  'Hora de ingreso: ' + timeToStr(Autos[lugar].horarioEntrada) + Salto_linea +
   'Fecha de ingreso: ' + datetostr(Autos[lugar].fechaEntrada);
   //Devuelve el string
   Result := mostrar;
@@ -315,12 +317,11 @@ var Posicion: Integer;
 begin
   Calcular_Total_Dia();
   Posicion := ConseguirLugarVacioFecha(Fecha);
-  Texto := 'En la fecha: ' + DateTimeToStr(Fecha) + ' se percibio lo siguiente:' +
-    #13#10 + 'Estadia Completa: ' + floattostr(Fechas_Estacionamiento[Posicion].EstadiaCompleta) +
-    #13#10 + 'Media Estadia: ' + floattostr(Fechas_Estacionamiento[Posicion].MediaEstadia) +
-    #13#10 + 'Estadia por Hora: ' + floattostr(Fechas_Estacionamiento[Posicion].TarifaHora)+
-    #13#10 + 'Recaudado total: ' + floattostr(Fechas_Estacionamiento[Posicion].Recaudado);
-
+  Texto := 'En la fecha: ' + DateToStr(Fecha) + ' se percibio lo siguiente:' +
+    Salto_linea + 'Estadia Completa: ' + floattostr(Fechas_Estacionamiento[Posicion].EstadiaCompleta) +
+    Salto_linea + 'Media Estadia: ' + floattostr(Fechas_Estacionamiento[Posicion].MediaEstadia) +
+    Salto_linea + 'Estadia por Hora: ' + floattostr(Fechas_Estacionamiento[Posicion].TarifaHora)+
+    Salto_linea + 'Recaudado total: ' + floattostr(Fechas_Estacionamiento[Posicion].Recaudado);
 
   Result := Texto;
 end;
@@ -342,24 +343,63 @@ begin
     end;
 end;
 
-function Estacionamiento.Mostrar_Recaudado_En_Rango(FechaInicio, FechaFin: TDate): string;
+function Estacionamiento.Mostrar_Recaudado_En_Rango(FechaInicio, FechaFin: TDateTime): string;
 var Texto: String;
-  i: Integer;
+  Posicion: Integer;
+  Diferencia_Dias: Double;
+  Encontrado : Boolean;
 begin
+  Calcular_Total_Dia();
   Texto := '';
-  if FechaInicio < FechaFin then
+  if FechaInicio > FechaFin then
   begin
     Texto := 'La fecha de inicio no puede ser mas chica que la fecha fin';
   end
   else
   begin
-    for i := DateToStr(FechaInicio) to DateToStr(FechaFin) do
+    Diferencia_Dias := DaysBetween(FechaFin, FechaInicio);
+    while Diferencia_Dias >= 0 do
     begin
-      if Fechas_Estacionamiento[i].Recaudado > 0 then
+      Posicion := Buscar_Fecha(FechaInicio);
+      if Posicion <> Error then
       begin
-        Texto := Texto + 'El dia ' + datetostr(Fechas_Estacionamiento[i].Fecha) + ' fue de ' + datetostr(Fechas_Estacionamiento[i].Recaudado) + #13#10;
+        Texto := Texto + 'Lo recaudado el dia ' + datetostr(Fechas_Estacionamiento[Posicion].Fecha) + ' fue de ' + floattostr(Fechas_Estacionamiento[Posicion].Recaudado) + ' pesos.' + Salto_linea;
+      end
+      else if (Posicion = Error) or (Fechas_Estacionamiento[Posicion].Recaudado < 0) then
+      begin
+        Texto := Texto + 'El dia ' + datetostr(FechaInicio) + ' no se recaudo nada.' + Salto_linea;
       end;
+    Diferencia_Dias := Diferencia_Dias - 1;
+    FechaInicio := IncDay(FechaInicio,1);
     end;
   end;
+
+  Result := Texto;
 end;
+
+function Estacionamiento.Buscar_Fecha(Fecha: TDate): Integer;
+var I: integer;
+  Resultado: Integer;
+  Encontrado: Boolean;
+begin
+  I := 1;
+  Resultado := Error;
+  Encontrado := False;
+  //Recorre las fehcas para averiguar si existe alguna identica
+  while ((not Encontrado) and (i <= LargoFechas)) do
+  begin
+    if (DateToStr(Fechas_Estacionamiento[i].Fecha) = DateToStr(Fecha))then
+    begin
+      Resultado := I;
+      Encontrado := True;
+    end
+    else
+    begin
+      I := I + 1;
+    end;
+  end;
+
+  Result := Resultado;
+end;
+
 end.
