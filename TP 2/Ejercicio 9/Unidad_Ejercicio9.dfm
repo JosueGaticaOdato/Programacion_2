@@ -1,6 +1,7 @@
 object Ejercicio9: TEjercicio9
   Left = 0
   Top = 0
+  BorderIcons = [biSystemMenu]
   Caption = 'Ejercicio 9'
   ClientHeight = 667
   ClientWidth = 477
