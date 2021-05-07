@@ -1,6 +1,7 @@
 object Ejercicio9: TEjercicio9
   Left = 0
   Top = 0
+  BorderIcons = [biSystemMenu]
   Caption = 'Ejercicio 9'
   ClientHeight = 667
   ClientWidth = 477
@@ -547,7 +548,7 @@ object Ejercicio9: TEjercicio9
     TabOrder = 6
     OnClick = btnVueltoClick
   end
-  object diezpesos: TEdit
+  object Cantidad_10: TEdit
     Left = 149
     Top = 307
     Width = 50
@@ -556,7 +557,7 @@ object Ejercicio9: TEjercicio9
     TabOrder = 7
     Text = '0'
   end
-  object veientepesos: TEdit
+  object Cantidad_20: TEdit
     Left = 148
     Top = 347
     Width = 50
@@ -565,7 +566,7 @@ object Ejercicio9: TEjercicio9
     TabOrder = 8
     Text = '0'
   end
-  object cincuentapesos: TEdit
+  object Cantidad_50: TEdit
     Left = 149
     Top = 387
     Width = 50
@@ -574,7 +575,7 @@ object Ejercicio9: TEjercicio9
     TabOrder = 9
     Text = '0'
   end
-  object cienpesos: TEdit
+  object Cantidad_100: TEdit
     Left = 149
     Top = 427
     Width = 50
@@ -583,7 +584,7 @@ object Ejercicio9: TEjercicio9
     TabOrder = 10
     Text = '0'
   end
-  object doscientospesos: TEdit
+  object Cantidad_200: TEdit
     Left = 148
     Top = 467
     Width = 50
@@ -592,7 +593,7 @@ object Ejercicio9: TEjercicio9
     TabOrder = 11
     Text = '0'
   end
-  object quinientospesos: TEdit
+  object Cantidad_500: TEdit
     Left = 148
     Top = 507
     Width = 50
@@ -601,7 +602,7 @@ object Ejercicio9: TEjercicio9
     TabOrder = 12
     Text = '0'
   end
-  object milpesos: TEdit
+  object Cantidad_1000: TEdit
     Left = 149
     Top = 539
     Width = 50
@@ -610,7 +611,7 @@ object Ejercicio9: TEjercicio9
     TabOrder = 13
     Text = '0'
   end
-  object cincocentavos: TEdit
+  object Cantidad_005: TEdit
     Left = 411
     Top = 347
     Width = 50
@@ -619,7 +620,7 @@ object Ejercicio9: TEjercicio9
     TabOrder = 14
     Text = '0'
   end
-  object uncentavo: TEdit
+  object Cantidad_001: TEdit
     Left = 411
     Top = 307
     Width = 50
@@ -628,7 +629,7 @@ object Ejercicio9: TEjercicio9
     TabOrder = 15
     Text = '0'
   end
-  object diezcentavos: TEdit
+  object Cantidad_010: TEdit
     Left = 411
     Top = 390
     Width = 50
@@ -637,7 +638,7 @@ object Ejercicio9: TEjercicio9
     TabOrder = 16
     Text = '0'
   end
-  object veinticincocentavos: TEdit
+  object Cantidad_025: TEdit
     Left = 411
     Top = 427
     Width = 50
@@ -646,7 +647,7 @@ object Ejercicio9: TEjercicio9
     TabOrder = 17
     Text = '0'
   end
-  object cincuentacentavos: TEdit
+  object Cantidad_050: TEdit
     Left = 411
     Top = 467
     Width = 50
@@ -655,7 +656,7 @@ object Ejercicio9: TEjercicio9
     TabOrder = 18
     Text = '0'
   end
-  object unpeso: TEdit
+  object Cantidad_1: TEdit
     Left = 411
     Top = 507
     Width = 50
@@ -664,7 +665,7 @@ object Ejercicio9: TEjercicio9
     TabOrder = 19
     Text = '0'
   end
-  object dospesos: TEdit
+  object Cantidad_2: TEdit
     Left = 411
     Top = 543
     Width = 50
@@ -673,7 +674,7 @@ object Ejercicio9: TEjercicio9
     TabOrder = 20
     Text = '0'
   end
-  object cincopesos: TEdit
+  object Cantidad_5: TEdit
     Left = 411
     Top = 579
     Width = 50
