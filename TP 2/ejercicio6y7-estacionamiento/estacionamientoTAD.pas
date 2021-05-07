@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls,
   Vcl.ComCtrls, DateUtils, IdBaseComponent, IdComponent, IdTCPConnection,
-  IdTCPClient, IdTime, Vcl.WinXPickers;
+  IdTCPClient, IdTime, Vcl.WinXPickers, Math;
 
 const
 //numeros aleatorios para tarifa
@@ -17,8 +17,6 @@ const
   max = 50;
   Error = -1;
   largoPatente = 7;
-  largoHorario = 5;
-  horasDia = 24;
   horaEstCompleta = 6;
   horaEstMedia = 3;
 
@@ -44,7 +42,7 @@ type
       function buscarPatente(patente: string) : integer;
       function buscarPatenteRepetida(patente: string) : boolean;
       procedure sacarAuto(posicion: integer);
-      function calcularPago(lugar: integer; fechaSalida: TDateTimePicker) : double;
+      function calcularPago(lugar: integer; fechaSalida: TDateTime) : double;
 End;
 
 implementation
@@ -191,14 +189,15 @@ begin
   Result := encontrado;
 end;
 
-function Estacionamiento.calcularPago(lugar: integer; fechaSalida: TDateTimePicker) : double;
+function Estacionamiento.calcularPago(lugar: integer; fechaSalida: TDateTime) : double;
 var diferencia, tarifa: double;
     fechaEntrada: TDateTimePicker;
+    horaEntrada: TTimePicker;
+    entrada: string;
 begin
-  fechaEntrada.DateTime := Autos[lugar].fechaEntrada;
-  fechaEntrada.Time := Autos[lugar].horarioEntrada;
-  diferencia := hourSpan(fechaSalida.DateTime,fechaEntrada.DateTime);
-
+  entrada := DateToStr(Autos[lugar].fechaEntrada) + ' ' + timeToStr(Autos[lugar].horarioEntrada);
+  diferencia := hourSpan(fechaSalida,strToDateTime(entrada));
+  diferencia := Round(diferencia);
   if diferencia > horaEstCompleta then
   begin
     tarifa := estadiaCompleta;
@@ -207,7 +206,8 @@ begin
     tarifa := mediaEstadia;
   end
   else begin
-    tarifa := diferencia;
+    tarifa := diferencia * tarifaHora;
+
   end;
 
   Result := tarifa;

@@ -108,7 +108,6 @@ object Form1: TForm1
     Date = 44320.000000000000000000
     Time = 0.840964224538765800
     TabOrder = 5
-    OnChange = Fecha_EntradaChange
   end
   object Button1: TButton
     Left = 720
@@ -126,10 +125,9 @@ object Form1: TForm1
     Date = 44320.000000000000000000
     Time = 0.840964224538765800
     TabOrder = 7
-    OnChange = Fecha_EntradaChange
   end
   object horaEntrada: TTimePicker
-    Left = 16
+    Left = 8
     Top = 219
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText

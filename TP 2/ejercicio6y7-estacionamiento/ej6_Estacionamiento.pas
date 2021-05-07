@@ -37,7 +37,6 @@ type
     procedure mostrarAutoIngresado(lugar: integer);
     procedure autosGuardadosClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-    procedure Fecha_EntradaChange(Sender: TObject);
     procedure btnRetirarClick(Sender: TObject);
   private
     E: Estacionamiento;
@@ -99,15 +98,19 @@ end;
 
 //RETIRAR
 procedure TForm1.btnRetirarClick(Sender: TObject);
-var patenteAuto: string;
+var patenteAuto, salida: string;
     posicion: integer;
     fechaCorrecta: boolean;
     fechaSalida: TDateTimePicker;
     hSalida: TTime;
     tarifa: double;
 begin
-  hSalida := horaSalida.Time;
-  fecha_Salida.Time := hSalida;
+//1. pasar los inputs de horaSalida y Fecha_Salida a un solo string con formato day/month/year hour:minute
+//2. pasar ese a string a datetime y pasarlo a la funcion hourspan (strtodatetime)
+  salida := DateToStr(Fecha_Salida.DateTime) + ' ' + TimeToStr(horaSalida.Time);
+
+  //hSalida := horaSalida.Time;
+  //Fecha_Salida.Time := hSalida;
 
   //validar
   fechaCorrecta := False;
@@ -116,8 +119,6 @@ begin
   begin
     fechaCorrecta := True;
   end;
-
-
 
   //guardo el input que escribe el usuario
   patenteAuto := Patente.Text;
@@ -130,7 +131,7 @@ begin
   begin
     E.sacarAuto(posicion);
     memo1.Lines.Add('Vehículo retirado.');
-    tarifa := E.calcularPago(posicion, fechaSalida);
+    tarifa := E.calcularPago(posicion, strToDateTime(salida));
     memo1.Lines.Add('Usted tiene que pagar ' + tarifa.ToString);
   end
   else if posicion = Error then
@@ -144,17 +145,6 @@ begin
 
   //tomar una patente, buscar la patente en el vector y sacar del vector si esta la patente
   //calcular pago segun horario de salida
-end;
-
-
-//Manejo de fechas
-procedure TForm1.Fecha_EntradaChange(Sender: TObject);
-var hEntrada: TDateTime;
-    entradaFormateada: string;
-    anio, mes, dia, hora, minutos: Word;
-//formatear la fecha que pone el usuario
-//hacer la cuenta sumando
-begin;
 end;
 
 procedure TForm1.FormCreate(Sender: TObject);
