@@ -186,7 +186,6 @@ object Ejercicico6y7: TEjercicico6y7
     Font.Name = 'Segoe UI'
     Font.Style = []
     TabOrder = 6
-    Time = 44323.338924016210000000
     TimeFormat = 'hh:mm'
   end
   object horaSalida: TTimePicker
@@ -198,7 +197,6 @@ object Ejercicico6y7: TEjercicico6y7
     Font.Name = 'Segoe UI'
     Font.Style = []
     TabOrder = 7
-    Time = 44323.338924027780000000
     TimeFormat = 'hh:mm'
   end
   object Fecha_a_Percibir: TDateTimePicker

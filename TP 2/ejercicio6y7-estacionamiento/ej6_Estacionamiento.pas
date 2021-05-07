@@ -149,11 +149,12 @@ begin
   //Si las tres condiciones se cumplen, se procede a retirar el vehiculo y indicar la tarifa
   if (posicion <> Error) and (fechaCorrecta)and (patenteCorrecta)  then
   begin
-    //Saco el auto del estacionamiento
-    E.sacarAuto(posicion);
-    memo1.Lines.Add('Vehículo retirado.');
     //Calculo la tarifa, pasando la posicion y fecha-hora de salida
     tarifa := E.calcularPago(posicion, strToDateTime(salida));
+    E.guardarAutoEnFile(Fecha_Salida.Date, horaSalida.Time, tarifa);
+   //Saco el auto del estacionamiento
+    E.sacarAuto(posicion);
+    memo1.Lines.Add('Vehículo retirado.');
     memo1.Lines.Add('El dueño del vehiculo tiene que pagar ' + tarifa.ToString + ' pesos.');
   end
   else if posicion = Error then

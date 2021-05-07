@@ -36,6 +36,7 @@ type
     estacionado: boolean;
   End;
 
+
   Fechas = Record
     Fecha: TDate;
     TarifaHora: Real;
@@ -57,6 +58,7 @@ type
       procedure cargarEstacionamiento();
       function validarPatente(patente: string) : boolean;
       procedure guardarAuto(patente: string; horaEntrada: TTime; fEntrada: TDate; lugar: integer);
+      procedure guardarAutoEnFile(fechaDeSalida: TDate; horarioDeSalida: TTime; tarifa: double; lugar: integer);
       function buscarPatente(patente: string) : integer;
       function buscarPatenteRepetida(patente: string) : boolean;
       procedure sacarAuto(posicion: integer);
@@ -67,6 +69,8 @@ type
       function Mostrar_Recaudado_En_Rango(FechaInicio, FechaFin: TDateTime): string;
       function Buscar_Fecha(Fecha: TDate): Integer;
 End;
+
+Vehiculos = File of Auto;
 
 implementation
 
@@ -187,6 +191,30 @@ begin
   Autos[lugar].patente := patente;
   Autos[lugar].horarioEntrada := horaEntrada;
   Autos[lugar].fechaEntrada := fEntrada;
+end;
+
+procedure Estacionamiento.guardarAutoEnFile(fechaDeSalida: TDate; horarioDeSalida: TTime; tarifa: double; lugar: integer);
+var fileVehiculos: Vehiculos;
+//    registro: Auto;
+begin
+  AssignFile(fileVehiculos,'..\Vehiculos.dat');
+
+  if not FileExists('..\Vehiculos.dat') then
+  begin
+    Rewrite(fileVehiculos);
+    CloseFile(fileVehiculos);
+  end;
+
+  Reset(fileVehiculos);
+
+  Write(fileVehiculos, Autos[lugar].patente);
+  Write(fileVehiculos, Autos[lugar].fechaEntrada);
+  Write(fileVehiculos, Autos[lugar].horarioEntrada);
+  Write(fileVehiculos, fechaDeSalida);
+  Write(fileVehiculos, horarioDeSalida);
+  Write(fileVehiculos, tarifa);
+
+  CloseFile(fileVehiculos);
 end;
 
 //-------------------------------------------------
