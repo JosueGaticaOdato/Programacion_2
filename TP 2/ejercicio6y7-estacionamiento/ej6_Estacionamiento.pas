@@ -9,6 +9,7 @@ uses
   IdTCPClient, IdTime, Vcl.WinXPickers;
 
 const
+  //Constates de errores
   errorPatente = 'La patente no es correcta';
   errorEstacionamiento = 'No hay lugar en el estacionamiento';
   errorRepetido = 'Ese vehículo ya está estacionado';
@@ -23,22 +24,21 @@ type
     btnRetirar: TButton;
     Patente: TEdit;
     Label1: TLabel;
-    autosGuardados: TButton;
     Label2: TLabel;
     Label3: TLabel;
     Fecha_Entrada: TDateTimePicker;
     Label4: TLabel;
-    Button1: TButton;
     Fecha_Salida: TDateTimePicker;
     Label5: TLabel;
     horaEntrada: TTimePicker;
     horaSalida: TTimePicker;
+    Label6: TLabel;
     procedure btnGuardarClick(Sender: TObject);
     procedure mostrarAutoIngresado(lugar: integer);
-    procedure autosGuardadosClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnRetirarClick(Sender: TObject);
   private
+    //Se define el TAD dentro del formulario de forma privada
     E: Estacionamiento;
   public
 
@@ -51,28 +51,22 @@ implementation
 
 {$R *.dfm}
 
-//muestra todos los autos guardados, lo hice para ver como solucionaba el problema de que siempre guarda en el mismo indice
-procedure TForm1.autosGuardadosClick(Sender: TObject);
-var cantidadAutos: integer;
-begin
-//  cantidadAutos := E.conseguirLugar();
-  memo1.Lines.Add('La cantidad de autos estacionados es: ' + cantidadAutos.ToString);
-end;
-
 //botón GUARDAR auto, llama a función que guarda en vector si hay lugar
 procedure TForm1.btnGuardarClick(Sender: TObject);
+//Defino las variables
 var lugar: integer;
-    autoGuardado: Auto;
-    patenteCorrecta, horaEntCorrecta, fechaCorrecta: boolean;
-    horarioEntrada, horarioSalida: TTime;
+    patenteCorrecta, horaEntCorrecta: boolean;
+    horarioEntrada: TTime;
     Fecha: TDate;
 begin
+  //Guardo en una variable la fecha y el horario que se implementan en el formulario
   Fecha := Fecha_Entrada.Date;
-
   horarioEntrada := horaEntrada.Time;
-  horarioSalida := horaSalida.Time;
 
+  //LLamo la funcion conseguir lugar, que me devuelve una posicion libre
+  //para guardar el auto. Si no hay lugar, devuelve Error ( que es -1 )
   lugar := E.conseguirLugar();
+  //LLamo a la funcion para valir la patente, que devuelve verdadera si la patente es correcta
   patenteCorrecta := E.validarPatente(Patente.Text);
   //si hay lugar lo guarda en vector y lo muestra
   if (lugar <> Error) and (patenteCorrecta = True) and (E.buscarPatenteRepetida(Patente.Text) = False) then
@@ -80,6 +74,7 @@ begin
     E.guardarAuto(Patente.Text,horarioEntrada,Fecha,lugar);
     mostrarAutoIngresado(lugar);
   end
+  //En caso de que no se cumple alguno de los requisitos, se mostrar el error
   else if patenteCorrecta = False then
   begin
     memo1.Lines.Add(errorPatente);
@@ -96,64 +91,67 @@ begin
 
 end;
 
-//RETIRAR
+//RETIRAR AUTO
 procedure TForm1.btnRetirarClick(Sender: TObject);
 var patenteAuto, salida: string;
     posicion: integer;
-    fechaCorrecta: boolean;
+    fechaCorrecta, patenteCorrecta: boolean;
     fechaSalida: TDateTimePicker;
-    hSalida: TTime;
     tarifa: double;
 begin
-//1. pasar los inputs de horaSalida y Fecha_Salida a un solo string con formato day/month/year hour:minute
-//2. pasar ese a string a datetime y pasarlo a la funcion hourspan (strtodatetime)
+  //Paso como una concatenacion de string la fecha y la hora, para luego
+  //utilizarlo en la resta
   salida := DateToStr(Fecha_Salida.DateTime) + ' ' + TimeToStr(horaSalida.Time);
-
-  //hSalida := horaSalida.Time;
-  //Fecha_Salida.Time := hSalida;
-
-  //validar
+  //Valido si las fechas son correctas
   fechaCorrecta := False;
-  fechaSalida := Fecha_Salida;
+  //Si la fecha de salida es menor a la de entrada, quiere decir que hay un problema
   if (fecha_Salida.Date - Fecha_Entrada.Date) >= 0 then
   begin
+    //Si las fechas son correctas devuelve true
     fechaCorrecta := True;
   end;
 
   //guardo el input que escribe el usuario
   patenteAuto := Patente.Text;
-
-  //guardo el resultado de buscar la patente
+  //Llamo a validar patente para indicar que sea correcta
+  patenteCorrecta := E.validarPatente(Patente.Text);
+  //guardo el resultado de buscar la patente, si no encuentra nada devuelve error
   posicion := E.buscarPatente(patenteAuto);
 
 
-  if (posicion <> Error) and (fechaCorrecta) then
+  //Si las tres condiciones se cumplen, se procede a retirar el vehiculo y indicar la tarifa
+  if (posicion <> Error) and (fechaCorrecta)and (patenteCorrecta)  then
   begin
+    //Saco el auto del estacionamiento
     E.sacarAuto(posicion);
     memo1.Lines.Add('Vehículo retirado.');
+    //Calculo la tarifa, pasando la posicion y fecha-hora de salida
     tarifa := E.calcularPago(posicion, strToDateTime(salida));
-    memo1.Lines.Add('Usted tiene que pagar ' + tarifa.ToString);
+    memo1.Lines.Add('El dueño del vehiculo tiene que pagar ' + tarifa.ToString + ' pesos.');
   end
   else if posicion = Error then
   begin
     memo1.Lines.Add(errorEncontrado);
   end
+  else if not patenteCorrecta then
+  begin
+    memo1.Lines.Add(errorPatente);
+  end
   else
   begin
     memo1.Lines.Add(errorFechaSal);
   end;
-
-  //tomar una patente, buscar la patente en el vector y sacar del vector si esta la patente
-  //calcular pago segun horario de salida
 end;
 
+//Proceso que realiza la limpieza del memo y crea
+//el formulario cuando inicia el programa
 procedure TForm1.FormCreate(Sender: TObject);
 begin
    E.cargarEstacionamiento();
    Memo1.Clear;
 end;
 
-
+//Proceso que muestra el auto en el memo
 procedure TForm1.mostrarAutoIngresado(lugar: integer);
 begin
   memo1.Lines.Add(E.mostrarAuto(lugar));

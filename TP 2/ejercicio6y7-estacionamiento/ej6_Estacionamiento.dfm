@@ -3,7 +3,7 @@ object Form1: TForm1
   Top = 0
   ActiveControl = Memo1
   Caption = 'Form1'
-  ClientHeight = 442
+  ClientHeight = 449
   ClientWidth = 866
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -17,7 +17,7 @@ object Form1: TForm1
   TextHeight = 13
   object Label1: TLabel
     Left = 232
-    Top = 48
+    Top = 24
     Width = 154
     Height = 16
     Caption = 'Ingresa la patente del auto'
@@ -45,30 +45,46 @@ object Form1: TForm1
   object Label4: TLabel
     Left = 16
     Top = 200
-    Width = 130
+    Width = 186
     Height = 13
+    Alignment = taCenter
     Caption = 'Ingrese horario de entrada'
   end
   object Label5: TLabel
-    Left = 672
+    Left = 655
     Top = 200
-    Width = 119
+    Width = 186
     Height = 13
+    Alignment = taCenter
     Caption = 'Ingrese horario de salida'
   end
-  object Memo1: TMemo
+  object Label6: TLabel
     Left = 232
-    Top = 96
+    Top = 56
+    Width = 337
+    Height = 16
+    Alignment = taCenter
+    Caption = 'Ejemplo de Patente:  AB123CD'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Memo1: TMemo
+    Left = 224
+    Top = 88
     Width = 401
-    Height = 321
+    Height = 329
     Lines.Strings = (
       'Memo1')
     ScrollBars = ssVertical
     TabOrder = 0
   end
   object btnGuardar: TButton
-    Left = 16
-    Top = 48
+    Left = 19
+    Top = 41
     Width = 169
     Height = 33
     Caption = 'Guardar auto'
@@ -77,7 +93,7 @@ object Form1: TForm1
   end
   object btnRetirar: TButton
     Left = 672
-    Top = 48
+    Top = 41
     Width = 169
     Height = 33
     Caption = 'Retirar auto'
@@ -86,19 +102,10 @@ object Form1: TForm1
   end
   object Patente: TEdit
     Left = 400
-    Top = 47
+    Top = 23
     Width = 169
     Height = 21
     TabOrder = 3
-  end
-  object autosGuardados: TButton
-    Left = 16
-    Top = 320
-    Width = 169
-    Height = 33
-    Caption = 'Mostrar autos guardados'
-    TabOrder = 4
-    OnClick = autosGuardadosClick
   end
   object Fecha_Entrada: TDateTimePicker
     Left = 16
@@ -107,15 +114,7 @@ object Form1: TForm1
     Height = 21
     Date = 44320.000000000000000000
     Time = 0.840964224538765800
-    TabOrder = 5
-  end
-  object Button1: TButton
-    Left = 720
-    Top = 352
-    Width = 75
-    Height = 25
-    Caption = 'Button1'
-    TabOrder = 6
+    TabOrder = 4
   end
   object Fecha_Salida: TDateTimePicker
     Left = 655
@@ -124,17 +123,18 @@ object Form1: TForm1
     Height = 21
     Date = 44320.000000000000000000
     Time = 0.840964224538765800
-    TabOrder = 7
+    TabOrder = 5
   end
   object horaEntrada: TTimePicker
-    Left = 8
+    Left = 35
     Top = 219
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -16
     Font.Name = 'Segoe UI'
     Font.Style = []
-    TabOrder = 8
+    TabOrder = 6
+    Time = 44323.338924016210000000
     TimeFormat = 'hh:mm'
   end
   object horaSalida: TTimePicker
@@ -145,7 +145,8 @@ object Form1: TForm1
     Font.Height = -16
     Font.Name = 'Segoe UI'
     Font.Style = []
-    TabOrder = 9
+    TabOrder = 7
+    Time = 44323.338924027780000000
     TimeFormat = 'hh:mm'
   end
 end
