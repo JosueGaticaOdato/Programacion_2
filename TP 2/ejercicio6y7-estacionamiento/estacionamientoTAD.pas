@@ -24,11 +24,13 @@ const
   //Cuanto es en horas la estadia completa y media
   horaEstCompleta = 6;
   horaEstMedia = 3;
+  saltoDeLinea = #13#10;
 
 //Defino auto de tipo record, que contendra tres campos
 type
+  patente = Array[1..7] of char;
   Auto = Record
-    patente: string;
+    patente: patente;
     fechaEntrada: TDateTime;
     horarioEntrada: TTime;
     estacionado: boolean;
@@ -39,34 +41,51 @@ type
     private
       //El objeto es un array de autos(record)
       Autos: Array[min..max] of Auto;
+
     public
+      function pasarPatenteAArray(patenteAuto: string) : patente;
       function mostrarAuto(lugar: integer) : string;
       function conseguirLugar() : integer;
       procedure cargarEstacionamiento();
-      function validarPatente(patente: string) : boolean;
-      procedure guardarAuto(patente: string; horaEntrada: TTime; fEntrada: TDate; lugar: integer);
-      function buscarPatente(patente: string) : integer;
-      function buscarPatenteRepetida(patente: string) : boolean;
+      function validarPatente(patente: Array of char) : boolean;
+      procedure guardarAuto(patente: patente; horaEntrada: TTime; fEntrada: TDate; lugar: integer);
+      function buscarPatente(patente: patente) : integer;
+      function buscarPatenteRepetida(patente: patente) : boolean;
       procedure sacarAuto(posicion: integer);
       function calcularPago(lugar: integer; fechaSalida: TDateTime) : double;
+      procedure guardarEnArchivo(lugar: integer);
 End;
 
+Vehiculos = File of Auto;
+
 implementation
+
+function Estacionamiento.pasarPatenteAArray(patenteAuto: string) : patente;
+var I: integer;
+    patenteArray: patente;
+begin
+  for I := min to largoPatente do
+  begin
+    patenteArray[I] := patenteAuto[I];
+  end;
+
+  Result := patenteArray;
+end;
 
 //muestra en pantalla los datos del auto ingresado
 function Estacionamiento.mostrarAuto(lugar: integer) : string;
 var mostrar: string;
 begin
   //EL #13#10 es utilizado para hacer el salto de linea en delphi
-  mostrar := 'Auto ingresado.' + #13#10 + 'Patente: ' + Autos[lugar].patente + #13#10 +
-  'Hora de ingreso: ' + timeToStr(Autos[lugar].horarioEntrada) + #13#10 +
+  mostrar := 'Auto ingresado.' + saltoDeLinea + 'Patente: ' + Autos[lugar].patente + saltoDeLinea +
+  'Hora de ingreso: ' + timeToStr(Autos[lugar].horarioEntrada) + saltoDeLinea +
   'Fecha de ingreso: ' + datetostr(Autos[lugar].fechaEntrada);
   //Devuelve el string
   Result := mostrar;
 end;
 
 //VALIDAR PATENTE
-function Estacionamiento.validarPatente(patente: string) : boolean;
+function Estacionamiento.validarPatente(patente: Array of char) : boolean;
 var I: integer;
     bool: boolean;
 begin
@@ -141,14 +160,13 @@ begin
 end;
 
 //En caso de querer guardar un auto con la misma patente, chequeo
-function Estacionamiento.buscarPatenteRepetida(patente: string) : boolean;
+function Estacionamiento.buscarPatenteRepetida(patente: patente) : boolean;
 var I: integer;
     posicion: integer;
     encontrado: boolean;
 begin
   I := 1;
   encontrado := False;
-  posicion := Error;
   //Esta funcion hace lo mismo que el buscar auto, solamente que tiene devuelve
   //False si no hay un auto repetido en el estacionamiento
   while (not encontrado) and (I <= max) do
@@ -164,7 +182,7 @@ begin
 end;
 
 //guarda en el vector los datos del auto que va a estacionar en el lugar indicado
-procedure Estacionamiento.guardarAuto(patente: string; horaEntrada: TTime; fEntrada: TDate; lugar: integer);
+procedure Estacionamiento.guardarAuto(patente: patente; horaEntrada: TTime; fEntrada: TDate; lugar: integer);
 begin
   Autos[lugar].estacionado := True;
   Autos[lugar].patente := patente;
@@ -172,12 +190,33 @@ begin
   Autos[lugar].fechaEntrada := fEntrada;
 end;
 
+procedure Estacionamiento.guardarEnArchivo(lugar:integer);
+var VF: Vehiculos;
+    RA: Auto;
+begin
+  AssignFile(VF, '..\Vehiculos.dat');
+
+  //si el archivo no existe, se crea
+  if not FileExists('..\Vehiculos.dat') then
+  begin
+    Rewrite(VF);
+    CloseFile(VF);
+  end;
+
+  //acceder
+  Reset(VF);
+
+  //ir a la ubicacion, y escribirlo
+  Seek(VF, lugar);
+  Write(VF,RA);
+  CloseFile(VF);
+end;
 //-------------------------------------------------
 
 //RETIRAR AUTO
 
 //Esta funcion me devuelve el lugar que ocupa el auto a buscar
-function Estacionamiento.buscarPatente(patente: string) : integer;
+function Estacionamiento.buscarPatente(patente: patente) : integer;
 var I: integer;
     posicion: integer;
     encontrado: boolean;
@@ -202,12 +241,17 @@ end;
 
 //Esta funcion saca el auto del estacionamiento
 procedure Estacionamiento.sacarAuto(posicion: integer);
+var I: integer;
 begin
   //si encontró la patente del auto lo "saca" del estacionamiento
   if posicion <> Error then
   begin
     Autos[posicion].estacionado := False;
-    Autos[posicion].patente := '';
+    for I := min to largoPatente do
+    begin
+      Autos[posicion].patente[I] := '0';
+    end;
+
   end;
 end;
 

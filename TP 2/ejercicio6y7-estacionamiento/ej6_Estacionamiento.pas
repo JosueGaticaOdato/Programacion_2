@@ -18,6 +18,7 @@ const
   errorFechaEnt = 'La fecha de entrada ingresada es posterior a la fecha de salida';
 
 type
+  patente =
   TForm1 = class(TForm)
     Memo1: TMemo;
     btnGuardar: TButton;
@@ -51,6 +52,7 @@ implementation
 
 {$R *.dfm}
 
+
 //botón GUARDAR auto, llama a función que guarda en vector si hay lugar
 procedure TForm1.btnGuardarClick(Sender: TObject);
 //Defino las variables
@@ -58,7 +60,9 @@ var lugar: integer;
     patenteCorrecta, horaEntCorrecta: boolean;
     horarioEntrada: TTime;
     Fecha: TDate;
+    patenteAuto: patente;
 begin
+
   //Guardo en una variable la fecha y el horario que se implementan en el formulario
   Fecha := Fecha_Entrada.Date;
   horarioEntrada := horaEntrada.Time;
@@ -67,12 +71,14 @@ begin
   //para guardar el auto. Si no hay lugar, devuelve Error ( que es -1 )
   lugar := E.conseguirLugar();
   //LLamo a la funcion para valir la patente, que devuelve verdadera si la patente es correcta
+  patenteAuto := E.pasarPatenteAArray(Patente.Text);
   patenteCorrecta := E.validarPatente(Patente.Text);
   //si hay lugar lo guarda en vector y lo muestra
   if (lugar <> Error) and (patenteCorrecta = True) and (E.buscarPatenteRepetida(Patente.Text) = False) then
   begin
     E.guardarAuto(Patente.Text,horarioEntrada,Fecha,lugar);
     mostrarAutoIngresado(lugar);
+    E.guardarEnArchivo(lugar);
   end
   //En caso de que no se cumple alguno de los requisitos, se mostrar el error
   else if patenteCorrecta = False then

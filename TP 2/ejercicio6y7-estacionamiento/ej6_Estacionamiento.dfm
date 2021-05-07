@@ -45,7 +45,7 @@ object Form1: TForm1
   object Label4: TLabel
     Left = 16
     Top = 200
-    Width = 186
+    Width = 130
     Height = 13
     Alignment = taCenter
     Caption = 'Ingrese horario de entrada'
@@ -53,7 +53,7 @@ object Form1: TForm1
   object Label5: TLabel
     Left = 655
     Top = 200
-    Width = 186
+    Width = 119
     Height = 13
     Alignment = taCenter
     Caption = 'Ingrese horario de salida'
@@ -61,7 +61,7 @@ object Form1: TForm1
   object Label6: TLabel
     Left = 232
     Top = 56
-    Width = 337
+    Width = 176
     Height = 16
     Alignment = taCenter
     Caption = 'Ejemplo de Patente:  AB123CD'
