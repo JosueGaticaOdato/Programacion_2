@@ -512,7 +512,6 @@ object Ejercicio9: TEjercicio9
     Height = 21
     Alignment = taCenter
     TabOrder = 2
-    Text = 'Carga_Billlete'
   end
   object CantidadB: TEdit
     Left = 27
@@ -521,7 +520,6 @@ object Ejercicio9: TEjercicio9
     Height = 21
     Alignment = taCenter
     TabOrder = 3
-    Text = 'CantidadB'
   end
   object btnSaldo: TButton
     Left = 27

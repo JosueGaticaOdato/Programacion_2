@@ -24,7 +24,7 @@ object Form1: TForm1
   object Label2: TLabel
     Left = 29
     Top = 77
-    Width = 145
+    Width = 134
     Height = 13
     Alignment = taCenter
     Caption = 'Ingrese otro n'#250'mero binario'
@@ -32,7 +32,7 @@ object Form1: TForm1
   object Label3: TLabel
     Left = 29
     Top = 132
-    Width = 145
+    Width = 48
     Height = 13
     Alignment = taCenter
     Caption = 'Resultado'
@@ -52,6 +52,20 @@ object Form1: TForm1
     Height = 13
     Alignment = taCenter
     Caption = 'Convertir de Binario a Decimal'
+  end
+  object Label6: TLabel
+    Left = 135
+    Top = 234
+    Width = 36
+    Height = 13
+    Caption = '------->'
+  end
+  object Label7: TLabel
+    Left = 133
+    Top = 327
+    Width = 36
+    Height = 13
+    Caption = '------->'
   end
   object binario1: TEdit
     Left = 29
@@ -143,7 +157,6 @@ object Form1: TForm1
     Width = 121
     Height = 21
     TabOrder = 10
-    Text = 'Binario'
   end
   object CDecimal: TEdit
     Left = 8
@@ -151,7 +164,6 @@ object Form1: TForm1
     Width = 121
     Height = 21
     TabOrder = 11
-    Text = 'Decimal'
   end
   object ResultBD: TEdit
     Left = 171

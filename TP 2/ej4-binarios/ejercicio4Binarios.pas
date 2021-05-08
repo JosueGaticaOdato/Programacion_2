@@ -27,6 +27,8 @@ type
     ResultDB: TEdit;
     Label4: TLabel;
     Label5: TLabel;
+    Label6: TLabel;
+    Label7: TLabel;
     procedure btnSumaClick(Sender: TObject);
     procedure btnANDClick(Sender: TObject);
     procedure btnORClick(Sender: TObject);
