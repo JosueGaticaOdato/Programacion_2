@@ -42,12 +42,14 @@ type
     Label9: TLabel;
     Label10: TLabel;
     BtnRangoFechas: TButton;
+    Button1: TButton;
     procedure btnGuardarClick(Sender: TObject);
     procedure mostrarAutoIngresado(lugar: integer);
     procedure FormCreate(Sender: TObject);
     procedure btnRetirarClick(Sender: TObject);
     procedure BtnPercibirClick(Sender: TObject);
     procedure BtnRangoFechasClick(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
   private
     //Se define el TAD dentro del formulario de forma privada
     E: Estacionamiento;
@@ -151,7 +153,7 @@ begin
   begin
     //Calculo la tarifa, pasando la posicion y fecha-hora de salida
     tarifa := E.calcularPago(posicion, strToDateTime(salida));
-    E.guardarAutoEnFile(Fecha_Salida.Date, horaSalida.Time, tarifa);
+    E.guardarAutoEnFile(Fecha_Salida.Date, horaSalida.Time, tarifa, Posicion);
    //Saco el auto del estacionamiento
     E.sacarAuto(posicion);
     memo1.Lines.Add('Vehículo retirado.');
@@ -169,6 +171,27 @@ begin
   begin
     memo1.Lines.Add(errorFechaSal);
   end;
+end;
+
+procedure TEjercicico6y7.Button1Click(Sender: TObject);
+var fileVehiculos: Vehiculos;
+  sLinea: Auto;
+begin
+  memo1.Lines.Add('Archivo de texto:');
+  AssignFile(fileVehiculos,'..\Vehiculos.dat');
+  Reset(fileVehiculos);
+
+  while not Eof( fileVehiculos ) do
+  begin
+    Read(fileVehiculos, sLinea);
+    Memo1.Lines.Add( sLinea.patente );
+    Memo1.Lines.Add( Datetostr(sLinea.fechaEntrada));
+    Memo1.Lines.Add( TimetoStr(sLinea.horarioEntrada));
+    Memo1.Lines.Add( Datetostr(sLinea.fechaSalida));
+    Memo1.Lines.Add( TimetoStr(sLinea.horarioSalida));
+    Memo1.Lines.Add( floattostr(sLinea.Tarifa));
+  end;
+
 end;
 
 //Proceso que realiza la limpieza del memo y crea

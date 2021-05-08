@@ -30,12 +30,14 @@ const
 //Defino auto de tipo record, que contendra tres campos
 type
   Auto = Record
-    patente: string;
+    patente: shortstring;
     fechaEntrada: TDateTime;
     horarioEntrada: TTime;
+    horarioSalida: TTime;
+    fechaSalida: TDateTime;
+    Tarifa: Double;
     estacionado: boolean;
   End;
-
 
   Fechas = Record
     Fecha: TDate;
@@ -45,6 +47,8 @@ type
     Recaudado: Real;
     Calculado: Boolean;
   End;
+
+  Vehiculos = File of Auto;
 
   //Luego, se define el objjeto
   Estacionamiento = Object
@@ -70,7 +74,7 @@ type
       function Buscar_Fecha(Fecha: TDate): Integer;
 End;
 
-Vehiculos = File of Auto;
+
 
 implementation
 
@@ -194,7 +198,7 @@ begin
 end;
 
 procedure Estacionamiento.guardarAutoEnFile(fechaDeSalida: TDate; horarioDeSalida: TTime; tarifa: double; lugar: integer);
-var fileVehiculos: Vehiculos;
+var FileVehiculos: Vehiculos;
 //    registro: Auto;
 begin
   AssignFile(fileVehiculos,'..\Vehiculos.dat');
@@ -207,14 +211,23 @@ begin
 
   Reset(fileVehiculos);
 
-  Write(fileVehiculos, Autos[lugar].patente);
+  Seek(fileVehiculos,lugar);
+  Autos[lugar].horarioSalida := horarioDeSalida;
+  Autos[lugar].fechaSalida := fechaDeSalida;
+  Autos[lugar].Tarifa := tarifa;
+
+  Write(fileVehiculos, Autos[lugar]);
+
+  {Write(fileVehiculos, Autos[lugar].patente);
   Write(fileVehiculos, Autos[lugar].fechaEntrada);
   Write(fileVehiculos, Autos[lugar].horarioEntrada);
   Write(fileVehiculos, fechaDeSalida);
   Write(fileVehiculos, horarioDeSalida);
-  Write(fileVehiculos, tarifa);
+  Write(fileVehiculos, tarifa);}
 
+  Seek(fileVehiculos,lugar);
   CloseFile(fileVehiculos);
+
 end;
 
 //-------------------------------------------------

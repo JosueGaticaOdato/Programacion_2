@@ -74,7 +74,7 @@ object Ejercicico6y7: TEjercicico6y7
   end
   object Label7: TLabel
     Left = 90
-    Top = 349
+    Top = 365
     Width = 297
     Height = 16
     Caption = 'Ingrese la fecha para determinar cuanto se percibio'
@@ -186,6 +186,7 @@ object Ejercicico6y7: TEjercicico6y7
     Font.Name = 'Segoe UI'
     Font.Style = []
     TabOrder = 6
+    Time = 44323.859616458340000000
     TimeFormat = 'hh:mm'
   end
   object horaSalida: TTimePicker
@@ -197,11 +198,12 @@ object Ejercicico6y7: TEjercicico6y7
     Font.Name = 'Segoe UI'
     Font.Style = []
     TabOrder = 7
+    Time = 44323.859616458340000000
     TimeFormat = 'hh:mm'
   end
   object Fecha_a_Percibir: TDateTimePicker
     Left = 423
-    Top = 344
+    Top = 360
     Width = 186
     Height = 27
     Date = 44320.000000000000000000
@@ -210,7 +212,7 @@ object Ejercicico6y7: TEjercicico6y7
   end
   object BtnPercibir: TButton
     Left = 655
-    Top = 345
+    Top = 361
     Width = 78
     Height = 27
     Caption = 'Calcular'
@@ -243,5 +245,14 @@ object Ejercicico6y7: TEjercicico6y7
     Caption = 'Calcular'
     TabOrder = 12
     OnClick = BtnRangoFechasClick
+  end
+  object Button1: TButton
+    Left = 376
+    Top = 312
+    Width = 75
+    Height = 25
+    Caption = 'Button1'
+    TabOrder = 13
+    OnClick = Button1Click
   end
 end
