@@ -108,6 +108,7 @@ end;
 procedure TEjercicico6y7.BtnPercibirClick(Sender: TObject);
 var Texto: String;
 begin
+  //Muestro el contenido de la fecha indicada, lo que se percibio en el dia
   memo1.Clear;
   Texto := E.Mostrar_Contenido_Fecha(Fecha_a_percibir.DateTime);
   memo1.Lines.Add(Texto);
@@ -116,6 +117,7 @@ end;
 procedure TEjercicico6y7.BtnRangoFechasClick(Sender: TObject);
 var Texto: String;
 begin
+  //LLamo a la funcion que me muestra lo recaudado en un rango
   Texto := E.Mostrar_Recaudado_En_Rango(Fecha_Desde.DateTime,Fecha_Hasta.DateTime);
   memo1.Lines.Add(Texto);
 end;
@@ -177,19 +179,23 @@ procedure TEjercicico6y7.Button1Click(Sender: TObject);
 var fileVehiculos: Vehiculos;
   sLinea: Auto;
 begin
+  //Asigno el archivo
   memo1.Lines.Add('Archivo de texto:');
   AssignFile(fileVehiculos,'..\Vehiculos.dat');
+  //Abro el archivo
   Reset(fileVehiculos);
 
-  while not Eof( fileVehiculos ) do
+  //Mientras no llegue al final, muestro
+  while not Eof(fileVehiculos) do
   begin
     Read(fileVehiculos, sLinea);
-    Memo1.Lines.Add( sLinea.patente );
-    Memo1.Lines.Add( Datetostr(sLinea.fechaEntrada));
-    Memo1.Lines.Add( TimetoStr(sLinea.horarioEntrada));
-    Memo1.Lines.Add( Datetostr(sLinea.fechaSalida));
-    Memo1.Lines.Add( TimetoStr(sLinea.horarioSalida));
-    Memo1.Lines.Add( floattostr(sLinea.Tarifa));
+    Memo1.Lines.Add('Patente del auto: ' + sLinea.patente );
+    Memo1.Lines.Add('Fecha de entrada: ' + Datetostr(sLinea.fechaEntrada));
+    Memo1.Lines.Add('Horario de entrada: ' +  TimetoStr(sLinea.horarioEntrada));
+    Memo1.Lines.Add('Fecha de salida: ' + Datetostr(sLinea.fechaSalida));
+    Memo1.Lines.Add('Horario de salida: '+ TimetoStr(sLinea.horarioSalida));
+    Memo1.Lines.Add('Tarifa:' + floattostr(sLinea.Tarifa));
+    Memo1.Lines.Add('');
   end;
 
 end;

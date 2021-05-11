@@ -57,6 +57,7 @@ type
       Autos: Array[min..max] of Auto;
       Fechas_Estacionamiento: Array [min..LargoFechas] of Fechas;
     public
+      //Comportamientos:
       function mostrarAuto(lugar: integer) : string;
       function conseguirLugar() : integer;
       procedure cargarEstacionamiento();
@@ -197,8 +198,11 @@ begin
   Autos[lugar].fechaEntrada := fEntrada;
 end;
 
+//Procedimiento que guarda en un archivo el auto
 procedure Estacionamiento.guardarAutoEnFile(fechaDeSalida: TDate; horarioDeSalida: TTime; tarifa: double; lugar: integer);
 var FileVehiculos: Vehiculos;
+    i: Integer;
+    Posicion: Integer;
 //    registro: Auto;
 begin
   AssignFile(fileVehiculos,'..\Vehiculos.dat');
@@ -208,24 +212,18 @@ begin
     Rewrite(fileVehiculos);
     CloseFile(fileVehiculos);
   end;
-
   Reset(fileVehiculos);
 
-  Seek(fileVehiculos,lugar);
+//Cargo horario y fecha de salida, al igual que la tarifa
   Autos[lugar].horarioSalida := horarioDeSalida;
   Autos[lugar].fechaSalida := fechaDeSalida;
   Autos[lugar].Tarifa := tarifa;
 
+  //Me posiciono al final
+  Seek(fileVehiculos,FileSize(fileVehiculos));
+  //Escribo
   Write(fileVehiculos, Autos[lugar]);
-
-  {Write(fileVehiculos, Autos[lugar].patente);
-  Write(fileVehiculos, Autos[lugar].fechaEntrada);
-  Write(fileVehiculos, Autos[lugar].horarioEntrada);
-  Write(fileVehiculos, fechaDeSalida);
-  Write(fileVehiculos, horarioDeSalida);
-  Write(fileVehiculos, tarifa);}
-
-  Seek(fileVehiculos,lugar);
+  //Cierro
   CloseFile(fileVehiculos);
 
 end;
@@ -352,6 +350,8 @@ begin
   Result := Resultado;
 end;
 
+//Funcion que devuelve un texto
+//Este texto contiene el contenido de cada fecha
 function Estacionamiento.Mostrar_Contenido_Fecha(Fecha: TDateTime): String;
 var Posicion: Integer;
   Texto: String;
@@ -367,6 +367,7 @@ begin
   Result := Texto;
 end;
 
+//Este procedimiento realizo el calculo total y lo carga en el registro
 procedure Estacionamiento.Calcular_Total_Dia();
 var i: Integer;
   Completa,Media,Hora: Real;
@@ -377,6 +378,7 @@ begin
   Hora := 0;
   for i := 1 to LargoFechas do
     begin
+      //Guardo en cada variable el contenido de la fecha
       Completa := Fechas_Estacionamiento[i].EstadiaCompleta;
       Media := Fechas_Estacionamiento[i].MediaEstadia;
       Hora := Fechas_Estacionamiento[i].TarifaHora;
@@ -384,12 +386,14 @@ begin
     end;
 end;
 
+//Funcion que devuelve lo recaudado en una fecha
 function Estacionamiento.Mostrar_Recaudado_En_Rango(FechaInicio, FechaFin: TDateTime): string;
 var Texto: String;
   Posicion: Integer;
   Diferencia_Dias: Double;
   Encontrado : Boolean;
 begin
+  //Inicializao las variables y llamo al procedimiento calcular total recaudado en el dia
   Calcular_Total_Dia();
   Texto := '';
   if FechaInicio > FechaFin then
@@ -398,19 +402,25 @@ begin
   end
   else
   begin
+    //Esta funcion me devuelve la diferencia de dias
     Diferencia_Dias := DaysBetween(FechaFin, FechaInicio);
+    //Mientras la diferencia sea mayor o igual a 0
     while Diferencia_Dias >= 0 do
     begin
+      //Busco la fecha de inicio para ver si existe en el TAD
       Posicion := Buscar_Fecha(FechaInicio);
       if Posicion <> Error then
       begin
+        //Si existe muestro texto de los recaudado
         Texto := Texto + 'Lo recaudado el dia ' + datetostr(Fechas_Estacionamiento[Posicion].Fecha) + ' fue de ' + floattostr(Fechas_Estacionamiento[Posicion].Recaudado) + ' pesos.' + Salto_linea;
       end
-      else if (Posicion = Error) or (Fechas_Estacionamiento[Posicion].Recaudado < 0) then
+      else //Si es distinto de posicion devuelto este texto
       begin
         Texto := Texto + 'El dia ' + datetostr(FechaInicio) + ' no se recaudo nada.' + Salto_linea;
       end;
+    //Resto diferencia y incremento el dia para ocupar los valores del rango
     Diferencia_Dias := Diferencia_Dias - 1;
+    //IncDay Incremeneta una fecha en 1 dia
     FechaInicio := IncDay(FechaInicio,1);
     end;
   end;
@@ -429,6 +439,7 @@ begin
   //Recorre las fehcas para averiguar si existe alguna identica
   while ((not Encontrado) and (i <= LargoFechas)) do
   begin
+    //Si existe la fecha devuelta posicion y termina el ciclo
     if (DateToStr(Fechas_Estacionamiento[i].Fecha) = DateToStr(Fecha))then
     begin
       Resultado := I;
