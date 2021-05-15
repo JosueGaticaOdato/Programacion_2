@@ -29,16 +29,19 @@ implementation
 {$R *.dfm}
 
 //Analizar en clase
-function Colocar_Puntos(Numero, Inicio, Fin: Integer): String;
+function Colocar_Puntos(Numero: String; Inicio, Fin: Integer): String;
+Var i: Integer;
+  Texto: String;
 begin
-  if Fin < 3 then
+  if Fin <= 3 then
   begin
-    Result := Numero.ToString;
+  for i := Inicio to Fin do
+    Texto := Texto + Numero[i];
+  Result := Texto;
   end
   else
   begin
-    Result := Colocar_Puntos(Numero, Inicio, Fin - 3) +  '.' +
-     Numero.ToString[Fin] + Numero.ToString[Fin - 1] + Numero.ToString[Fin - 2];
+    Result := Colocar_Puntos(Numero, Inicio, Fin - 3) +  '.' + Numero[Fin - 2] + Numero[Fin - 1] + Numero[Fin];
   end;
 end;
 
@@ -48,7 +51,7 @@ begin
   Number := strtoint(Numero.Text);
   Inicio := 1;
   Fin := Length(Number.ToString);
-  Resultado.Text := Colocar_Puntos(Number,Inicio,Fin);
+  Resultado.Text := Colocar_Puntos(Number.ToString,Inicio,Fin);
 end;
 
 end.
