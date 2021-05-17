@@ -1,9 +1,8 @@
-program Ejercicio12Proyecto;
+program Ejercicio11Proyecto;
 
 uses
   Vcl.Forms,
-  Ejercicio12Codigo in 'Ejercicio12Codigo.pas' {Form1},
-  TesteoCodigo in 'TesteoCodigo.pas';
+  Ejercicio11Codigo in 'Ejercicio11Codigo.pas' {Form1};
 
 {$R *.res}
 
