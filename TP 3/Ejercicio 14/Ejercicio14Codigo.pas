@@ -13,6 +13,8 @@ type
     Edit1: TEdit;
     Edit2: TEdit;
     Button1: TButton;
+    Label1: TLabel;
+    Label2: TLabel;
     procedure Button1Click(Sender: TObject);
   private
     { Private declarations }
@@ -28,6 +30,8 @@ var
 implementation
 
 {$R *.dfm}
+
+//Funcion que realiza el parsing o split
 Function Parsing(aSS: String; aSep: String): Vector;
 Var I: Integer;
     P: Integer;
@@ -51,20 +55,25 @@ Begin
   Parsing := V;
 End;
 
-
+//Funcion que realiza la recursividad, que recibe el numero y la bomba
 function ExplosionAux(Numero, Bomba: Integer): String;
 begin
+  //El caso base es si el numero es menor qe la bomba, en ese caso devuelvo el numero
   if Numero <= Bomba then
   begin
     Result := Numero.ToString;
   end
   else
   begin
+  //Si no es el caso base,
+  //Realizo el llamado de la funcion con el numero divido la bomba y otro llamado
+  //con el numero divido la bomba, pero a este le resto el numero
     Result := ExplosionAux(Numero DIV Bomba, Bomba) + ' ' +
       ExplosionAux(Numero - (Numero DIV Bomba), Bomba);
   end;
 end;
 
+//Esta funcion realiza el parsing para cargar en un vector los numeros
 function Explosion(Numero, Bomba: Integer): Vector;
 begin
   Result := Parsing(ExplosionAux(Numero,Bomba),' ');
@@ -73,12 +82,13 @@ end;
 procedure TForm1.Button1Click(Sender: TObject);
 var Numeros: Vector;
   i: Integer;
-  Jose: Vector;
-  Mariano: Array [1..20] of string;
 begin
+  memo1.Clear;
+  //Hago el llamado y guardo en "Numeros" el resultado
   Numeros := Explosion(strtoint(Edit1.Text),strtoint(Edit2.Text));
-  SetLength(Jose, 20);
-  for i := 1 to Length(Numeros) - 1 do
+  //Muestro el vector con el contenido
+  memo1.Lines.Add('El resultado es:');
+  for i := 0 to Length(Numeros) - 1 do
   begin
     memo1.Lines.Add(Numeros[i]);
   end;
