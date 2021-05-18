@@ -4,23 +4,37 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ComCtrls;
 
-Const
-  Poblacion_Inicial = 8000; //Ejemplo
+const
+ Habitantes = 8000;
+ Min = 1;
+ Max = 100;
 
 type
+
+Poblacion = Record
+  Poblacion_Inicial : Integer;
+  Dia : Integer;
+  Cant_Contagiados : Integer;
+  end;
+
+  Vector_Poblacion = Array [Min..Max] of Poblacion;
+
   TForm1 = class(TForm)
     Label2: TLabel;
     CN: TEdit;
-    CNmenos: TEdit;
     Memo1: TMemo;
+    Label3: TLabel;
+    Dia: TEdit;
+    Cargar: TButton;
     Button1: TButton;
-    Label1: TLabel;
+    procedure CargarClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
   private
     { Private declarations }
   public
+    P: Vector_Poblacion;
     { Public declarations }
   end;
 
@@ -69,7 +83,7 @@ begin
   end;
 end;
 
-function Producto(Numero1: Integer; Numero2: Double): Double;
+function Producto(Numero1: Double; Numero2: Double): Double;
 begin
   //Caso base en caso de restar con numero positivo y negativo
   if Numero2 = 1 then
@@ -120,47 +134,61 @@ begin
   result := Calculo;
 end;
 
-function Duplicacion_de_casos(Dia, Poblacion_Inicial, CN, CNmenos: Integer; Dia_Base: Double): String;
-var Day: Double;
+function Duplicacion_de_casos(Poblacion: Vector_Poblacion; Posicion: Integer): String;
+var Casos,Doble_poblacion: Double;
+  Texto: String;
 begin
-  Day := Formula(Dia, Poblacion_Inicial, CN, CNmenos);
-  if Dia_Base < Day then
+  Texto := '';
+  Casos := Formula(Poblacion[Posicion + 1].Dia,Poblacion[Posicion + 1].Poblacion_Inicial,Poblacion[Posicion + 1].Cant_Contagiados,Poblacion[Posicion].Cant_Contagiados);
+  Doble_poblacion := Producto(Habitantes,2);
+  if Doble_Poblacion < Casos then
   begin
-    Result := Day.ToString;
+    Texto := Casos.ToString;
+    Result:= Texto;
   end
   else
   begin
-    Randomize;
-    Cn := Cn + Random(100);
-    CNmenos := CNmenos + Random(100);
-    Result := Duplicacion_de_casos(Dia + 1, Poblacion_Inicial, CN, CNmenos,Dia_Base) + ',';
+    Texto := Texto + '-' + Duplicacion_de_casos(Poblacion,Posicion + 1);
+    Result:= Texto;
   end;
 
-
 end;
 
-function Duplicacion_de_casosAUX(Dia, Poblacion_Inicial, CN, CNmenos: Integer): Vector;
-var Dia_Base: Double;
+function No_hay_nada(Poblacion: Vector_Poblacion): Integer;
+var i: Integer;
+  Listo: Boolean;
 begin
-  Dia_Base := Potencia(Formula(Dia, Poblacion_Inicial, CN, CNmenos),2);
-  Result := Parsing(Duplicacion_de_casos(Dia + 1, Poblacion_Inicial, CN, CNmenos, Dia_Base),',');
+ i := 1;
+ Listo := True;
+ while Listo do
+ begin
+  if Poblacion[i].Poblacion_Inicial = 0 then
+  begin
+      Listo := False;
+  end
+  else
+  begin
+    i := i + 1;
+  end;
+ end;
+ Result := i;
+
 end;
-
-
 
 procedure TForm1.Button1Click(Sender: TObject);
-var Contagios: Vector;
-  i: Integer;
+var Contenido: String;
 begin
-  memo1.Clear;
-  //Hago el llamado y guardo en "Numeros" el resultado
-  Contagios := Duplicacion_de_casosAUX(1,Poblacion_Inicial,strtoint(CN.Text),strtoint(CNmenos.Text));
-  //Muestro el vector con el contenido
-  memo1.Lines.Add('El resultado es:');
-  for i := 0 to Length(Contagios) - 1 do
-  begin
-    memo1.Lines.Add(Contagios[i]);
-  end;
+  Contenido := Duplicacion_de_casos(P,1);
+end;
+
+procedure TForm1.CargarClick(Sender: TObject);
+var Posicion: Integer;
+begin
+  Posicion := No_hay_nada(P);
+  P[Posicion].Poblacion_Inicial := Habitantes;
+  P[Posicion].Dia := strtoint(Dia.Text);
+  P[Posicion].Cant_Contagiados := strtoint(CN.Text);
+  memo1.Lines.Add('Carga exitosa');
 end;
 
 end.
