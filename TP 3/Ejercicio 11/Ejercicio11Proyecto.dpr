@@ -2,7 +2,9 @@ program Ejercicio11Proyecto;
 
 uses
   Vcl.Forms,
-  Ejercicio11Codigo in 'Ejercicio11Codigo.pas' {Form1};
+  Ejercicio11Codigo in 'Ejercicio11Codigo.pas' {Form1},
+  TadContagios in 'TadContagios.pas',
+  Pruebas in 'Pruebas.pas';
 
 {$R *.res}
 
