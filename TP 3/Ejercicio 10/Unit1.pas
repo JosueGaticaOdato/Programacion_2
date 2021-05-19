@@ -64,20 +64,22 @@ var Variable, Mas_Larga: Vector;
   Cadena1, Cadena2, Cadena3: Vector;
   Posicion_Abajo,Posicion_Adelante,Posicion_Arriba: Posicion;
 begin
-  //Chequear fila y columna existan (dentro del rango valido) (Otro caso caso base) (Devuleve lo mismo)
- if Carbono[Posicion_Actual.Fila,Posicion_Actual.Columna] = '.' then
- begin
-  Result := Variable;//Vector vacio
- end
- else
- begin
+  //Chequear fila y columna existan (dentro del rango valido) (Otro caso caso base) (Devuelve lo mismo)
+  SetLength(Variable, 1);
+  if Carbono[Posicion_Actual.Fila,Posicion_Actual.Columna] = '.' then
+  begin
+      Result := Variable;//Vector vacio
+  end
+  else
+  begin
   //Error que no logro solucionar
-  //Variable[0].Fila := Posicion_Actual.Fila;
-  //Variable[0].Columna := Posicion_Actual.Columna;
+    SetLength(Variable, 1);
+    Variable[0].Fila := Posicion_Actual.Fila;
+    Variable[0].Columna := Posicion_Actual.Columna;
   //No me estoy cuenta cual es
-  Posicion_Abajo := Posicion_Actual;
-  Posicion_Adelante := Posicion_Actual;
-  Posicion_Arriba := Posicion_Actual;
+    Posicion_Abajo := Posicion_Actual;
+    Posicion_Adelante := Posicion_Actual;
+    Posicion_Arriba := Posicion_Actual;
   if (Posicion_Abajo.Fila + 1 <= 7) then
     begin
     Posicion_Abajo.Fila := Posicion_Abajo.Fila + 1;
@@ -100,7 +102,7 @@ begin
 
   //Falta cambio de posicion y indicar de donde vengo tambien
   Mas_Larga := Vector_Mas_Largo(Cadena1,Cadena2,Cadena3);
-   //Result := Variable[0] + Mas_Larga;    //No existe Vector + Vector
+   //Result := Variable[0] + Mas_Larga;    //No existe Vector + Vector                !!!!
   Result := Variable + Mas_Larga;
  end;
 
