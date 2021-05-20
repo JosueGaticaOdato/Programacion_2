@@ -8,8 +8,8 @@ uses
 
 const
   cantidadFilasMax = 7;
-  min = 0;
-  cantidadColumnasMax = 14;
+  min = 1;
+  cantidadColumnasMax = 13;
 
 type
 
@@ -86,25 +86,25 @@ begin
     Posicion_Derecha := Posicion_Actual;
     Posicion_Arriba := Posicion_Actual;
     Posicion_Izquierda := Posicion_Actual;
-  if (Posicion_Abajo.Fila + 1 <= min) then
+  if (Posicion_Abajo.Fila + 1 >= min) and (Posicion_Abajo.Fila + 1 < cantidadFilasMax) then
     begin
     Posicion_Abajo.Fila := Posicion_Abajo.Fila + 1;
     if (Posicion_Abajo.Fila <> Vengo.Fila) or (Posicion_Abajo.Columna <> Vengo.Columna) then
         Cadena1 := Cadena_CarbonoAUX(Carbono,Posicion_Abajo, Posicion_Actual);
     end;
-  if (Posicion_Arriba.Fila - 1 > min) then
+  if (Posicion_Arriba.Fila - 1 >= min) and (Posicion_Arriba.Fila - 1 < cantidadFilasMax)then
     begin
     Posicion_Arriba.Fila := Posicion_Arriba.Fila - 1;
       if (Posicion_Arriba.Fila <> Vengo.Fila) or (Posicion_Arriba.Columna <> Vengo.Columna) then
         Cadena2 := Cadena_CarbonoAUX(Carbono,Posicion_Arriba, Posicion_Actual);
     end;
-  if (Posicion_Derecha.Columna + 1 < cantidadColumnasMax) then
+  if (Posicion_Derecha.Columna + 1 < cantidadColumnasMax) and (Posicion_Derecha.Columna + 1 >=  min) then
     begin
     Posicion_Derecha.Columna := Posicion_Derecha.Columna + 1;
       if (Posicion_Derecha.Fila <> Vengo.Fila) or (Posicion_Derecha.Columna <> Vengo.Columna) then
         Cadena3 := Cadena_CarbonoAUX(Carbono,Posicion_Derecha, Posicion_Actual);
     end;
-  if (Posicion_Izquierda.Columna - 1 > cantidadColumnasMax) and (Posicion_Izquierda.Columna - 1 > min then
+  if (Posicion_Izquierda.Columna - 1 < cantidadColumnasMax) and (Posicion_Izquierda.Columna - 1 > min)  then
     begin
     Posicion_Izquierda.Columna := Posicion_Izquierda.Columna - 1;
       if (Posicion_Izquierda.Fila <> Vengo.Fila) or (Posicion_Izquierda.Columna <> Vengo.Columna) then
@@ -132,8 +132,19 @@ end;
 
 procedure TForm1.Button1Click(Sender: TObject);
 var V: Vector;
+  x: Integer;
+  y: Integer;
+  Mostrar: String;
 begin
- V := Cadena_Carbono(Cadena);
+  V := Cadena_Carbono(Cadena);
+  for x := min to cantidadFilasMax do
+  begin
+    for y := min to cantidadColumnasMax do
+    begin
+      Mostrar := V[x,y];
+    end;
+  end;
+
 end;
 
 procedure TForm1.FormCreate(Sender: TObject);
@@ -142,10 +153,10 @@ var
   y: Integer;
   Mostrar: String;
 begin
-for x := 1 to 7 do
+for x := min to cantidadFilasMax do
   begin
     Mostrar := '';
-    for y := 1 to 13 do
+    for y := min to cantidadColumnasMax do
     begin
       Mostrar := Mostrar + Cadena[x,y];
     end;
