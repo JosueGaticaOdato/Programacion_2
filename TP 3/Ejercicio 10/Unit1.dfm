@@ -19,8 +19,14 @@ object Form1: TForm1
     Top = 8
     Width = 401
     Height = 273
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -20
+    Font.Name = 'Tahoma'
+    Font.Style = []
     Lines.Strings = (
       'Memo1')
+    ParentFont = False
     TabOrder = 0
   end
   object Memo2: TMemo
@@ -30,6 +36,7 @@ object Form1: TForm1
     Height = 225
     Lines.Strings = (
       'Memo2')
+    ScrollBars = ssVertical
     TabOrder = 1
   end
   object Button1: TButton

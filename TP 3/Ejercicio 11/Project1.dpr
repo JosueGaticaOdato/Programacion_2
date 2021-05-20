@@ -1,10 +1,9 @@
-program Ejercicio11Proyecto;
+program Project1;
 
 uses
   Vcl.Forms,
-  Ejercicio11Codigo in 'Ejercicio11Codigo.pas' {Form1},
-  TadContagios in 'TadContagios.pas',
-  Pruebas in 'Pruebas.pas';
+  Unit1 in 'Unit1.pas' {Form1},
+  Poblacion in 'Poblacion.pas';
 
 {$R *.res}
 

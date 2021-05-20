@@ -137,14 +137,8 @@ var V: Vector;
   Mostrar: String;
 begin
   V := Cadena_Carbono(Cadena);
-  for x := min to cantidadFilasMax do
-  begin
-    for y := min to cantidadColumnasMax do
-    begin
-      Mostrar := V[x,y];
-    end;
-  end;
-
+  for x := 0 to length(V) - 2 do
+    memo2.Lines.Add('Fila: ' + V[x].Fila.ToString + '/Columna: ' + V[x].Columna.ToString);
 end;
 
 procedure TForm1.FormCreate(Sender: TObject);
@@ -153,6 +147,8 @@ var
   y: Integer;
   Mostrar: String;
 begin
+memo1.Clear;
+memo1.Lines.Add('Cadena:');
 for x := min to cantidadFilasMax do
   begin
     Mostrar := '';
@@ -162,6 +158,7 @@ for x := min to cantidadFilasMax do
     end;
   memo1.Lines.Add(Mostrar);
   end;
+  memo2.Clear;
 end;
 
 end.
