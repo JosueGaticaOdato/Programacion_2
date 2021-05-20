@@ -6,6 +6,11 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls;
 
+const
+  cantidadFilasMax = 7;
+  min = 0;
+  cantidadColumnasMax = 14;
+
 type
 
  Posicion = Record
@@ -62,9 +67,9 @@ end;
 function Cadena_CarbonoAUX (Carbono: Matriz; Posicion_Actual, Vengo: Posicion): Vector;
 var Variable, Mas_Larga: Vector;
   Cadena1, Cadena2, Cadena3: Vector;
-  Posicion_Abajo,Posicion_Adelante,Posicion_Arriba: Posicion;
+  Posicion_Abajo,Posicion_Derecha,Posicion_Arriba, Posicion_Izquierda: Posicion;
 begin
-  //Chequear fila y columna existan (dentro del rango valido) (Otro caso caso base) (Devuelve lo mismo)
+
   SetLength(Variable, 1);
   if Carbono[Posicion_Actual.Fila,Posicion_Actual.Columna] = '.' then
   begin
@@ -78,26 +83,34 @@ begin
     Variable[0].Columna := Posicion_Actual.Columna;
   //No me estoy cuenta cual es
     Posicion_Abajo := Posicion_Actual;
-    Posicion_Adelante := Posicion_Actual;
+    Posicion_Derecha := Posicion_Actual;
     Posicion_Arriba := Posicion_Actual;
-  if (Posicion_Abajo.Fila + 1 <= 7) then
+    Posicion_Izquierda := Posicion_Actual;
+  if (Posicion_Abajo.Fila + 1 <= min) then
     begin
     Posicion_Abajo.Fila := Posicion_Abajo.Fila + 1;
     if (Posicion_Abajo.Fila <> Vengo.Fila) or (Posicion_Abajo.Columna <> Vengo.Columna) then
         Cadena1 := Cadena_CarbonoAUX(Carbono,Posicion_Abajo, Posicion_Actual);
     end;
-  if (Posicion_Arriba.Fila - 1 > 0) then
+  if (Posicion_Arriba.Fila - 1 > min) then
     begin
     Posicion_Arriba.Fila := Posicion_Arriba.Fila - 1;
       if (Posicion_Arriba.Fila <> Vengo.Fila) or (Posicion_Arriba.Columna <> Vengo.Columna) then
         Cadena2 := Cadena_CarbonoAUX(Carbono,Posicion_Arriba, Posicion_Actual);
     end;
-  if (Posicion_Adelante.Columna + 1 < 14) then
+  if (Posicion_Derecha.Columna + 1 < cantidadColumnasMax) then
     begin
-    Posicion_Adelante.Columna := Posicion_Adelante.Columna + 1;
-      if (Posicion_Adelante.Fila <> Vengo.Fila) or (Posicion_Adelante.Columna <> Vengo.Columna) then
-        Cadena3 := Cadena_CarbonoAUX(Carbono,Posicion_Adelante, Posicion_Actual);
+    Posicion_Derecha.Columna := Posicion_Derecha.Columna + 1;
+      if (Posicion_Derecha.Fila <> Vengo.Fila) or (Posicion_Derecha.Columna <> Vengo.Columna) then
+        Cadena3 := Cadena_CarbonoAUX(Carbono,Posicion_Derecha, Posicion_Actual);
     end;
+  if (Posicion_Izquierda.Columna - 1 > cantidadColumnasMax) and (Posicion_Izquierda.Columna - 1 > min then
+    begin
+    Posicion_Izquierda.Columna := Posicion_Izquierda.Columna - 1;
+      if (Posicion_Izquierda.Fila <> Vengo.Fila) or (Posicion_Izquierda.Columna <> Vengo.Columna) then
+        Cadena3 := Cadena_CarbonoAUX(Carbono,Posicion_Izquierda, Posicion_Actual);
+    end;
+
 
 
   //Falta cambio de posicion y indicar de donde vengo tambien
