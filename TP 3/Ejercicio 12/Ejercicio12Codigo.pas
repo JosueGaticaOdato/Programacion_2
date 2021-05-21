@@ -179,6 +179,7 @@ begin
  memo1.Clear;
 end;
 
+//Ingresar numeros
 procedure TForm1.IngresarClick(Sender: TObject);
 var i: Integer;
   Bandera: Boolean;

@@ -30,22 +30,29 @@ implementation
 
 {$R *.dfm}
 
+//Boton
 procedure TForm1.Button1Click(Sender: TObject);
 var
   v: vector;
   i: integer;
   Corte: Boolean;
 begin
+  //Guardo en el vector las cantidades por dia
   v := calcularcantidad(StrToInt(d1.Text), StrToInt(d2.Text));
+  //Inicializo las variables
   Corte := True;
   I := 1;
+  //Mientras el corte sea verdadero y no se supere el maximo, muestro
   while (i < 100) and (Corte) do
   begin
+    //En el caso de que en la posicion halla un 0, quiere decir que ya se
+    //termino el conteo, por lo tanto dejo de mostrar
     if v[i] = 0 then
     begin
       Corte := False
     end
     else
+    //Sino, sigo mostrando y aumento la variable en 1
     begin
       Memo1.Lines.Add('cantidad del dia[' + i.ToString + ']: ' + IntToStr(v[i]));
       i := i + 1;
@@ -53,6 +60,7 @@ begin
   end;
 end;
 
+//Limpio el memo al inicio
 procedure TForm1.FormCreate(Sender: TObject);
 begin
   memo1.Clear;

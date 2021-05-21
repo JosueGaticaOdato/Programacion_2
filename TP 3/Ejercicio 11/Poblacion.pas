@@ -1,42 +1,54 @@
 unit Poblacion;
-
+//Unidad que realiza todo el proceso recursivo
 interface
 
+const
+  Min  = 1;
+  Max = 100;
+
+//Declaro el vector y la funcion recursiva
 type
-  vector = array [1 .. 100] of integer;
-function calcularcantidad(D1, D2: integer): vector;
+  vector = array [Min .. Max] of integer;
+  function calcularcantidad(Dia1, Dia2: integer): vector;
 
 implementation
 
-function calcularcantidad(D1, D2: integer): vector;
-
+//Funcion que devuelve el vector con la cantidad de cada dia
+function calcularcantidad(Dia1, Dia2: integer): vector;
 var
   R: real;
   contagiados: vector;
   I: integer;
+  //Procedure interno a la funcion que realiza la parte recursiva
   procedure calcularcantidadAux(DiaAnterior: integer);
-
   var
-    Diactual: integer;
+    DiaActual: integer;
   begin
-    Diactual := Trunc(DiaAnterior * R);
-    if (D1 * 2 > Diactual) and (Diactual > 0) then
+    //Obtengo el valor del dia actual, multiplicando el dia anterior por R,
+    //que es la division del dia 2 y el dia 1
+    DiaActual := Trunc(DiaAnterior * R);
+    //Si no es el doble y no sea menor que 0, continuo haciendo el proceso recursivo
+    if (Dia1 * 2 > DiaActual) and (DiaActual > 0) then
     begin
-      contagiados[I] := Diactual;
+      //Paso el dia al vector, aumento I y llamo otra vez
+      contagiados[I] := DiaActual;
       Inc(I);
-      calcularcantidadAux(Diactual);
+      calcularcantidadAux(DiaActual);
     end;
 
   end;
 
+//Inicializo en 0 todas las posiciones del vector
 begin
-  for I := 1 to 100 do
+  for I := Min to Max do
   begin
     contagiados[I] := 0;
   end;
-  I := 1;
-  R := D2 / D1;
-  calcularcantidadAux(D2);
+  //Pongo a I en 1 y realizo la cuenta de dividir el dia por el dia anterior
+  I := Min;
+  R := Dia2 / Dia1;
+  //Llamo a el procedure recursivo
+  calcularcantidadAux(Dia2);
   Result := contagiados;
 end;
 
