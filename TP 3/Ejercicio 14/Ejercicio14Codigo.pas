@@ -16,6 +16,7 @@ type
     Label1: TLabel;
     Label2: TLabel;
     procedure Button1Click(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -84,14 +85,31 @@ var Numeros: Vector;
   i: Integer;
 begin
   memo1.Clear;
-  //Hago el llamado y guardo en "Numeros" el resultado
-  Numeros := Explosion(strtoint(Edit1.Text),strtoint(Edit2.Text));
-  //Muestro el vector con el contenido
-  memo1.Lines.Add('El resultado es:');
-  for i := 0 to Length(Numeros) - 1 do
+  //Condicion en caso de que la bomba sea mayor que el numero
+  if strtoint(Edit1.Text) < strtoint(Edit2.Text) then
   begin
-    memo1.Lines.Add(Numeros[i]);
+    memo1.Lines.Add('La bomba tiene que ser menor que el numero inicial.');
+  end
+  else if strtoint(Edit2.Text) <= 1 then
+  begin
+    memo1.Lines.Add('La bomba no tiene que ser un numero menor o igual que 1.');
+  end
+  else
+  begin
+    //Hago el llamado y guardo en "Numeros" el resultado
+    Numeros := Explosion(strtoint(Edit1.Text),strtoint(Edit2.Text));
+    //Muestro el vector con el contenido
+    memo1.Lines.Add('El resultado es:');
+    for i := 0 to Length(Numeros) - 1 do
+    begin
+      memo1.Lines.Add(Numeros[i]);
+    end;
   end;
+end;
+
+procedure TForm1.FormCreate(Sender: TObject);
+begin
+  memo1.Clear;
 end;
 
 end.

@@ -24,6 +24,7 @@ type
     Calcular: TButton;
     procedure IngresarClick(Sender: TObject);
     procedure CalcularClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -173,6 +174,11 @@ begin
 end;
 
 //Procedure que se encarga de cargar los numeros en un vector
+procedure TForm1.FormCreate(Sender: TObject);
+begin
+ memo1.Clear;
+end;
+
 procedure TForm1.IngresarClick(Sender: TObject);
 var i: Integer;
   Bandera: Boolean;
