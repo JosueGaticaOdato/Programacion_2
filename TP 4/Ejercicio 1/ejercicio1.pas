@@ -30,6 +30,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
+    procedure Button4Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -54,15 +55,35 @@ implementation
 
 {$R *.dfm}
 
-function Cargar_Al_Azar_Unico (aL: Lista; Tamaño_Maximo, Numero: Integer): Lista;
-var Inicio, Posicion, Fin: PosicionLista;
+function Cargar_Al_Azar_Unico (aL: Lista; Tamanio_Max, Num: Integer): bool;
+var Posicion: PosicionLista;
+    Elem, ElemAAgregar: tipoElemento;
 begin
   Posicion := aL.Comienzo;
-  Fin := aL.Fin;
+  Elem := aL.Recuperar(Posicion);
+  while (Posicion < Tamanio_Max) do begin
+    if Num <> Elem.Clave then begin
+      if (aL.Siguiente(Posicion) = Nulo) then begin
+        ElemAAgregar := aL.Recuperar(aL.Siguiente(Posicion));
+        ElemAAgregar.Clave := Num;
+        aL.Agregar(ElemAAgregar);
+        Result := True;
+        Exit
+      end
+      else begin
+        Posicion := Posicion + 1;
+        Elem := aL.Recuperar(Posicion);
+      end;
+    end
+    else begin
+      Result := False;
+      Exit
+    end;
+  end;
 end;
 
+
 function Promedio(aL: Lista; Inicio, Fin: PosicionLista): Variant;
-var Suma: TipoElemento;
 begin
   if Inicio = Fin then
   begin
@@ -114,6 +135,7 @@ end;
 
 procedure TForm1.Button1Click(Sender: TObject);
 begin
+  List.Crear(Numero, cantElementosMax);
   List.LlenarClavesRandom(cantElementos, minRandom, maxRandom);
   memo1.Lines.Add('Lista cargada satisfactoriamente');
 end;
@@ -140,8 +162,8 @@ begin
     end;
     Inicio := List.Siguiente(Inicio);
   end;
-  memo1.Lines.Add('Valor:' + menorDato.ArmarString);
-  memo1.Lines.Add('Repeticiones:' + Repeticiones.ToString);
+  memo1.Lines.Add('Valor mínimo:' + menorDato.ArmarString);
+  memo1.Lines.Add('Se repite:' + Repeticiones.ToString + ' veces.');
 end;
 
 procedure TForm1.Button3Click(Sender: TObject);
@@ -153,7 +175,21 @@ begin
   Valor := Promedio(List,Inicio,Fin);
   Valor :=Valor / ((Fin - Inicio) + 1);
   Valor := FormatFloat ('0.0', Valor);
-  memo1.Lines.Add('El promedio de todos los valores es ' + vartostr(Valor));
+  memo1.Lines.Add('El promedio de los valores de la lista es ' + vartostr(Valor));
+end;
+
+procedure TForm1.Button4Click(Sender: TObject);
+var seCargo: bool;
+begin
+  Randomize;
+  seCargo := Cargar_Al_Azar_Unico(List,CantElementosMax, Random(maxRandom));
+  if seCargo then begin
+    memo1.Lines.Add('Número cargado correctamente');
+  end
+  else begin
+    memo1.Lines.Add('Ese número ya se encuentra en la lista por lo que no pudo ser cargado.');
+  end;
+
 end;
 
 procedure TForm1.FormCreate(Sender: TObject);

@@ -35,7 +35,7 @@ object Form1: TForm1
     Top = 104
     Width = 145
     Height = 41
-    Caption = 'Mostrar lista al revez'
+    Caption = 'Mostrar lista al reves'
     TabOrder = 1
     OnClick = btnMostrarClick
   end
@@ -77,10 +77,11 @@ object Form1: TForm1
   end
   object Button4: TButton
     Left = 24
-    Top = 448
+    Top = 408
     Width = 145
     Height = 41
     Caption = 'Generar numeros Unicos'
     TabOrder = 6
+    OnClick = Button4Click
   end
 end
