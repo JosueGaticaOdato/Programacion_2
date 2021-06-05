@@ -1,4 +1,4 @@
-program prj_tp3_opcionales;
+program projEjer1;
 
 uses
   Vcl.Forms,
