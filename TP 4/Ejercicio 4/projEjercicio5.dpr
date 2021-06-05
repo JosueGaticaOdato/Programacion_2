@@ -2,7 +2,11 @@ program projEjercicio5;
 
 uses
   Vcl.Forms,
-  ejercicio5 in 'ejercicio5.pas' {Form1};
+  ejercicio5 in 'ejercicio5.pas' {Form1},
+  ListArray in '..\ListArray.pas',
+  ListCursor in '..\ListCursor.pas',
+  ListPointer in '..\ListPointer.pas',
+  Tipos in '..\Tipos.pas';
 
 {$R *.res}
 
