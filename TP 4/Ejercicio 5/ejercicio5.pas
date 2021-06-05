@@ -11,9 +11,9 @@ uses
 
 const
   min = 0;
-  max = 5;
+  max = 4;
   A1 : Array[min..max] of integer = (1, 2, 3, 4, 5);
-  A2 : Array[min..2] of integer = (3, 2);
+  A2 : Array[min..1] of integer = (3, 2);
   cantElem = 5;
   minRand = 1;
   maxRand = 10;
@@ -29,6 +29,7 @@ type
     procedure Memo1Change(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -48,7 +49,9 @@ implementation
 
 procedure TForm1.Button1Click(Sender: TObject);
 begin
-  L1.LlenarClavesRandom(cantElem, minRand, maxRand);
+  L1.Crear(Numero,cantElemMax);
+  L2.Crear(Numero,cantElem);
+  L1.LlenarClavesRandom(cantElemMax, minRand, maxRand);
   L2.LlenarClavesRandom(cantElem, minRand, maxRand);
   memo1.Lines.Add('Lista 1:');
   memo1.Lines.Add(L1.RetornarClaves);
@@ -72,6 +75,41 @@ begin
    L2Cons.Agregar(X);
   end;
 
+end;
+
+function esSublist(Li1, Li2: Lista) : bool;
+var I, J: integer;
+    Elem1, Elem2: tipoElemento;
+begin
+  I := Li1.Comienzo;
+  J := Li2.Comienzo;
+  Elem1 := Li1.Recuperar(I);
+  Elem2 := Li2.Recuperar(J);
+
+  while (I <= Li1.CantidadElementos) do begin
+    while (J <= Li2.CantidadElementos) do begin
+      if Elem1.Clave = Elem2.Clave then begin
+        I := I + 1;
+        Elem1 := Li1.Recuperar(I);
+      end
+      else begin
+        J := J + 1;
+        Elem2 := Li2.Recuperar(J);
+      end;
+    end;
+  end;
+end;
+
+procedure TForm1.Button3Click(Sender: TObject);
+var esSublista: bool;
+begin
+  esSublista := esSublist(L1,L2);
+  if esSublista then begin
+    memo1.Lines.Add('La segunda lista es sublista de la primera');
+  end
+  else begin
+    memo1.Lines.Add('No es sublista.');
+  end;
 end;
 
 procedure TForm1.Memo1Change(Sender: TObject);

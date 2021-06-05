@@ -56,6 +56,7 @@ object Form1: TForm1
     Font.Style = []
     ParentFont = False
     TabOrder = 2
+    OnClick = Button3Click
   end
   object Memo1: TMemo
     Left = 320
