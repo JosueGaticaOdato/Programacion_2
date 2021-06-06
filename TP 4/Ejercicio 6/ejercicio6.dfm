@@ -15,15 +15,16 @@ object Form1: TForm1
   TextHeight = 13
   object Button1: TButton
     Left = 24
-    Top = 24
+    Top = 22
     Width = 209
     Height = 25
     Caption = 'Cargar lista'
     TabOrder = 0
+    OnClick = Button1Click
   end
   object Button2: TButton
     Left = 24
-    Top = 64
+    Top = 113
     Width = 209
     Height = 25
     Caption = 'Ordenar lista con burbujeo (decreciente)'
@@ -39,5 +40,14 @@ object Form1: TForm1
       'Memo1')
     ScrollBars = ssVertical
     TabOrder = 2
+  end
+  object Button3: TButton
+    Left = 24
+    Top = 64
+    Width = 209
+    Height = 27
+    Caption = 'Mostrar lista'
+    TabOrder = 3
+    OnClick = Button3Click
   end
 end

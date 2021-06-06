@@ -11,6 +11,7 @@ object Form1: TForm1
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
   object Button1: TButton
@@ -60,7 +61,7 @@ object Form1: TForm1
   end
   object Memo1: TMemo
     Left = 320
-    Top = 24
+    Top = 30
     Width = 481
     Height = 377
     Lines.Strings = (

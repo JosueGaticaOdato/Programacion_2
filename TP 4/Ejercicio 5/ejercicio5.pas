@@ -26,10 +26,11 @@ type
     Button2: TButton;
     Button3: TButton;
     Memo1: TMemo;
-    procedure Memo1Change(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure Memo1Change(Sender: TObject);
   private
     { Private declarations }
   public
@@ -64,8 +65,8 @@ procedure TForm1.Button2Click(Sender: TObject);
 var I: integer;
     X: TipoElemento;
 begin
-  L1Cons.Crear(Desconocido,cantElemMax);
-  L2Cons.Crear(Desconocido,cantElemMax);
+  L1Cons.Crear(Numero,cantElemMax);
+  L2Cons.Crear(Numero,cantElemMax);
   for I := 0 to Length(A1) do begin
    X.Inicializar(X.TipoDatoClave(A1[I]), A1[I]);
    L1Cons.Agregar(X);
@@ -112,7 +113,7 @@ begin
   end;
 end;
 
-procedure TForm1.Memo1Change(Sender: TObject);
+procedure TForm1.FormCreate(Sender: TObject);
 begin
   memo1.Clear;
 end;
