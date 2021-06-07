@@ -2,7 +2,7 @@ object Form1: TForm1
   Left = 0
   Top = 0
   Caption = 'Ejercicio 8'
-  ClientHeight = 262
+  ClientHeight = 222
   ClientWidth = 451
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -15,8 +15,8 @@ object Form1: TForm1
   PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel
-    Left = 316
-    Top = 135
+    Left = 303
+    Top = 111
     Width = 127
     Height = 13
     Caption = 'Que esta haciendo a las...'
@@ -66,18 +66,18 @@ object Form1: TForm1
     OnClick = Button1Click
   end
   object Memo1: TMemo
-    Left = 40
-    Top = 72
+    Left = 24
+    Top = 62
     Width = 249
-    Height = 162
+    Height = 148
     Lines.Strings = (
       'Memo1')
     ScrollBars = ssBoth
     TabOrder = 3
   end
   object Button2: TButton
-    Left = 336
-    Top = 72
+    Left = 287
+    Top = 62
     Width = 75
     Height = 42
     Caption = 'Mostrar actividades'
@@ -86,8 +86,8 @@ object Form1: TForm1
     OnClick = Button2Click
   end
   object Button3: TButton
-    Left = 336
-    Top = 192
+    Left = 323
+    Top = 168
     Width = 75
     Height = 42
     Caption = 'Averiguar'
@@ -95,8 +95,8 @@ object Form1: TForm1
     OnClick = Button3Click
   end
   object Averiguar: TTimePicker
-    Left = 316
-    Top = 154
+    Left = 303
+    Top = 130
     Width = 116
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -106,5 +106,15 @@ object Form1: TForm1
     TabOrder = 6
     Time = 44354.642736168980000000
     TimeFormat = 'hh:mm'
+  end
+  object Button4: TButton
+    Left = 368
+    Top = 63
+    Width = 75
+    Height = 42
+    Caption = 'Porcentaje de ocupacion'
+    TabOrder = 7
+    WordWrap = True
+    OnClick = Button4Click
   end
 end
