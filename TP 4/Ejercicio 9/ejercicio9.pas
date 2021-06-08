@@ -13,7 +13,7 @@ const
   cantElemMax = 100;
 
 type
-
+  antiguedadMultas = Array[0..1] of integer;
   TForm1 = class(TForm)
     Button1: TButton;
     Memo1: TMemo;
@@ -23,8 +23,11 @@ type
     DateTimePicker1: TDateTimePicker;
     Button2: TButton;
     Edit2: TEdit;
+    Label2: TLabel;
+    Button3: TButton;
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -59,32 +62,40 @@ implementation
 //  Li.RetornarClaves;
 //end;
 
-function multaMasAntigua(L: Lista; Auto: string) : integer;
+function multaAntiguayReciente(L: Lista; Auto: string) : antiguedadMultas;
 var contL1, contL2: tipoElemento;
     pos: posicionLista;
     puntero: ^Lista;
-    multaAntigua: integer;
+    multas: antiguedadMultas;
+    multaAntigua, multaReciente: integer;
 begin
   pos := L.Comienzo;
-
-
-
-
-
-//  while pos <> Nulo do begin
-//    contL1 := L.Recuperar(pos);
-//    if contL1.Clave = Auto then begin
-//      if contL1.Valor1 = 'Pendiente' then begin
-//        puntero := contL1.Valor2;
-//        contL2 := puntero^.Recuperar(pos);
-//
-//        contL2.Valor1
-//      end;
-//    end;
-//    pos := L.Siguiente(pos);
+  contL1 := L.Recuperar(pos);
+  multaAntigua := 0;
+  multaReciente := 0;
+  if contL1.Clave = Auto then begin
+    puntero := contL1.Valor2;
+    contL2 := puntero^.Recuperar(pos);
+    while pos <> Nulo do begin
+      if contL2.Clave[0] = 'Pendiente' then begin
+        multaAntigua := contL2.Valor1;
+        multaReciente := contL2.Valor1;
+        if ContL2.Valor1 < multaAntigua then begin
+          multaAntigua := ContL2.Clave[1];
+        end;
+        if ContL2.Valor1 > multaReciente then begin
+          multaReciente := ContL2.Clave[1];
+        end;
+      end;
+      pos := L.Siguiente(pos);
+      contL2 := puntero^.Recuperar(pos);
+    end;
   end;
-  Result := ;
+  multas[0] := multaAntigua;
+  multas[1] := multaReciente;
+  Result := multas;
 end;
+
 
 function totalMultas(L: Lista; Auto: string) : integer;
 var sumador: integer;
@@ -117,15 +128,17 @@ var Elem, ElemPuntero: tipoElemento;
     posElem: posicionLista;
     puntero: ^Lista;
     punteroValor2: ^Integer;
+    claveMulta: Array[0..1] of string;
 begin
   Randomize;
   L.Crear(Cadena,cantElemMax);
   New(puntero);
   puntero^.Crear(Numero,cantElemMax);
   Elem.Clave := Edit1.Text; //patente
-  Elem.Valor1 := ComboBox1.Text;     //estado
   New(punteroValor2);
-  ElemPuntero.Clave := Random(100); // nro acta multa
+  claveMulta[0] := intToStr(Random(100));
+  claveMulta[1] := ComboBox1.Text;
+  ElemPuntero.Clave := claveMulta; // nro acta multa y estado
   ElemPuntero.Valor1 := DateTimePicker1.Date;        //fecha multa
 
   punteroValor2^ := Random(15000);  //importe multa
@@ -146,6 +159,14 @@ var deuda: integer;
 begin
   deuda := totalMultas(L, Edit2.Text);
   memo1.Lines.Add(intToStr(deuda));
+end;
+
+procedure TForm1.Button3Click(Sender: TObject);
+var multas: antiguedadMultas;
+begin
+  multas := multaAntiguayReciente(L, Edit2.Text);
+  memo1.Lines.Add('Multa más antigüa: ' + intToStr(multas[0]));
+  memo1.Lines.Add('Multa más reciente: ' + intToStr(multas[1]));
 end;
 
 end.

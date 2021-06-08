@@ -20,6 +20,13 @@ object Form1: TForm1
     Height = 13
     Caption = 'Patente'
   end
+  object Label2: TLabel
+    Left = 16
+    Top = 272
+    Width = 121
+    Height = 13
+    Caption = 'Consulte por su auto'
+  end
   object Button1: TButton
     Left = 40
     Top = 56
@@ -68,7 +75,7 @@ object Form1: TForm1
   end
   object Button2: TButton
     Left = 0
-    Top = 288
+    Top = 320
     Width = 105
     Height = 25
     Caption = 'Calcular deudas'
@@ -76,11 +83,19 @@ object Form1: TForm1
     OnClick = Button2Click
   end
   object Edit2: TEdit
-    Left = 120
-    Top = 290
+    Left = 24
+    Top = 293
     Width = 121
     Height = 21
     TabOrder = 6
-    Text = 'Edit2'
+  end
+  object Button3: TButton
+    Left = 111
+    Top = 320
+    Width = 99
+    Height = 25
+    Caption = 'Multa m'#225's antig'#252'a'
+    TabOrder = 7
+    OnClick = Button3Click
   end
 end
