@@ -51,6 +51,7 @@ implementation
 
 {$R *.dfm}
 
+//Complejidad algoritmica: Lineal(Recorrer la lista, recuperar contenido, asignar)
 //Funcion que devuelve en minutos el tiempo de ocupacion
 function Ocupacion(L1:Lista):Integer;
 var Sumador: Integer;
@@ -92,6 +93,8 @@ begin
   Result := Sumador;
 end;
 
+//Complejidad algoritimica: Lineal (Recorrer la lista, recuperar contenido,
+                                //asignar,comparar si es la hora indica, devolver)
 //Funcion que me devuelve que actividad tiene que hacer a esa hora
 function Actividad_Empleado(L1: Lista; Hora: TTime): String;
 var X: TipoElemento;
@@ -132,6 +135,8 @@ begin
   Result := Devolucion;
 end;
 
+//Complejidad Algoritmica: Lineal (Asignar, Condicionales para saber contenido,
+                                //agregar al final)
 //Boton que agrega la actividad a la lista
 procedure TForm1.Button1Click(Sender: TObject);
 var X: TipoElemento;
@@ -144,7 +149,8 @@ begin
   //Segun cual sea la actividad, que cargara el tiempo que dura en el apuntador
   if Actividad.Text = 'Almuerzo de negocios' then
   begin
-    Apuntador^ := (Hora.Time + EncodeTime(Almuerzo_de_negocios,0,0,0));
+    Apuntador^ := (Hora.Time + EncodeTime(Almuerzo_de_negocios,0,0,0)); //EncodeTime me devuelve
+    //un Time pasando como parametros hora, minutos y segundos
   end
   else if Actividad.Text= 'Atender cliente' then
   begin

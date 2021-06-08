@@ -53,7 +53,9 @@ var
 implementation
 
 {$R *.dfm}
-//Complejida algoritmica: Lineal (Recuperar elemento de la lista, Sumar un contador)
+
+//Complejida algoritmica: Lineal (Recuperar elemento de la lista, condicionales para
+//saber de que elemento se trata, Sumar un contador)
 //Funcion que realiza la suma de puntos
 function Sumatoria (L1:Lista): String;
 var P: PosicionLista;
@@ -97,6 +99,7 @@ begin
   Result := Sumador.ToString;
 end;
 
+//Complejidad Algoritimica: Lineal (Aumentar el final, Agregar elemento en ese final)
 //Procedimiento que realiza la carga de objetos en la lista
 procedure Cargar_Objeto(var L1:Lista; Objeto: TipoElemento);
 var P: PosicionLista;

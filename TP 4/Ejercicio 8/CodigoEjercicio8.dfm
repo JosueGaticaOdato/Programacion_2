@@ -56,8 +56,8 @@ object Form1: TForm1
     TimeFormat = 'hh:mm'
   end
   object Button1: TButton
-    Left = 360
-    Top = 16
+    Left = 368
+    Top = 21
     Width = 75
     Height = 35
     Caption = 'Agregar actividad'
