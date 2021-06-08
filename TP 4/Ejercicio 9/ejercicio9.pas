@@ -21,7 +21,10 @@ type
     Label1: TLabel;
     ComboBox1: TComboBox;
     DateTimePicker1: TDateTimePicker;
+    Button2: TButton;
+    Edit2: TEdit;
     procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -51,9 +54,62 @@ implementation
 //    ¿Cuál es el vehículo que más deuda de infracciones tiene?
 //    ¿Existe algún vehículo/s que no tenga deuda de infracciones?
 
-procedure mostrarLista(Li: Lista);
+//procedure mostrarLista(var Li: Lista);
+//begin
+//  Li.RetornarClaves;
+//end;
+
+function multaMasAntigua(L: Lista; Auto: string) : integer;
+var contL1, contL2: tipoElemento;
+    pos: posicionLista;
+    puntero: ^Lista;
+    multaAntigua: integer;
 begin
-  Li.RetornarClaves;
+  pos := L.Comienzo;
+
+
+
+
+
+//  while pos <> Nulo do begin
+//    contL1 := L.Recuperar(pos);
+//    if contL1.Clave = Auto then begin
+//      if contL1.Valor1 = 'Pendiente' then begin
+//        puntero := contL1.Valor2;
+//        contL2 := puntero^.Recuperar(pos);
+//
+//        contL2.Valor1
+//      end;
+//    end;
+//    pos := L.Siguiente(pos);
+  end;
+  Result := ;
+end;
+
+function totalMultas(L: Lista; Auto: string) : integer;
+var sumador: integer;
+    contL1, contL2: tipoElemento;
+    pos: posicionLista;
+    puntero: ^Lista;
+    puntero2: ^integer;
+begin
+  pos := L.Comienzo;
+  sumador := 0;
+
+  while pos <> Nulo do begin
+    contL1 := L.Recuperar(pos);
+    if contL1.Clave = Auto then begin
+      if contL1.Valor1 = 'Pendiente' then begin
+        puntero := contL1.Valor2;
+        contL2 := puntero^.Recuperar(pos);
+
+        puntero2 := contL2.Valor2;
+        sumador := sumador + puntero2^;
+      end;
+    end;
+    pos := L.Siguiente(pos);
+  end;
+  Result := sumador;
 end;
 
 procedure TForm1.Button1Click(Sender: TObject);
@@ -65,24 +121,31 @@ begin
   Randomize;
   L.Crear(Cadena,cantElemMax);
   New(puntero);
-  puntero^.Crear(Cadena,cantElemMax);
-  Elem.Clave := Edit1.Text;
-  Elem.Valor1 := ComboBox1.Text;
+  puntero^.Crear(Numero,cantElemMax);
+  Elem.Clave := Edit1.Text; //patente
+  Elem.Valor1 := ComboBox1.Text;     //estado
   New(punteroValor2);
-  ElemPuntero.Clave := Random(100);
-  ElemPuntero.Valor1 := DateTimePicker1.Date;
+  ElemPuntero.Clave := Random(100); // nro acta multa
+  ElemPuntero.Valor1 := DateTimePicker1.Date;        //fecha multa
 
-  punteroValor2^ := Random(15000);
+  punteroValor2^ := Random(15000);  //importe multa
   ElemPuntero.Valor2 := punteroValor2;
 
   puntero^.Agregar(ElemPuntero);
-  Elem.Valor2 := puntero;
+  Elem.Valor2 := puntero;        //multas
   L.Agregar(Elem);
   memo1.Lines.Add(L.RetornarClaves);
   memo1.Lines.Add(puntero^.RetornarClaves);
-  mostrarLista(L);
+  //mostrarLista(L);
 end;
 
 
+
+procedure TForm1.Button2Click(Sender: TObject);
+var deuda: integer;
+begin
+  deuda := totalMultas(L, Edit2.Text);
+  memo1.Lines.Add(intToStr(deuda));
+end;
 
 end.

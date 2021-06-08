@@ -66,4 +66,21 @@ object Form1: TForm1
     Time = 0.901170567129156600
     TabOrder = 4
   end
+  object Button2: TButton
+    Left = 0
+    Top = 288
+    Width = 105
+    Height = 25
+    Caption = 'Calcular deudas'
+    TabOrder = 5
+    OnClick = Button2Click
+  end
+  object Edit2: TEdit
+    Left = 120
+    Top = 290
+    Width = 121
+    Height = 21
+    TabOrder = 6
+    Text = 'Edit2'
+  end
 end
