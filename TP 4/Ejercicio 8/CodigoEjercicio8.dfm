@@ -33,8 +33,9 @@ object Form1: TForm1
     Top = 30
     Width = 145
     Height = 21
+    ItemIndex = 1
     TabOrder = 0
-    Text = 'Actividad'
+    Text = 'Atender cliente'
     Items.Strings = (
       'Almuerzo de negocios'
       'Atender cliente'

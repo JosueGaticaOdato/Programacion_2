@@ -9,6 +9,9 @@ uses
   //ListCursor;
   ListPointer;
 
+type
+  TActividad = (AlmuerzoDeNegocios,AtenderCliente,AtenderClienteVIP,ReunionGerente);
+
 //Constantes del problema
 const
   Maximo = 100;
@@ -18,6 +21,8 @@ const
   Atender_cliente_VIP = 30;
   Reunion_gerente = 30;
   Un_Dia = 1440;
+  Duraciones : Array [AlmuerzoDeNegocios..ReunionGerente]
+    of Integer = (120,10,30,30);
 
 type
   TForm1 = class(TForm)
@@ -70,22 +75,7 @@ begin
     X := L1.Recuperar(P);
     //Consulto cual actividad es, y segun la que sea
     //la sumo en el sumador
-    if X.Valor1 = 'Almuerzo de negocios' then
-    begin
-      Sumador := Sumador + Almuerzo_de_negocios_hrs;
-    end
-    else if X.Valor1 = 'Atender cliente' then
-    begin
-      Sumador := Sumador + Atender_cliente;
-    end
-    else if X.Valor1 = 'Atender cliente VIP' then
-    begin
-      Sumador := Sumador + Atender_cliente_VIP;
-    end
-    else
-    begin
-      Sumador := Sumador + Reunion_gerente;
-    end;
+    Sumador := Sumador + Duraciones[TActividad(X.Valor1)];
   //Busco el siguiente de P
   P := L.Siguiente(P);
   end;
@@ -144,26 +134,11 @@ var X: TipoElemento;
 begin
   //Paso al clave y el valor 1, que seran la hora y la actividad
   X.Clave := Timetostr(Hora.Time);
-  X.Valor1 := Actividad.Text;
+  X.Valor1 := Actividad.ItemIndex;
   New(Apuntador);
   //Segun cual sea la actividad, que cargara el tiempo que dura en el apuntador
-  if Actividad.Text = 'Almuerzo de negocios' then
-  begin
-    Apuntador^ := (Hora.Time + EncodeTime(Almuerzo_de_negocios,0,0,0)); //EncodeTime me devuelve
-    //un Time pasando como parametros hora, minutos y segundos
-  end
-  else if Actividad.Text= 'Atender cliente' then
-  begin
-    Apuntador^ := (Hora.Time + EncodeTime(0,Atender_cliente,0,0));
-  end
-  else if Actividad.Text = 'Atender cliente VIP' then
-  begin
-    Apuntador^ := (Hora.Time + EncodeTime(0,Atender_cliente_VIP,0,0));
-  end
-  else
-  begin
-    Apuntador^ := (Hora.Time + EncodeTime(0,Reunion_gerente,0,0));
-  end;
+  Apuntador^ := (Hora.Time + EncodeTime(Duraciones[TActividad(Actividad.ItemIndex)] DIV 60,
+    Duraciones[TActividad(Actividad.ItemIndex)] MOD 60,0,0));
   //Paso el apuntador al valor 2
   X.Valor2 := Apuntador;
   //Agrego a la lista
@@ -211,6 +186,7 @@ begin
   //Creo la lista con un maximo determinado
   L.Crear(Cadena,Maximo);
   Memo1.Clear;
+  //Actividad.AddItem('Almuerzo de negocios2',AlmuerzoDeNegocios);
 end;
 
 end.
