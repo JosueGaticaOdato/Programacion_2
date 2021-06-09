@@ -106,6 +106,7 @@
         <DCCReference Include="ListCursor.pas"/>
         <DCCReference Include="ListPointer.pas"/>
         <DCCReference Include="Tipos.pas"/>
+        <DCCReference Include="PacManTAD.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

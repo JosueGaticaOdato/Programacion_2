@@ -6,7 +6,8 @@ uses
   ListArray in 'ListArray.pas',
   ListCursor in 'ListCursor.pas',
   ListPointer in 'ListPointer.pas',
-  Tipos in 'Tipos.pas';
+  Tipos in 'Tipos.pas',
+  PacManTAD in 'PacManTAD.pas';
 
 {$R *.res}
 
