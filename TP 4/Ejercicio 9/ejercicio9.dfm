@@ -2,8 +2,8 @@ object Form1: TForm1
   Left = 0
   Top = 0
   Caption = 'Form1'
-  ClientHeight = 443
-  ClientWidth = 413
+  ClientHeight = 541
+  ClientWidth = 510
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -22,22 +22,22 @@ object Form1: TForm1
     Caption = 'Patente'
   end
   object Label2: TLabel
-    Left = 16
-    Top = 69
+    Left = 8
+    Top = 101
     Width = 88
     Height = 13
     Caption = 'Estado de la multa'
   end
   object Label3: TLabel
-    Left = 16
-    Top = 123
+    Left = 8
+    Top = 155
     Width = 29
     Height = 13
     Caption = 'Fecha'
   end
   object Label4: TLabel
-    Left = 16
-    Top = 184
+    Left = 8
+    Top = 216
     Width = 38
     Height = 13
     Caption = 'Importe'
@@ -51,7 +51,7 @@ object Form1: TForm1
   end
   object Button1: TButton
     Left = 24
-    Top = 248
+    Top = 278
     Width = 105
     Height = 33
     Caption = 'Ingresar multa'
@@ -75,8 +75,8 @@ object Form1: TForm1
     TabOrder = 2
   end
   object ComboBox1: TComboBox
-    Left = 8
-    Top = 88
+    Left = 0
+    Top = 120
     Width = 145
     Height = 21
     TabOrder = 3
@@ -87,7 +87,7 @@ object Form1: TForm1
   end
   object DateTimePicker1: TDateTimePicker
     Left = 8
-    Top = 142
+    Top = 182
     Width = 145
     Height = 21
     Date = 44354.000000000000000000
@@ -95,8 +95,8 @@ object Form1: TForm1
     TabOrder = 4
   end
   object Edit2: TEdit
-    Left = 8
-    Top = 203
+    Left = 0
+    Top = 243
     Width = 145
     Height = 21
     TabOrder = 5
@@ -108,7 +108,6 @@ object Form1: TForm1
     Height = 25
     Caption = 'Multa m'#225's antig'#252'a'
     TabOrder = 6
-    OnClick = Button3Click
   end
   object Button2: TButton
     Left = 25
@@ -117,7 +116,6 @@ object Form1: TForm1
     Height = 25
     Caption = 'Calcular deudas'
     TabOrder = 7
-    OnClick = Button2Click
   end
   object Edit3: TEdit
     Left = 136
@@ -133,7 +131,6 @@ object Form1: TForm1
     Height = 25
     Caption = 'Multa mas reciente'
     TabOrder = 9
-    OnClick = Button4Click
   end
   object Button5: TButton
     Left = 24
@@ -143,7 +140,6 @@ object Form1: TForm1
     Caption = 'Vehiculo con mayor cantidad de infracciones'
     TabOrder = 10
     WordWrap = True
-    OnClick = Button5Click
   end
   object Button6: TButton
     Left = 150
@@ -153,7 +149,6 @@ object Form1: TForm1
     Caption = 'Vehiculo con la mayor deuda'
     TabOrder = 11
     WordWrap = True
-    OnClick = Button6Click
   end
   object Button7: TButton
     Left = 278
@@ -163,6 +158,5 @@ object Form1: TForm1
     Caption = 'Vehiculo sin deudas'
     TabOrder = 12
     WordWrap = True
-    OnClick = Button7Click
   end
 end
