@@ -5,10 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Tipos, TADMultas,
-  Vcl.StdCtrls, Vcl.ComCtrls,
-  ListArray;
-  //ListCursor;
-  //ListPointer; //Falta chequear puntero
+  Vcl.StdCtrls, Vcl.ComCtrls;
 
 const
   cantElemMax = 100;
@@ -46,40 +43,42 @@ type
     procedure Button7Click(Sender: TObject);
   private
     { Private declarations }
+    List: Vehiculo;
   public
     { Public declarations }
   end;
 
 var
   Form1: TForm1;
-  L: Lista;
-  V: Vehiculo;
 
 implementation
 {$R *.dfm}
+
+//no me funciona las funciones buscar, directamente no entra en
+// el while, porque L.comienzo me devuelve 0 en vez de 1,
+// (0 es nulo)
 
 //Boton que realiza la carga en la lista
 procedure TForm1.Button1Click(Sender: TObject);
 var posAuto, posMulta: integer;
 begin
-  L.Crear(Cadena,cantElemMax);
-  posAuto := V.buscarAuto(L,Edit1.Text);
+  posAuto := List.buscarAuto(Edit1.Text);
   if posAuto = numError then begin
-    posAuto := V.buscarPosDispo(L);
+    posAuto := List.buscarPosDispo();
     if posAuto = numError then begin
       memo1.Lines.Add('No hay lugar en la lista de autos');
     end
     else begin
-      V.guardarPatente(L,Edit1.Text,posAuto);
+      List.guardarPatente(Edit1.Text,posAuto);
     end;
   end
   else begin
-    posMulta := V.buscarPosMulta(L,DateTimePicker1.Date,posAuto);
+    posMulta := List.buscarPosMulta(DateTimePicker1.Date,posAuto);
     if posMulta = numError then begin
       memo1.Lines.Add('No hay lugar en la lista de multas');
     end
     else begin
-      V.guardarMulta(L,DateTimePicker1.Date,posAuto,posMulta,posMulta,strToInt(Edit2.Text),
+      List.guardarMulta(DateTimePicker1.Date,posAuto,posMulta,strToInt(Edit2.Text),
       ComboBox1.Text);
     end;
   end;
@@ -108,7 +107,7 @@ end;
 procedure TForm1.Button2Click(Sender: TObject);
 var deuda: tipoElemento;
 begin
-  deuda := V.totalMultas(L, Edit3.Text);
+  deuda := List.totalMultas(Edit3.Text);
   memo1.Lines.Add('La deuda del vehiculo ' + deuda.Clave + ' es de ' + deuda.Valor1 + ' pesos');
 end;
 
@@ -118,7 +117,7 @@ var X:tipoElemento;
 //  P: ^Integer;
 
 begin
-  X := V.multaAntigua(L,Edit3.Text);
+  X := List.multaAntigua(Edit3.Text);
   memo1.Lines.Add('La multa mas antigua es ' + X.Clave);
   memo1.Lines.Add('Cargada el dia ' + DateToSTR(X.Valor1));
 //  P := X.Valor2;
@@ -130,7 +129,7 @@ procedure TForm1.Button4Click(Sender: TObject);
 var X:TipoElemento;
   P: ^Integer;
 begin
-  X := V.multaReciente(L,Edit3.Text);
+  X := List.multaReciente(Edit3.Text);
   memo1.Lines.Add('La multa mas recien es ' + FloatToStr(X.Clave));
   memo1.Lines.Add('Cargada el dia ' + DateToSTR(X.Valor1));
   P := X.Valor2;
@@ -141,7 +140,7 @@ end;
 procedure TForm1.Button5Click(Sender: TObject);
 var X: TipoElemento;
 begin
-  X := V.Mayor_Cant_Infracciones(L);
+  X := List.Mayor_Cant_Infracciones();
   memo1.Lines.Add('El vehiculo con mayor cantidad de infracciones es ' + X.Clave);
   memo1.Lines.Add('Con un total de ' + IntToStr(X.Valor1) + ' infracciones');
 end;
@@ -150,7 +149,7 @@ end;
 procedure TForm1.Button6Click(Sender: TObject);
 var X: TipoElemento;
 begin
-  X := V.Mayor_Deuda(L);
+  X := List.Mayor_Deuda();
   memo1.Lines.Add('El vehiculo con mayor deuda es ' + X.Clave) ;
   memo1.Lines.Add('Con un total a pagar de ' + IntToSTR(X.Valor1) + ' pesos.');
 end;
@@ -159,13 +158,14 @@ end;
 procedure TForm1.Button7Click(Sender: TObject);
 var Vehiculo_sin_deuda: String;
 begin
-  Vehiculo_sin_deuda := V.Sin_Deuda(L);
+  Vehiculo_sin_deuda := List.Sin_Deuda();
   memo1.Lines.Add('El vehiculo que no tiene deudas es ' + Vehiculo_sin_deuda);
 end;
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
   memo1.Clear;
+  List.Inicializar(cantElemMax);
 
 end;
 
