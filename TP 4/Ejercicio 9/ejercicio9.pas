@@ -60,23 +60,27 @@ implementation
 
 //Boton que realiza la carga en la lista
 procedure TForm1.Button1Click(Sender: TObject);
-var posAuto, posMulta: integer;
+var posAuto: integer;
+    multaGuardada: boolean;
+    Auto: tipoElemento;
 begin
   posAuto := List.buscarAuto(Edit1.Text);
   if posAuto = numError then begin
     memo1.Lines.Add('No hay lugar en la lista de autos');
   end
   else begin
-    List.guardarPatente(Edit1.Text,posAuto);
+    Auto := List.guardarPatente(Edit1.Text,posAuto);
   end;
-  posMulta := List.buscarPosMulta(DateTimePicker1.Date,posAuto);
-  if posMulta = numError then begin
-    memo1.Lines.Add('No hay lugar en la lista de multas');
+  multaGuardada := List.guardarMulta(DateTimePicker1.Date,Auto,
+  strToInt(Edit2.Text), ComboBox1.Text);
+  if multaGuardada then begin
+    memo1.Lines.Add('Se guardaron el Auto y los datos de la multa');
+    List.mostrarLista();
   end
   else begin
-    List.guardarMulta(DateTimePicker1.Date,posAuto,posMulta,strToInt(Edit2.Text),
-    ComboBox1.Text);
+    memo1.Lines.Add('No hay lugar en la lista de multas');
   end;
+
 end;
 //
 ////Generar una lista de lista que permita almacenar como clave la patente de un vehículo

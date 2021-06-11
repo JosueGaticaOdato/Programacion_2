@@ -4,7 +4,7 @@ interface
 
 uses
   ListArray,
-  //ListPointer, con este tiene errores
+  //ListPointer, //con este tiene errores
   //ListCursor,
   Tipos;
 
@@ -31,18 +31,22 @@ type
     function multaAntigua (Auto: String): tipoElemento;
     function totalMultas (Auto: String): tipoElemento;
     function buscarAuto(patent: string) : integer;
-    function buscarPosMulta(fecha: TDate; posAuto: integer) : integer;
-    procedure guardarPatente(patente: string; posGuardar: integer);
-    procedure guardarMulta(multa: TDate;posAuto,posGuardar,
-      monto:integer;estado:string);
+//    function buscarPosMulta(fecha: TDate; posAuto: integer) : integer;
+    function guardarPatente(patente: string; posGuardar: integer) : tipoElemento;
+    function guardarMulta(fecha: TDate;var Auto:tipoElemento; monto:integer;estado:string) : boolean;
     function Devolver_Lista(): Lista;
     procedure Inicializar(Tamaño: Integer);
+    procedure mostrarLista();
   End;
 
-var
-  L: Lista;
+
 
 implementation
+
+procedure Vehiculo.mostrarLista();
+begin
+  L.RetornarClaves;
+end;
 
 //busca si el auto parametro esta guardado, devuelve pos o error
 function Vehiculo.buscarAuto(patent: string) : integer;
@@ -76,69 +80,45 @@ begin
   Result := posAuto;
 end;
 
-function Vehiculo.buscarPosMulta(fecha: TDate; posAuto: integer) :
-integer;
-var Elem, elemMulta: tipoElemento;
-    posMulta: posicionLista;
-    LM: pMultas;
-    Encontrado: boolean;
-    posMultaDispo: integer;
-begin
-  Encontrado := False;
-  Elem := L.Recuperar(posAuto);
-  New(LM);
-  LM := Elem.Valor2;
-  posMulta := LM^.Comienzo;
-  elemMulta := LM.Recuperar(posMulta);
-  posMultaDispo := numError;
-  //recorro las multas buscando posición disponible
-  while (posMulta <= L.Fin) and (not Encontrado) do begin
-    if elemMulta.Clave = Nulo then begin
-      Encontrado := True;
-      posMultaDispo := posMulta;
-    end
-    else begin
-      posMulta := LM.Siguiente(posMulta);
-      elemMulta := Lm.Recuperar(posMulta);
-    end;
-  end;
-  if not Encontrado then posMultaDispo := numError;
-  Dispose(LM);
-  Result := posMultaDispo;
-end;
-
-procedure Vehiculo.guardarPatente(patente: string; posGuardar: integer);
+function Vehiculo.guardarPatente(patente: string; posGuardar: integer) : tipoElemento;
 var Elem: tipoElemento;
 begin
-  Elem := L.Recuperar(posGuardar);
   Elem.Clave := patente;
+  L.Agregar(Elem);
+  Result := Elem;
 end;
 
-procedure Vehiculo.guardarMulta(multa: TDate;posAuto,posGuardar,
- monto:integer;estado:string);
-var fecha: TDate;
-    E: string;
-    importe: integer;
-    Elem, elemMulta: tipoElemento;
+function Vehiculo.guardarMulta(fecha: TDate;var Auto:tipoElemento;
+ monto:integer;estado:string) : boolean;
+var posGuardar: posicionLista;
+
+    seGuardo: boolean;
+    elemMulta: tipoElemento;
     LM: pMultas;
     punteroMulta: puntMulta;
 begin
-  fecha := multa;
-  importe := monto;
-  E := estado;
-  Elem := L.Recuperar(posAuto);
-
+  seGuardo := True;
   New(LM);
   New(punteroMulta);
-  LM := Elem.Valor2;
-  elemMulta := LM.Recuperar(posGuardar);
-  elemMulta.Clave := posGuardar;
+  posGuardar := L.Buscar(Auto);
+  elemMulta.Clave := posGuardar;  //nro acta
   punteroMulta.Fecha := fecha;
-  punteroMulta.Importe := importe;
-  punteroMulta.Estado := E;
-  punteroMulta := elemMulta.Valor2;
+  punteroMulta.Importe := monto;
+  punteroMulta.Estado := estado;
+  elemMulta.Valor2 := punteroMulta;
+  if not LM.EsLLena then begin
+    LM.Agregar(elemMulta);
+    Auto.Valor2 := LM;
+  end
+  else begin
+    seGuardo := False;
+  end;
+
+
+//  L.Agregar(Elem);
   Dispose(LM);
   Dispose(punteroMulta);
+  Result := seGuardo;
 end;
 
 //Funcion que me devuelve aquel auto que no tenga deudas
