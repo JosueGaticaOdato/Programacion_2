@@ -53,8 +53,7 @@ implementation
 {$R *.dfm}
 
 
-//Complejidad Algoritmica: Lineal (Asignar, Condicionales para saber contenido,
-                                //agregar al final)
+//Complejidad Algoritmica: Lineal (Asignar, Condicionales para saber contenido,agregar al final)
 //Boton que agrega la actividad a la lista
 procedure TForm1.Button1Click(Sender: TObject);
 var X: TipoElemento;
@@ -124,7 +123,7 @@ end;
 //Creacion de la lista
 procedure TForm1.FormCreate(Sender: TObject);
 begin
-  L.Crear();
+  L.Crear(Maximo);
   Memo1.Clear;
 end;
 

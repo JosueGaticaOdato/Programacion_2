@@ -21,7 +21,6 @@ type
 
 //Constantes del problema
 const
-  Maximo = 100;
   Un_Dia = 1440;
   Duraciones : Array [AlmuerzoDeNegocios..ReunionGerente]
     of Integer = (120,10,30,30);
@@ -31,7 +30,7 @@ type
     private
       L: Lista; //Tengo como atributo la lista
     public
-      procedure Crear();
+      procedure Crear(Max: Integer);
       procedure Agregar_agenda(Valor:TipoElemento);
       function Mostrar_Agenda(): String;
       procedure Ordenar_Agenda();
@@ -42,9 +41,9 @@ type
 implementation
 
 //Crea la agenda
-procedure Agenda.Crear();
+procedure Agenda.Crear(Max: Integer);
 begin
-  L.Crear(Cadena,Maximo);
+  L.Crear(Cadena,Max);
 end;
 
 //Agregar actividad a la agenda
@@ -91,7 +90,7 @@ begin
     Puntero := X.Valor2;
     Hora_Final := Puntero^.Hora_Fin;
     //Si la hora dada se encuentra en ese lapso
-    if ((TimeToStr(Hora) > TimeToStr(Hora_inicio)) and (TimeToStr(Hora) < TimeToStr(Hora_Final))) then
+    if ((TimeToStr(Hora) >= TimeToStr(Hora_inicio)) and (TimeToStr(Hora) <= TimeToStr(Hora_Final))) then
     begin
       //Devuelve la actividad que tiene que hacer
       Devolucion := X.Valor1;
