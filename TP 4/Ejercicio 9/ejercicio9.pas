@@ -8,7 +8,7 @@ uses
   Vcl.StdCtrls, Vcl.ComCtrls;
 
 const
-  cantElemMax = 100;
+  cantElemMax = 3;
 
 
 type
@@ -27,12 +27,12 @@ type
     Label4: TLabel;
     Button3: TButton;
     Button2: TButton;
-    Edit3: TEdit;
     Label5: TLabel;
     Button4: TButton;
     Button5: TButton;
     Button6: TButton;
     Button7: TButton;
+    Edit3: TEdit;
     procedure FormCreate(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
@@ -60,23 +60,28 @@ implementation
 
 //Boton que realiza la carga en la lista
 procedure TForm1.Button1Click(Sender: TObject);
-var posAuto, posMulta: integer;
+var posAuto: integer;
+    multaGuardada: boolean;
+    Auto: tipoElemento;
 begin
   posAuto := List.buscarAuto(Edit1.Text);
   if posAuto = numError then begin
     memo1.Lines.Add('No hay lugar en la lista de autos');
   end
   else begin
-    List.guardarPatente(Edit1.Text,posAuto);
+    Auto := List.guardarPatente(Edit1.Text,posAuto);
   end;
-  posMulta := List.buscarPosMulta(DateTimePicker1.Date,posAuto);
-  if posMulta = numError then begin
-    memo1.Lines.Add('No hay lugar en la lista de multas');
+  multaGuardada := List.guardarMulta(DateTimePicker1.Date,Auto,
+  strToInt(Edit2.Text), ComboBox1.Text);
+  if multaGuardada then begin
+    memo1.Lines.Add('Se guardaron el Auto y los datos de la multa');
+
+    memo1.Lines.Add(List.mostrarLista());    //borrar despues
   end
   else begin
-    List.guardarMulta(DateTimePicker1.Date,posAuto,posMulta,strToInt(Edit2.Text),
-    ComboBox1.Text);
+    memo1.Lines.Add('No hay lugar en la lista de multas');
   end;
+
 end;
 //
 ////Generar una lista de lista que permita almacenar como clave la patente de un vehículo
@@ -103,7 +108,12 @@ procedure TForm1.Button2Click(Sender: TObject);
 var deuda: tipoElemento;
 begin
   deuda := List.totalMultas(Edit3.Text);
-  memo1.Lines.Add('La deuda del vehiculo ' + deuda.Clave + ' es de ' + deuda.Valor1 + ' pesos');
+  if not deuda.EsTEVacio then begin
+    memo1.Lines.Add('La deuda del vehiculo ' + deuda.Clave + ' es de ' + deuda.Valor1 + ' pesos');
+  end
+  else begin
+    memo1.Lines.Add('El auto ingresado no está guardado en la lista');
+  end;
 end;
 
 //Boton que me muestra la multa mas antigua de ese vehiculo
