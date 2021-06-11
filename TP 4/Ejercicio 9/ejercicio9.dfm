@@ -15,8 +15,8 @@ object Form1: TForm1
   PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel
-    Left = 16
-    Top = 16
+    Left = 8
+    Top = 27
     Width = 38
     Height = 13
     Caption = 'Patente'
@@ -43,8 +43,8 @@ object Form1: TForm1
     Caption = 'Importe'
   end
   object Label5: TLabel
-    Left = 150
-    Top = 298
+    Left = 176
+    Top = 287
     Width = 100
     Height = 13
     Caption = 'Consulte por su auto'
@@ -69,7 +69,7 @@ object Form1: TForm1
   end
   object Edit1: TEdit
     Left = 8
-    Top = 35
+    Top = 51
     Width = 145
     Height = 21
     TabOrder = 2
@@ -95,8 +95,8 @@ object Form1: TForm1
     TabOrder = 4
   end
   object Edit2: TEdit
-    Left = 0
-    Top = 243
+    Left = 8
+    Top = 251
     Width = 145
     Height = 21
     TabOrder = 5
@@ -116,13 +116,7 @@ object Form1: TForm1
     Height = 25
     Caption = 'Calcular deudas'
     TabOrder = 7
-  end
-  object Edit3: TEdit
-    Left = 136
-    Top = 317
-    Width = 137
-    Height = 21
-    TabOrder = 8
+    OnClick = Button2Click
   end
   object Button4: TButton
     Left = 279
@@ -130,7 +124,7 @@ object Form1: TForm1
     Width = 99
     Height = 25
     Caption = 'Multa mas reciente'
-    TabOrder = 9
+    TabOrder = 8
   end
   object Button5: TButton
     Left = 24
@@ -138,7 +132,7 @@ object Form1: TForm1
     Width = 105
     Height = 49
     Caption = 'Vehiculo con mayor cantidad de infracciones'
-    TabOrder = 10
+    TabOrder = 9
     WordWrap = True
   end
   object Button6: TButton
@@ -147,7 +141,7 @@ object Form1: TForm1
     Width = 99
     Height = 49
     Caption = 'Vehiculo con la mayor deuda'
-    TabOrder = 11
+    TabOrder = 10
     WordWrap = True
   end
   object Button7: TButton
@@ -156,7 +150,15 @@ object Form1: TForm1
     Width = 99
     Height = 49
     Caption = 'Vehiculo sin deudas'
-    TabOrder = 12
+    TabOrder = 11
     WordWrap = True
+  end
+  object Edit3: TEdit
+    Left = 176
+    Top = 306
+    Width = 121
+    Height = 21
+    TabOrder = 12
+    Text = 'Edit3'
   end
 end
