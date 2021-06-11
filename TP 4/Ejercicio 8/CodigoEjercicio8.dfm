@@ -35,12 +35,12 @@ object Form1: TForm1
     Height = 21
     ItemIndex = 1
     TabOrder = 0
-    Text = 'Atender cliente'
+    Text = 'Atender Cliente'
     Items.Strings = (
-      'Almuerzo de negocios'
-      'Atender cliente'
-      'Atender cliente VIP'
-      'Reunion gerente')
+      'Almuerzo De Negocios'
+      'Atender Cliente'
+      'Atender Cliente VIP'
+      'Reunion Gerente')
   end
   object Hora: TTimePicker
     Left = 200
