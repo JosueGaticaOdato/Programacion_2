@@ -10,16 +10,18 @@ uses
   //ListPointer;
 
 type
+  //Enumerado con las actividades
   TActividad = (AlmuerzoDeNegocios,AtenderCliente,AtenderClienteVIP,ReunionGerente);
+
+  //Record que contiene la hora del fin de la actividad y el indice para el puntero
+  Activity = Record
+    Hora_Fin : TTime;
+    Indice: integer;
+    End;
 
 //Constantes del problema
 const
   Maximo = 100;
-  Almuerzo_de_negocios = 2; //120 min equivalen a 2 horas
-  Almuerzo_de_negocios_hrs = 120;
-  Atender_cliente = 10;
-  Atender_cliente_VIP = 30;
-  Reunion_gerente = 30;
   Un_Dia = 1440;
   Duraciones : Array [AlmuerzoDeNegocios..ReunionGerente]
     of Integer = (120,10,30,30);
@@ -38,21 +40,6 @@ type
   End;
 
 implementation
-
-function Sin_Espacios(Cadena: String; Tamaño: Integer): String;
-var i: Integer;
-Nueva_cadena1: string;
-begin
-  Nueva_cadena1 := '';
-  for i := 1 to Tamaño do
-    begin
-      if Ord(Cadena[i]) <> Ord(' ') then
-      begin
-        Nueva_cadena1 := Nueva_cadena1 + Cadena[i];
-      end;
-    end;
-  Sin_Espacios := Nueva_cadena1;
-end;
 
 //Crea la agenda
 procedure Agenda.Crear();
@@ -85,8 +72,8 @@ function Agenda.Actividad_Empleado(Hora: TTime): String;
 var X: TipoElemento;
   P: PosicionLista;
   Bandera: Boolean;
-  Hora_inicio: TTime;
-  Puntero: ^TTime;
+  Hora_inicio, Hora_Final: TTime;
+  Puntero: ^Activity;
   Devolucion: String;
 begin
   //Devolucion es el string que devolvere, sera libre en caso de que
@@ -102,8 +89,9 @@ begin
     X := L.Recuperar(P);
     Hora_inicio := StrToTime(X.Clave);
     Puntero := X.Valor2;
+    Hora_Final := Puntero^.Hora_Fin;
     //Si la hora dada se encuentra en ese lapso
-    if (Hora > Hora_inicio) and (Hora < Puntero^) then
+    if ((TimeToStr(Hora) > TimeToStr(Hora_inicio)) and (TimeToStr(Hora) < TimeToStr(Hora_Final))) then
     begin
       //Devuelve la actividad que tiene que hacer
       Devolucion := X.Valor1;
@@ -126,16 +114,19 @@ function Agenda.Ocupacion():Integer;
 var Sumador: Integer;
   X: TipoElemento;
   P: PosicionLista;
-  Contenido: String;
+  Puntero: ^Activity;
   Valor: Integer;
 begin
   Sumador := 0;
   P := L.Comienzo;
+  New(Puntero);
   //Mientras no sea una posicion que no exista
   while P <> Nulo do
   begin
     X := L.Recuperar(P);
-    Sumador := Sumador + Duraciones[TActividad(X.Valor1)];
+    Puntero := X.Valor2;
+    Valor := Duraciones[TActividad(Puntero^.Indice)];
+    Sumador := Sumador + Valor;
   //Busco el siguiente de P
   P := L.Siguiente(P);
   end;

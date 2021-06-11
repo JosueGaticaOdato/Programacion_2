@@ -9,11 +9,6 @@ uses
 type
   TActividad = (AlmuerzoDeNegocios,AtenderCliente,AtenderClienteVIP,ReunionGerente);
 
-  Activity = Record
-    Nombre: TActividad;
-    Indice: integer;
-  End;
-
 //Constantes del problema
 const
   Maximo = 100;
@@ -44,9 +39,13 @@ type
     { Public declarations }
   end;
 
+  Activity = Record
+    Hora_Fin : TTime;
+    Indice: integer;
+  End;
+
 var
   Form1: TForm1;
-  //Creo la lista
   L: Agenda;
 
 implementation
@@ -59,28 +58,41 @@ implementation
 //Boton que agrega la actividad a la lista
 procedure TForm1.Button1Click(Sender: TObject);
 var X: TipoElemento;
-  Apuntador: ^TDateTime;
+  Apuntador: ^Activity;
   Contenido: Activity;
+  Comprobar: String;
 begin
-  //Paso al clave y el valor 1, que seran la hora y la actividad
-  X.Clave := Timetostr(Hora.Time);
-  X.Valor1 := TActividad(Actividad.ItemIndex);
-  New(Apuntador);
-  //Segun cual sea la actividad, que cargara el tiempo que dura en el apuntador
-  Apuntador^ := (Hora.Time + EncodeTime(Duraciones[TActividad(Actividad.ItemIndex)] DIV 60,
-    Duraciones[TActividad(Actividad.ItemIndex)] MOD 60,0,0));
-  //Paso el apuntador al valor 2
-  X.Valor2 := Apuntador;
-  //Agrego a la lista
-  L.Agregar_agenda(X);
-  memo1.Lines.Add('Actividad agregada!');
-  //Ordeno segun tiempo (osea, la clave)
-  L.Ordenar_Agenda;
+  //Compruebo si no hay alguna actividad en el horario solicitado
+  Comprobar := L.Actividad_Empleado(Hora.Time);
+  if Comprobar = 'Libre' then
+  begin
+    //Paso al clave y el valor 1, que seran la hora y la actividad
+    X.Clave := Timetostr(Hora.Time);
+    X.Valor1 := Actividad.Text;
+
+    New(Apuntador);
+    //Cargo en el apuntador un record que contenido la hora de fin y el indice(para el enumerado)
+    Contenido.Hora_Fin := (Hora.Time + EncodeTime(Duraciones[TActividad(Actividad.ItemIndex)] DIV 60,
+      Duraciones[TActividad(Actividad.ItemIndex)] MOD 60,0,0));
+    Contenido.Indice := Actividad.ItemIndex;
+    Apuntador^ := Contenido;
+    X.Valor2 := Apuntador;
+    //Agrego a la lista
+    L.Agregar_agenda(X);
+    memo1.Lines.Add('Actividad agregada!');
+    //Ordeno segun tiempo (osea, la clave)
+    L.Ordenar_Agenda;
+  end
+  else
+  begin
+    memo1.Lines.Add('Ya hay una actividad en ese horario');
+  end;
 end;
 
 //Boton que muestra todos las actividades con sus horarios correspondientes
 procedure TForm1.Button2Click(Sender: TObject);
 begin
+  memo1.Clear;
   memo1.Lines.Add(L.Mostrar_Agenda);
 end;
 
