@@ -44,7 +44,6 @@ type
     procedure Button5Click(Sender: TObject);
     procedure Button6Click(Sender: TObject);
     procedure Button7Click(Sender: TObject);
-    procedure Button8Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -64,23 +63,24 @@ procedure TForm1.Button1Click(Sender: TObject);
 var posAuto, posMulta: integer;
 begin
   L.Crear(Cadena,cantElemMax);
-  posAuto := V.buscarAuto(Edit1.Text);
+  posAuto := V.buscarAuto(L,Edit1.Text);
   if posAuto = numError then begin
-    posAuto := V.buscarPosDispo();
+    posAuto := V.buscarPosDispo(L);
     if posAuto = numError then begin
       memo1.Lines.Add('No hay lugar en la lista de autos');
     end
     else begin
-      V.guardarPatente(Edit1,posAuto);
+      V.guardarPatente(L,Edit1.Text,posAuto);
     end;
   end
   else begin
-    posMulta := V.buscarPosMulta(DateTimePicker1.Date,posAuto);
+    posMulta := V.buscarPosMulta(L,DateTimePicker1.Date,posAuto);
     if posMulta = numError then begin
       memo1.Lines.Add('No hay lugar en la lista de multas');
     end
     else begin
-      V.guardarMulta(DateTimePicker1.Date,posAuto,posMulta,posMulta,Edit2.Text,ComboBox1.Text);
+      V.guardarMulta(L,DateTimePicker1.Date,posAuto,posMulta,posMulta,strToInt(Edit2.Text),
+      ComboBox1.Text);
     end;
   end;
 end;
@@ -106,23 +106,23 @@ end;
 
 //Boton que calcula el total de deudas de ese vehiculo
 procedure TForm1.Button2Click(Sender: TObject);
-var deuda: integer;
+var deuda: tipoElemento;
 begin
   deuda := V.totalMultas(L, Edit3.Text);
-  memo1.Lines.Add('La deuda del vehiculo ' + Edit3.Text + ' es de ' + deuda.ToString + ' pesos');
+  memo1.Lines.Add('La deuda del vehiculo ' + deuda.Clave + ' es de ' + deuda.Valor1 + ' pesos');
 end;
 
 //Boton que me muestra la multa mas antigua de ese vehiculo
 procedure TForm1.Button3Click(Sender: TObject);
-var X:TipoElemento;
-  P: ^Integer;
+var X:tipoElemento;
+//  P: ^Integer;
 
 begin
   X := V.multaAntigua(L,Edit3.Text);
-  memo1.Lines.Add('La multa mas antigua es ' + FloatToStr(X.Clave));
+  memo1.Lines.Add('La multa mas antigua es ' + X.Clave);
   memo1.Lines.Add('Cargada el dia ' + DateToSTR(X.Valor1));
-  P := X.Valor2;
-  memo1.Lines.Add('Con un valor de ' + P^.ToString + ' pesos.');
+//  P := X.Valor2;
+//  memo1.Lines.Add('Con un valor de ' + P^.ToString + ' pesos.');
 end;
 
 //Boton que me muestra la multa mas reciente de ese vehiculo
