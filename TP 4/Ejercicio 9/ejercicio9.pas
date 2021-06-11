@@ -64,23 +64,18 @@ var posAuto, posMulta: integer;
 begin
   posAuto := List.buscarAuto(Edit1.Text);
   if posAuto = numError then begin
-    posAuto := List.buscarPosDispo();
-    if posAuto = numError then begin
-      memo1.Lines.Add('No hay lugar en la lista de autos');
-    end
-    else begin
-      List.guardarPatente(Edit1.Text,posAuto);
-    end;
+    memo1.Lines.Add('No hay lugar en la lista de autos');
   end
   else begin
-    posMulta := List.buscarPosMulta(DateTimePicker1.Date,posAuto);
-    if posMulta = numError then begin
-      memo1.Lines.Add('No hay lugar en la lista de multas');
-    end
-    else begin
-      List.guardarMulta(DateTimePicker1.Date,posAuto,posMulta,strToInt(Edit2.Text),
-      ComboBox1.Text);
-    end;
+    List.guardarPatente(Edit1.Text,posAuto);
+  end;
+  posMulta := List.buscarPosMulta(DateTimePicker1.Date,posAuto);
+  if posMulta = numError then begin
+    memo1.Lines.Add('No hay lugar en la lista de multas');
+  end
+  else begin
+    List.guardarMulta(DateTimePicker1.Date,posAuto,posMulta,strToInt(Edit2.Text),
+    ComboBox1.Text);
   end;
 end;
 //

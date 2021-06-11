@@ -5,7 +5,7 @@ interface
 uses
   ListArray,
   //ListPointer, con este tiene errores
-  ListCursor,
+  //ListCursor,
   Tipos;
 
 const
@@ -31,7 +31,6 @@ type
     function multaAntigua (Auto: String): tipoElemento;
     function totalMultas (Auto: String): tipoElemento;
     function buscarAuto(patent: string) : integer;
-    function buscarPosDispo() : integer;
     function buscarPosMulta(fecha: TDate; posAuto: integer) : integer;
     procedure guardarPatente(patente: string; posGuardar: integer);
     procedure guardarMulta(multa: TDate;posAuto,posGuardar,
@@ -57,8 +56,12 @@ begin
   Elem := L.Recuperar(posElem);
   posAuto := numError;
   //si la patente pasada es igual a la patente guardada devuelve la pos
-  while (posElem <> Nulo) and (not Encontrado) do begin
+  while (posElem <= L.Fin) and (not Encontrado) do begin
     if patent = Elem.Clave then begin
+      Encontrado := True;
+      posAuto := posElem;
+    end
+    else if Elem.Clave = '' then begin
       Encontrado := True;
       posAuto := posElem;
     end
@@ -73,34 +76,6 @@ begin
   Result := posAuto;
 end;
 
-function Vehiculo.buscarPosDispo() : integer;
-var Encontrado: boolean;
-    posElem: posicionLista;
-    Elem: tipoElemento;
-    posDispo: integer;
-begin
-  Encontrado := False;
-  posElem := L.Comienzo;
-  Elem := L.Recuperar(posElem);
-  posDispo := numError;
-  //busca posición disponible y devuelve la pos
-  while (posElem <> Nulo) and (not Encontrado) do begin
-    if Elem.Clave = Nulo then begin
-      Encontrado := True;
-      posDispo := posElem;
-    end
-    else begin
-      posElem := L.Siguiente(posElem);
-      Elem := L.Recuperar(posElem);
-    end;
-  end;
-  if not Encontrado then begin
-    posDispo := numError;
-  end;
-  Result := posDispo;
-end;
-
-
 function Vehiculo.buscarPosMulta(fecha: TDate; posAuto: integer) :
 integer;
 var Elem, elemMulta: tipoElemento;
@@ -112,19 +87,19 @@ begin
   Encontrado := False;
   Elem := L.Recuperar(posAuto);
   New(LM);
-  LM^ := Elem.Valor2;
-  posMulta := LM^.Comienzo();
-  elemMulta := LM^.Recuperar(posMulta);
+  LM := Elem.Valor2;
+  posMulta := LM^.Comienzo;
+  elemMulta := LM.Recuperar(posMulta);
   posMultaDispo := numError;
   //recorro las multas buscando posición disponible
-  while (posMulta <> Nulo) and (not Encontrado) do begin
+  while (posMulta <= L.Fin) and (not Encontrado) do begin
     if elemMulta.Clave = Nulo then begin
       Encontrado := True;
       posMultaDispo := posMulta;
     end
     else begin
-      posMulta := LM^.Siguiente(posMulta);
-      elemMulta := Lm^.Recuperar(posMulta);
+      posMulta := LM.Siguiente(posMulta);
+      elemMulta := Lm.Recuperar(posMulta);
     end;
   end;
   if not Encontrado then posMultaDispo := numError;
@@ -155,13 +130,13 @@ begin
 
   New(LM);
   New(punteroMulta);
-  LM^ := Elem.Valor2;
-  elemMulta := LM^.Recuperar(posGuardar);
+  LM := Elem.Valor2;
+  elemMulta := LM.Recuperar(posGuardar);
   elemMulta.Clave := posGuardar;
   punteroMulta.Fecha := fecha;
   punteroMulta.Importe := importe;
   punteroMulta.Estado := E;
-  punteroMulta^ := elemMulta.Valor2;
+  punteroMulta := elemMulta.Valor2;
   Dispose(LM);
   Dispose(punteroMulta);
 end;
@@ -185,18 +160,18 @@ begin
   //recorro para ver cual es el que mas deudas no pendiente tiene, y lo guardo en valor1
   //cuando termina con un auto pregunta si tiene mas deudas no pendiente que la var
   //'menosDeudas'
-  while (posAuto <> Nulo) do begin
-    lisMultas^ := Auto.Valor2;
-    posMulta := lisMultas^.Comienzo();
-    while (posMulta <> Nulo) do begin
-      Multa := lisMultas^.Recuperar(posMulta);
-      datosMulta^ := Multa.Valor2;
+  while (posAuto <= L.Fin) do begin
+    lisMultas := Auto.Valor2;
+    posMulta := lisMultas.Comienzo();
+    while (posMulta <= lisMultas.Fin) do begin
+      Multa := lisMultas.Recuperar(posMulta);
+      datosMulta := Multa.Valor2;
       Contador := 0;
       if datosMulta^.Estado <> 'Pendiente' then begin
         Contador := Contador + 1;
       end;
-      posMulta := lisMultas^.Siguiente(posMulta);
-      Multa := lisMultas^.Recuperar(posMulta);
+      posMulta := lisMultas.Siguiente(posMulta);
+      Multa := lisMultas.Recuperar(posMulta);
     end;
     if Contador > menosDeudas then begin
         menosDeudas := Contador;
@@ -227,22 +202,22 @@ begin
   New(Puntero1);
   New(Puntero2);
   //sumo las deudas si son 'pendiente' y comparo con mayorDeuda, me quedo con la patente
-  while (P <> Nulo) do begin
-    Puntero1^ := X1.Valor2;
-    M := Puntero1^.Comienzo;
-    X2 := Puntero1^.Recuperar(M);
-    Puntero2^ := X2.Valor2;
+  while (P <= L.Fin) do begin
+    Puntero1 := X1.Valor2;
+    M := Puntero1.Comienzo;
+    X2 := Puntero1.Recuperar(M);
+    Puntero2 := X2.Valor2;
     impTotal := 0;
-    while M <> Nulo do begin
-      if Puntero2^.Estado = 'Pendiente' then begin
+    while M <= Puntero1.Fin do begin
+      if Puntero2.Estado = 'Pendiente' then begin
         impTotal := impTotal + Puntero2.Importe;
       end;
       if impTotal > mayorDeuda then begin
         mayorDeuda := impTotal;
         mayorDeudor := X1.Clave;
       end;
-      M := Puntero1^.Siguiente(M);
-      X2 := Puntero1^.Recuperar(M);
+      M := Puntero1.Siguiente(M);
+      X2 := Puntero1.Recuperar(M);
     end;
     P := L.Siguiente(P);
     X1 := L.Recuperar(P);
@@ -272,13 +247,13 @@ begin
   X1 := L.Recuperar(P);
   New(Puntero1);
   New(Puntero2);
-  while P <> Nulo do begin
-    Puntero1^ := X1.Valor2;
-    M := Puntero1^.Comienzo;
-    X2 := Puntero1^.Recuperar(M);
-    Puntero2^ := X2.Valor2;
+  while P <= L.Fin do begin
+    Puntero1 := X1.Valor2;
+    M := Puntero1.Comienzo;
+    X2 := Puntero1.Recuperar(M);
+    Puntero2 := X2.Valor2;
     cantMultas := 0;
-    while M <> Nulo do begin
+    while M <= Puntero1.Fin do begin
       if not X2.EsTEVacio then begin
         cantMultas := cantMultas + 1;
       end;
@@ -288,8 +263,8 @@ begin
       end;
 
     end;
-    P := Puntero1^.Siguiente(P);
-    X1 := Puntero1^.Recuperar(P);
+    P := Puntero1.Siguiente(P);
+    X1 := Puntero1.Recuperar(P);
   end;
   elemDevolver.Clave := autoInfractor;
   elemDevolver.Valor1 := mayorCantMultas;
@@ -316,7 +291,7 @@ begin
   Fecha := -1;
   posAuto := L.Comienzo;
   elemAuto := L.Recuperar(posAuto);
-  while (posAuto <> Nulo) and (Encontrado) do begin
+  while (posAuto <= L.Fin) and (Encontrado) do begin
     if elemAuto.Clave = Auto then begin
       Encontrado := True;
       posAGuardar := posAuto;
@@ -326,16 +301,16 @@ begin
   New(datosMulta);
   elemAuto := L.Recuperar(posAGuardar);
   lisMultas := elemAuto.Valor2;
-  posMulta := lisMultas^.Comienzo;
+  posMulta := lisMultas.Comienzo;
 
-  while (posMulta <> Nulo) do begin
-    elemMulta := lisMultas^.Recuperar(posMulta);
-    datosMulta^ := elemMulta.Valor2;
-    if datosMulta^.Fecha > Fecha then begin
-      Fecha := datosMulta^.Fecha;
+  while (posMulta <= lisMultas.Fin) do begin
+    elemMulta := lisMultas.Recuperar(posMulta);
+    datosMulta := elemMulta.Valor2;
+    if datosMulta.Fecha > Fecha then begin
+      Fecha := datosMulta.Fecha;
       multaMasReciente := elemMulta.Clave;
     end;
-    posMulta := lisMultas^.Siguiente(posMulta);
+    posMulta := lisMultas.Siguiente(posMulta);
   end;
   elemGuardar.Clave := elemAuto.Clave;
   elemGuardar.Valor1 := multaMasReciente;
@@ -361,7 +336,7 @@ begin
   Fecha := 999999;
   posAuto := L.Comienzo;
   elemAuto := L.Recuperar(posAuto);
-  while (posAuto <> Nulo) and (Encontrado) do begin
+  while (posAuto <= L.Fin) and (Encontrado) do begin
     if elemAuto.Clave = Auto then begin
       Encontrado := True;
       posAGuardar := posAuto;
@@ -370,17 +345,17 @@ begin
   New(lisMultas);
   New(datosMulta);
   elemAuto := L.Recuperar(posAGuardar);
-  lisMultas^ := elemAuto.Valor2;
-  posMulta := lisMultas^.Comienzo;
+  lisMultas := elemAuto.Valor2;
+  posMulta := lisMultas.Comienzo;
 
-  while (posMulta <> Nulo) do begin
-    elemMulta := lisMultas^.Recuperar(posMulta);
-    datosMulta^ := elemMulta.Valor2;
-    if datosMulta^.Fecha < Fecha then begin
-      Fecha := datosMulta^.Fecha;
+  while (posMulta <= lisMultas.Fin) do begin
+    elemMulta := lisMultas.Recuperar(posMulta);
+    datosMulta := elemMulta.Valor2;
+    if datosMulta.Fecha < Fecha then begin
+      Fecha := datosMulta.Fecha;
       multaMasAntigua := elemMulta.Clave;
     end;
-    posMulta := lisMultas^.Siguiente(posMulta);
+    posMulta := lisMultas.Siguiente(posMulta);
   end;
   elemDevolver.Clave := elemAuto.Clave;
   elemDevolver.Valor1 := multaMasAntigua;
@@ -411,13 +386,13 @@ begin
 
   New(lisMultas);
   elemAuto := L.Recuperar(posAVer);
-  lisMultas^ := elemAuto.Valor2;
-  posMulta := lisMultas^.Comienzo;
-  elemMulta := lisMultas^.Recuperar(posMulta);
+  lisMultas := elemAuto.Valor2;
+  posMulta := lisMultas.Comienzo;
+  elemMulta := lisMultas.Recuperar(posMulta);
   while not elemMulta.EsTEVacio do begin
     sumador := sumador + 1;
-    posMulta := lisMultas^.Siguiente(posMulta);
-    elemMulta := lisMultas^.Recuperar(posMulta);
+    posMulta := lisMultas.Siguiente(posMulta);
+    elemMulta := lisMultas.Recuperar(posMulta);
   end;
   elemDevolver.Clave := elemAuto.Clave;
   elemDevolver.Valor1 := sumador;
