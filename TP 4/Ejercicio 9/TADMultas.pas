@@ -10,6 +10,8 @@ uses
 
 const
   numError = -1;
+  autoYaGuardado = -2;
+  cantElemMax = 3;
 
 type
   pMultas = ^Lista;
@@ -44,17 +46,17 @@ type
 
 implementation
 function Vehiculo.recorrerListaAutos(patente: string) : posicionLista;
-var sumador, posAVer: integer;
-    elemAuto, elemMulta, elemDevolver: tipoElemento;
-    posAuto, posMulta: posicionLista;
-    lisMultas: pMultas;
+var posAVer: integer;
+    elemAuto: tipoElemento;
+    posAuto: posicionLista;
     Encontrado: boolean;
 begin
   posAVer := numError;
   Encontrado := False;
   posAuto := L.Comienzo;
   elemAuto := L.Recuperar(posAuto);
-  while (posAuto <= L.Fin) and (not Encontrado) do begin
+
+  while (posAuto < cantElemMax) and (not Encontrado) do begin
     if elemAuto.Clave = patente then begin
       Encontrado := True;
       posAVer := posAuto;
@@ -89,7 +91,7 @@ begin
   while (posElem <= L.Fin) and (not Encontrado) do begin
     if patent = Elem.Clave then begin
       Encontrado := True;
-      posAuto := posElem;
+      posAuto := numError;
     end
     else if Elem.Clave = '' then begin
       Encontrado := True;
@@ -100,9 +102,9 @@ begin
       Elem := L.Recuperar(posElem);
     end;
   end;
-  if not Encontrado then begin
-    posAuto := numError;
-  end;
+//  if not Encontrado then begin
+//    posAuto := numError;
+//  end;
   Result := posAuto;
 end;
 
@@ -134,6 +136,7 @@ begin
   elemMulta.Valor2 := punteroMulta;
   if not LM.EsLLena then begin
     LM.Agregar(elemMulta);
+
     Auto.Valor2 := LM;
   end
   else begin
@@ -374,21 +377,21 @@ end;
 
 //Funcion que calcula el total de multas de un vehiculo
 function Vehiculo.totalMultas (patente: String): tipoElemento;
-var sumador, posAVer: integer;
+var sumador, posAuto: integer;
     elemAuto, elemMulta, elemDevolver: tipoElemento;
-    posAuto, posMulta: posicionLista;
+    posMulta: posicionLista;
     lisMultas: pMultas;
-    Encontrado: boolean;
+    datosMulta: puntMulta;
 begin
 
-  posAVer := recorrerListaAutos(patente);
+  posAuto := recorrerListaAutos(patente);
   elemDevolver.TipoElementoVacio;
-  if posAVer <> numError then begin
+  if posAuto <> numError then begin
 
     New(lisMultas);
-    elemAuto := L.Recuperar(posAVer);
+    elemAuto := L.Recuperar(posAuto);
     lisMultas := elemAuto.Valor2;
-    posMulta := lisMultas.Comienzo;
+//    posMulta := lisMultas.Comienzo;
     elemMulta := lisMultas.Recuperar(posMulta);
     while not elemMulta.EsTEVacio do begin
       sumador := sumador + 1;
