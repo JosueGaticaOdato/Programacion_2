@@ -84,13 +84,13 @@ begin
   else begin
     autoGuardado := False;
     multaGuardada := List.guardarAutoYMulta(DateTimePicker1.Date,1,
-   strToInt(Edit2.Text), Edit1.Text, ComboBox1.Text, autoGuardado);
+   strToInt(Edit2.Text),ComboBox1.Text, Edit1.Text, autoGuardado);
   end;
   if multaGuardada then begin
 
     memo1.Lines.Add('Se guardaron el Auto y los datos de la multa');
 
-    memo1.Lines.Add(List.mostrarLista());    //borrar despues
+    memo1.Lines.Add('Datos auto: ' + List.mostrarLista());    //borrar despues
   end
   else begin
     memo1.Lines.Add('No hay lugar en la lista de multas');
@@ -120,10 +120,11 @@ end;
 //Boton que calcula el total de deudas de ese vehiculo
 procedure TForm1.Button2Click(Sender: TObject);
 var deuda: tipoElemento;
+    monto: integer;
 begin
   deuda := List.totalMultas(Edit3.Text);
-  if not deuda.EsTEVacio then begin
-    memo1.Lines.Add('La deuda del vehiculo ' + deuda.Clave + ' es de ' + deuda.Valor1 + ' pesos');
+  if deuda.Clave <> '' then begin
+    memo1.Lines.Add('La deuda del vehiculo ' + deuda.Clave + ' es de ' + intToStr(deuda.Valor1) + ' pesos');
   end
   else begin
     memo1.Lines.Add('El auto ingresado no está guardado en la lista');

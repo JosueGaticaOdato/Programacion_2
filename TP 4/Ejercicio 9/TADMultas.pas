@@ -13,8 +13,10 @@ const
   autoYaGuardado = -2;
 
 type
-  pMultas = ^Lista;
+
+
   puntMulta = ^TMulta;
+
   TMulta = Record
     Estado : string;
     Importe : integer;
@@ -24,6 +26,7 @@ type
   Vehiculo = Object
   Private
     L: Lista;
+
   Public
     function Sin_Deuda(): String;
     function Mayor_Deuda(): tipoElemento;
@@ -33,7 +36,7 @@ type
     function totalMultas (patente: String): tipoElemento;
     function buscarAuto(patent: string) : integer;
     function guardarAutoYMulta(fecha: TDate;posAuto: posicionLista;
-     monto:integer;estado,patente:string;guardarAuto:boolean) : boolean;
+     monto:integer;estado,patente:string;autoGuardado:boolean) : boolean;
     function Devolver_Lista(): Lista;
     procedure Inicializar(Tamanio: Integer);
     function mostrarLista() : string;
@@ -41,7 +44,8 @@ type
     function listaVacia() : boolean;
   End;
 
-
+var
+  LM: Lista;
 
 implementation
 function Vehiculo.recorrerListaAutos(patente: string) : posicionLista;
@@ -108,62 +112,82 @@ begin
 end;
 
 function Vehiculo.guardarAutoYMulta(fecha: TDate;posAuto: posicionLista;
- monto:integer;estado,patente:string;guardarAuto:boolean) : boolean;
+ monto:integer;estado,patente:string;autoGuardado:boolean) : boolean;
 var
     posGuardarMulta: posicionLista;
     seGuardo: boolean;
     elemAuto,elemMulta: tipoElemento;
-    LM: pMultas;
+    pLM: ^Lista;
     punteroMulta: puntMulta;
 begin
-  if guardarAuto then begin
+  if not autoGuardado then begin
     elemAuto := L.Recuperar(posAuto);
     elemAuto.Clave := patente;
   end;
   seGuardo := True;
-  New(LM);
+  New(pLM);
   New(punteroMulta);
 
-  LM^.Crear(Numero,L.SizeList); //lo saqué de mario
   punteroMulta.Fecha := fecha;
   punteroMulta.Importe := monto;
   punteroMulta.Estado := estado;
   elemMulta.Valor2 := punteroMulta;
-  if not LM.EsLLena then begin
-    LM.Agregar(elemMulta);
-    posGuardarMulta := LM.Buscar(elemMulta);
-    elemMulta.Clave := posGuardarMulta;  //nro acta
-    elemAuto.Valor2 := LM;
+
+  LM.Crear(Numero,L.SizeList);
+  if LM.EsVacia then begin
+    posGuardarMulta := 1;
   end
   else begin
+    posGuardarMulta := LM.Buscar(elemMulta);
+  end;
+  if LM.EsLLena then begin
     seGuardo := False;
   end;
 
+  elemMulta.Clave := posGuardarMulta;  //nro acta
+  LM.Agregar(elemMulta);
+  pLM^ := LM;
+  elemAuto.Valor2 := pLM;
 
   L.Agregar(elemAuto);
-  Dispose(LM);
+  Dispose(pLM);
   Dispose(punteroMulta);
   Result := seGuardo;
 end;
 
 //Funcion que calcula el total de multas de un vehiculo
 function Vehiculo.totalMultas (patente: String): tipoElemento;
-var sumador, posAuto: integer;
+var Valor2: Pointer;
+    sumador, posAuto: integer;
     elemAuto, elemMulta, elemDevolver: tipoElemento;
     posMulta: posicionLista;
-    lisMultas: pMultas;
+    lisMultas: ^Lista;
     datosMulta: puntMulta;
-begin
 
-  posAuto := recorrerListaAutos(patente);
-  elemDevolver.TipoElementoVacio;
+begin
+  if L.EsVacia then begin
+    posAuto := 1;
+  end
+  else begin
+    posAuto := recorrerListaAutos(patente);
+  end;
+  elemDevolver.Inicializar(Cadena,0);
   if posAuto <> numError then begin
+    elemAuto := L.Recuperar(posAuto);
 
     New(lisMultas);
-    elemAuto := L.Recuperar(posAuto);
-    lisMultas := elemAuto.Valor2;
-//    posMulta := lisMultas.Comienzo;
-    elemMulta := lisMultas.Recuperar(posMulta);
+    Valor2 := elemAuto.Valor2;
+    lisMultas := Valor2;
+
+    LM := lisMultas^;
+    if not LM.EsVacia then begin
+
+      posMulta := lisMultas.Comienzo;
+    end
+    else begin
+      posMulta := 1;
+    end;
+      elemMulta := lisMultas.Recuperar(posMulta);
     while not elemMulta.EsTEVacio do begin
       sumador := sumador + 1;
       posMulta := lisMultas.Siguiente(posMulta);
@@ -181,7 +205,7 @@ end;
 function Vehiculo.Sin_Deuda(): String;
 var posAuto, posMulta: PosicionLista;
     Auto,Multa: TipoElemento;
-    lisMultas: pMultas;
+    lisMultas: ^Lista;
     datosMulta: puntMulta;
     menorDeudor: string;
     menosDeudas, Contador: integer;
@@ -227,7 +251,7 @@ var impTotal, mayorDeuda: integer;
     mayorDeudor: string;
     P, M: PosicionLista;
     X1,X2, elemDevolver: TipoElemento;
-    Puntero1: pMultas;
+    Puntero1: ^Lista;
     Puntero2: puntMulta;
 begin
   //Inicializo para recorrer
@@ -274,7 +298,7 @@ var elemDevolver:TipoElemento;
   P,M: PosicionLista;
   X1,X2: TipoElemento;
   Bandera: Boolean;
-  Puntero1: pMultas;
+  Puntero1: ^Lista;
   Puntero2: puntMulta;
 begin
   cantMultas := 0;
@@ -318,7 +342,7 @@ var elemAuto, elemMulta, elemGuardar: tipoElemento;
     posAuto,posMulta: posicionLista;
     posAGuardar, multaMasReciente: integer;
     Fecha: double;
-    lisMultas: pMultas;
+    lisMultas: ^Lista;
     datosMulta: puntMulta;
     Encontrado: Boolean;
 
@@ -363,7 +387,7 @@ var elemAuto, elemMulta, elemDevolver: tipoElemento;
     posAuto,posMulta: posicionLista;
     posAGuardar,  multaMasAntigua: integer;
     Fecha: double;
-    lisMultas: pMultas;
+    lisMultas: ^Lista;
     datosMulta: puntMulta;
     Encontrado: Boolean;
 
