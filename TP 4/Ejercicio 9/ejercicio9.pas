@@ -61,19 +61,33 @@ implementation
 //Boton que realiza la carga en la lista
 procedure TForm1.Button1Click(Sender: TObject);
 var posAuto: integer;
-    multaGuardada: boolean;
+    autoGuardado,multaGuardada: boolean;
     Auto: tipoElemento;
 begin
-  posAuto := List.buscarAuto(Edit1.Text);
-  if posAuto = numError then begin
-    memo1.Lines.Add('No hay lugar en la lista de autos');
+  if not List.listaVacia then begin
+
+    posAuto := List.buscarAuto(Edit1.Text);
+    if posAuto = numError then begin
+      memo1.Lines.Add('No hay lugar en la lista de autos');
+    end
+    else begin
+      if posAuto = autoYaGuardado then begin
+        autoGuardado := True;
+      end
+      else begin
+        autoGuardado := False;
+      end;
+    multaGuardada := List.guardarAutoYMulta(DateTimePicker1.Date,posAuto,
+    strToInt(Edit2.Text), Edit1.Text, ComboBox1.Text, autoGuardado);
+    end;
   end
   else begin
-    Auto := List.guardarPatente(Edit1.Text,posAuto);
+    autoGuardado := False;
+    multaGuardada := List.guardarAutoYMulta(DateTimePicker1.Date,1,
+   strToInt(Edit2.Text), Edit1.Text, ComboBox1.Text, autoGuardado);
   end;
-  multaGuardada := List.guardarMulta(DateTimePicker1.Date,Auto,
-  strToInt(Edit2.Text), ComboBox1.Text);
   if multaGuardada then begin
+
     memo1.Lines.Add('Se guardaron el Auto y los datos de la multa');
 
     memo1.Lines.Add(List.mostrarLista());    //borrar despues
