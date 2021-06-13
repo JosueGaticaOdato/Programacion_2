@@ -4,9 +4,9 @@ interface
 
 uses
   Tipos,
-  StackArray;
+  //StackArray;
   //StackCursor;
-  //StackPointer;
+  StackPointer;
 
 type
   Ejercicio1 = Object
@@ -19,6 +19,10 @@ type
       function Buscar_Clave(X: TipoElemento): Boolean;
       procedure Apilar_Pila_Origen(Auxiliar: Pila);
       procedure Colocar_en_el_fondo(X: TipoElemento);
+      procedure Eliminar_Ocurrencias(X: TipoElemento);
+      procedure Cambiar_Tope_y_Fondo(X: TipoElemento);
+      procedure Duplicar;
+      function Contar(): Integer;
   End;
 
 implementation
@@ -77,14 +81,85 @@ procedure Ejercicio1.Colocar_en_el_fondo(X: TipoElemento);
 var PAuxiliar: Pila;
   Y: TipoElemento;
 begin
+  PAuxiliar.Crear(Numero,P.SizeStack);
   while not P.EsVacia do
   begin
     Y := P.Recuperar;
     P.DesApilar;
     PAuxiliar.Apilar(Y);
   end;
+  P.Crear(Numero, P.SizeStack + 1);
   P.Apilar(X);
   Apilar_Pila_Origen(PAuxiliar);
+end;
+
+procedure Ejercicio1.Eliminar_Ocurrencias(X: TipoElemento);
+var PAuxiliar: Pila;
+    Y: TipoElemento;
+begin
+  PAuxiliar.Crear(Numero,P.SizeStack);
+  while not P.EsVacia do
+  begin
+    Y := P.Recuperar;
+    if Y.Clave <> X.Clave then
+    begin
+      PAuxiliar.Apilar(Y);
+    end;
+    P.DesApilar;
+  end;
+  Apilar_Pila_Origen(PAuxiliar);
+end;
+
+procedure Ejercicio1.Cambiar_Tope_y_Fondo(X: TipoElemento);
+var PAuxiliar: Pila;
+    Y: TipoElemento;
+begin
+  PAuxiliar.Crear(Numero,P.SizeStack);
+  P.DesApilar;
+  P.Apilar(X);
+  while not P.EsVacia do
+  begin
+    Y := P.Recuperar;
+    PAuxiliar.Apilar(Y);
+    P.DesApilar;
+  end;
+  PAuxiliar.DesApilar;
+  PAuxiliar.Apilar(X);
+  Apilar_Pila_Origen(PAuxiliar);
+end;
+
+procedure Ejercicio1.Duplicar;
+var PAuxiliar: Pila;
+    Y: TipoElemento;
+begin
+  PAuxiliar.Crear(Numero,P.SizeStack * P.SizeStack);
+  while not P.EsVacia do
+  begin
+    Y := P.Recuperar;
+    PAuxiliar.Apilar(Y);
+    PAuxiliar.Apilar(Y);
+    P.DesApilar;
+  end;
+  P.Crear(Numero,P.SizeStack * P.SizeStack);
+  Apilar_Pila_Origen(PAuxiliar);
+end;
+
+function Ejercicio1.Contar(): Integer;
+var PAuxiliar: Pila;
+    Y: TipoElemento;
+    Contador: Integer;
+begin
+  Contador := 0;
+  PAuxiliar.Crear(Numero,P.SizeStack);
+  while not P.EsVacia do
+  begin
+    Contador := Contador + 1;
+    Y := P.Recuperar;
+    PAuxiliar.Apilar(Y);
+    P.DesApilar;
+  end;
+  Apilar_Pila_Origen(PAuxiliar);
+  Result := Contador;
 end;
 
 end.
