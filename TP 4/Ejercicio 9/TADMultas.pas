@@ -26,7 +26,7 @@ type
   Vehiculo = Object
   Private
     L: Lista;
-
+    LM: Lista;
   Public
     function Sin_Deuda(): String;
     function Mayor_Deuda(): tipoElemento;
@@ -42,12 +42,38 @@ type
     function mostrarLista() : string;
     function recorrerListaAutos(patente: string) : posicionLista;
     function listaVacia() : boolean;
+    function recuperarListaMultas(elemAuto:tipoElemento) : Lista;
+    function recuperarDatosMulta(elemMulta: tipoElemento) : TMulta;
   End;
 
-var
-  LM: Lista;
+//var
+ // LM: Lista;
 
 implementation
+
+function recuperarDatosMulta(elemMulta: tipoElemento) : TMulta;
+var pointDatosMulta: puntMulta;
+    datosMulta: TMulta;
+begin
+  New(pointDatosMulta);
+  pointDatosMulta := elemMulta.Valor2;
+  datosMulta := pointDatosMulta^;
+  Dispose(pointDatosMulta);
+  Result := datosMulta;
+end;
+
+function Vehiculo.recuperarListaMultas(elemAuto:tipoElemento) : Lista;
+var lisMultas: ^Lista;
+    listaMultas: Lista;
+begin
+    New(lisMultas);
+    lisMultas := elemAuto.Valor2;
+    listaMultas.Crear(Numero,L.SizeList);
+    listaMultas := lisMultas^;
+    Dispose(lisMultas);
+    Result := listaMultas;
+end;
+
 function Vehiculo.recorrerListaAutos(patente: string) : posicionLista;
 var posAVer: integer;
     elemAuto: tipoElemento;
@@ -161,9 +187,9 @@ var Valor2: Pointer;
     sumador, posAuto: integer;
     elemAuto, elemMulta, elemDevolver: tipoElemento;
     posMulta: posicionLista;
-    lisMultas: ^Lista;
-    datosMulta: puntMulta;
 
+    datosMulta: puntMulta;
+    listaMultas: Lista;
 begin
   if L.EsVacia then begin
     posAuto := 1;
@@ -174,29 +200,25 @@ begin
   elemDevolver.Inicializar(Cadena,0);
   if posAuto <> numError then begin
     elemAuto := L.Recuperar(posAuto);
+    listaMultas := recuperarListaMultas(elemAuto);
 
-    New(lisMultas);
-    Valor2 := elemAuto.Valor2;
-    lisMultas := Valor2;
+    if not listaMultas.EsVacia then begin
 
-    LM := lisMultas^;
-    if not LM.EsVacia then begin
-
-      posMulta := lisMultas.Comienzo;
+      posMulta := listaMultas.Comienzo;
     end
     else begin
       posMulta := 1;
     end;
-      elemMulta := lisMultas.Recuperar(posMulta);
+      elemMulta := listaMultas.Recuperar(posMulta);
     while not elemMulta.EsTEVacio do begin
       sumador := sumador + 1;
-      posMulta := lisMultas.Siguiente(posMulta);
-      elemMulta := lisMultas.Recuperar(posMulta);
+      posMulta := listaMultas.Siguiente(posMulta);
+      elemMulta := listaMultas.Recuperar(posMulta);
     end;
 
     elemDevolver.Clave := elemAuto.Clave;
     elemDevolver.Valor1 := sumador;
-    Dispose(lisMultas);
+
   end;
   Result := elemDevolver;
 end;
@@ -340,43 +362,34 @@ end;
 function Vehiculo.multaReciente (Auto: String): tipoElemento;
 var elemAuto, elemMulta, elemGuardar: tipoElemento;
     posAuto,posMulta: posicionLista;
-    posAGuardar, multaMasReciente: integer;
+    posAGuardar, multaMasReciente, nroMasReciente: integer;
     Fecha: double;
-    lisMultas: ^Lista;
+    listaMultas: Lista;
     datosMulta: puntMulta;
     Encontrado: Boolean;
 
 begin
   Encontrado := False;
   Fecha := -1;
-  posAuto := L.Comienzo;
+  posAuto := recorrerListaAutos(Auto);
   elemAuto := L.Recuperar(posAuto);
-  while (posAuto <= L.Fin) and (Encontrado) do begin
-    if elemAuto.Clave = Auto then begin
-      Encontrado := True;
-      posAGuardar := posAuto;
-    end;
-  end;
-  New(lisMultas);
-  New(datosMulta);
-  elemAuto := L.Recuperar(posAGuardar);
-  lisMultas := elemAuto.Valor2;
-  posMulta := lisMultas.Comienzo;
 
-  while (posMulta <= lisMultas.Fin) do begin
-    elemMulta := lisMultas.Recuperar(posMulta);
-    datosMulta := elemMulta.Valor2;
+  listaMultas := recuperarListaMultas(elemAuto);
+  posMulta := listaMultas.Comienzo;
+
+  while (posMulta <= listaMultas.Fin) do begin
+    elemMulta := listaMultas.Recuperar(posMulta);
+    datosMulta := recuperarDatosMulta(elemMulta);
     if datosMulta.Fecha > Fecha then begin
       Fecha := datosMulta.Fecha;
-      multaMasReciente := elemMulta.Clave;
+      nroMasReciente := elemMulta.Clave;
+      multaMasReciente := Fecha;
     end;
-    posMulta := lisMultas.Siguiente(posMulta);
+    posMulta := listaMultas.Siguiente(posMulta);
   end;
-  elemGuardar.Clave := elemAuto.Clave;
-  elemGuardar.Valor1 := multaMasReciente;
 
-  Dispose(lisMultas);
-  Dispose(datosMulta);
+  elemGuardar.Clave := nroMasReciente;
+  elemGuardar.Valor1 := multaMasReciente;
   Result := elemGuardar;
 end;
 
@@ -385,43 +398,34 @@ end;
 function Vehiculo.multaAntigua (Auto: String): tipoElemento;
 var elemAuto, elemMulta, elemDevolver: tipoElemento;
     posAuto,posMulta: posicionLista;
-    posAGuardar,  multaMasAntigua: integer;
+    posAGuardar,  multaMasAntigua,nroMasAntigua: integer;
     Fecha: double;
-    lisMultas: ^Lista;
-    datosMulta: puntMulta;
+    listaMultas: Lista;
+    datosMulta: TMulta;
     Encontrado: Boolean;
 
 begin
   Encontrado := False;
   Fecha := 999999;
-  posAuto := L.Comienzo;
-  elemAuto := L.Recuperar(posAuto);
-  while (posAuto <= L.Fin) and (Encontrado) do begin
-    if elemAuto.Clave = Auto then begin
-      Encontrado := True;
-      posAGuardar := posAuto;
-    end;
-  end;
-  New(lisMultas);
-  New(datosMulta);
-  elemAuto := L.Recuperar(posAGuardar);
-  lisMultas := elemAuto.Valor2;
-  posMulta := lisMultas.Comienzo;
+  posAGuardar := recorrerListaAutos(Auto);
 
-  while (posMulta <= lisMultas.Fin) do begin
-    elemMulta := lisMultas.Recuperar(posMulta);
-    datosMulta := elemMulta.Valor2;
+  elemAuto := L.Recuperar(posAGuardar);
+  listaMultas := recuperarListaMultas(elemAuto);
+  posMulta := listaMultas.Comienzo;
+
+  while (posMulta <= listaMultas.Fin) do begin
+    elemMulta := listaMultas.Recuperar(posMulta);
+    datosMulta := recuperarDatosMulta(elemMulta);
     if datosMulta.Fecha < Fecha then begin
       Fecha := datosMulta.Fecha;
-      multaMasAntigua := elemMulta.Clave;
+      nroMasAntigua := elemMulta.Clave;
+      multaMasAntigua := Fecha;
     end;
-    posMulta := lisMultas.Siguiente(posMulta);
+    posMulta := listaMultas.Siguiente(posMulta);
   end;
-  elemDevolver.Clave := elemAuto.Clave;
-  elemDevolver.Valor1 := multaMasAntigua;
 
-  Dispose(lisMultas);
-  Dispose(datosMulta);
+  elemDevolver.Clave := nroMasAntigua;
+  elemDevolver.Valor1 := multaMasAntigua;
   Result := elemDevolver;
 end;
 
