@@ -2,8 +2,8 @@ object Form1: TForm1
   Left = 0
   Top = 0
   Caption = 'Form1'
-  ClientHeight = 349
-  ClientWidth = 194
+  ClientHeight = 343
+  ClientWidth = 197
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -13,57 +13,41 @@ object Form1: TForm1
   OldCreateOrder = False
   PixelsPerInch = 96
   TextHeight = 13
-  object Button1: TButton
+  object Button2: TButton
     Left = 8
-    Top = 8
+    Top = 69
     Width = 177
     Height = 25
-    Caption = 'Cargar pila aleatoria'
+    Caption = #191'Es palindromo?'
     TabOrder = 0
-    OnClick = Button1Click
+    OnClick = Button2Click
   end
   object Button4: TButton
     Left = 8
-    Top = 39
+    Top = 38
     Width = 177
     Height = 25
     Caption = 'Mostrar pila'
     TabOrder = 1
     OnClick = Button4Click
   end
-  object Button2: TButton
-    Left = 8
-    Top = 97
-    Width = 177
-    Height = 25
-    Caption = 'Eliminar ocurrencias'
-    TabOrder = 2
-    OnClick = Button2Click
-  end
   object Memo1: TMemo
     Left = 8
-    Top = 159
+    Top = 100
     Width = 177
-    Height = 182
+    Height = 235
     Lines.Strings = (
       'Memo1')
-    TabOrder = 3
-  end
-  object Edit1: TEdit
-    Left = 8
-    Top = 70
-    Width = 177
-    Height = 21
-    TabOrder = 4
-    Text = 'Edit1'
+    ScrollBars = ssBoth
+    TabOrder = 2
   end
   object Button3: TButton
     Left = 8
-    Top = 128
+    Top = 7
     Width = 177
     Height = 25
-    Caption = 'Eliminar ocurrencias recursiva'
-    TabOrder = 5
+    Caption = 'Cargar palabra al azar'
+    TabOrder = 3
     OnClick = Button3Click
   end
 end

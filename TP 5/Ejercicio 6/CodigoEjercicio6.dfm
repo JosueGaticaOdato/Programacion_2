@@ -2,8 +2,8 @@ object Form1: TForm1
   Left = 0
   Top = 0
   Caption = 'Form1'
-  ClientHeight = 349
-  ClientWidth = 194
+  ClientHeight = 201
+  ClientWidth = 380
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -11,8 +11,23 @@ object Form1: TForm1
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
+  object Label1: TLabel
+    Left = 80
+    Top = 77
+    Width = 24
+    Height = 13
+    Caption = 'Valor'
+  end
+  object Label2: TLabel
+    Left = 73
+    Top = 122
+    Width = 38
+    Height = 13
+    Caption = 'Posicion'
+  end
   object Button1: TButton
     Left = 8
     Top = 8
@@ -31,39 +46,37 @@ object Form1: TForm1
     TabOrder = 1
     OnClick = Button4Click
   end
-  object Button2: TButton
-    Left = 8
-    Top = 97
-    Width = 177
-    Height = 25
-    Caption = 'Eliminar ocurrencias'
-    TabOrder = 2
-    OnClick = Button2Click
-  end
   object Memo1: TMemo
-    Left = 8
-    Top = 159
-    Width = 177
-    Height = 182
+    Left = 191
+    Top = 8
+    Width = 181
+    Height = 187
     Lines.Strings = (
       'Memo1')
-    TabOrder = 3
+    ScrollBars = ssBoth
+    TabOrder = 2
   end
   object Edit1: TEdit
     Left = 8
-    Top = 70
+    Top = 96
+    Width = 177
+    Height = 21
+    TabOrder = 3
+  end
+  object Edit2: TEdit
+    Left = 8
+    Top = 142
     Width = 177
     Height = 21
     TabOrder = 4
-    Text = 'Edit1'
   end
-  object Button3: TButton
+  object Button2: TButton
     Left = 8
-    Top = 128
+    Top = 169
     Width = 177
     Height = 25
-    Caption = 'Eliminar ocurrencias recursiva'
+    Caption = 'Insertar'
     TabOrder = 5
-    OnClick = Button3Click
+    OnClick = Button2Click
   end
 end

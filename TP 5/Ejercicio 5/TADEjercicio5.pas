@@ -19,6 +19,7 @@ type
       procedure Apilar_Pila_Origen(Auxiliar: Pila);
       function Apilas_entre_pilas(AUX1: Pila; AUX2: Pila): Pila;
       function Eliminar_Ocurrencias(C: TipoElemento):Ejercicio5;
+      function Eliminar_Ocurrencias_Recursiva(C: TipoElemento; PilaAuxiliar1, PilaAuxiliar2, PilaAuxiliar3: Ejercicio5): Ejercicio5;
   End;
 
 implementation
@@ -90,6 +91,27 @@ begin
   Apilar_Pila_Origen(PilaAuxiliar1.P);
   PilaAuxiliar3.P := Apilas_entre_pilas(PilaAuxiliar2.P,PilaAuxiliar3.P);
   Result := PilaAuxiliar3;
+end;
+
+function Ejercicio5.Eliminar_Ocurrencias_Recursiva(C: TipoElemento; PilaAuxiliar1, PilaAuxiliar2, PilaAuxiliar3: Ejercicio5): Ejercicio5;
+var   X: TipoElemento;
+begin
+  if P.EsVacia then
+  begin
+    PilaAuxiliar3.P := Apilas_entre_pilas(PilaAuxiliar2.P,PilaAuxiliar3.P);
+    Result := PilaAuxiliar3;
+  end
+  else
+  begin
+    X := P.Recuperar;
+    if X.Clave <> C.Clave then
+    begin
+      PilaAuxiliar2.P.Apilar(X);
+    end;
+    PilaAuxiliar1.P.Apilar(X);
+    P.DesApilar;
+    Eliminar_Ocurrencias_Recursiva(C,PilaAuxiliar1, PilaAuxiliar2, PilaAuxiliar3);
+  end;
 end;
 
 end.
