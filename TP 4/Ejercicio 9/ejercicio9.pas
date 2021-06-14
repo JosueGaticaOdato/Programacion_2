@@ -36,8 +36,8 @@ type
     procedure FormCreate(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
-    procedure Button3Click(Sender: TObject);
-    procedure Button4Click(Sender: TObject);
+//    procedure Button3Click(Sender: TObject);
+//    procedure Button4Click(Sender: TObject);
     procedure Button5Click(Sender: TObject);
     procedure Button6Click(Sender: TObject);
     procedure Button7Click(Sender: TObject);
@@ -132,29 +132,29 @@ begin
 end;
 
 //Boton que me muestra la multa mas antigua de ese vehiculo
-procedure TForm1.Button3Click(Sender: TObject);
-var X:tipoElemento;
+//procedure TForm1.Button3Click(Sender: TObject);
+//var X:tipoElemento;
+////  P: ^Integer;
+//
+//begin
+//  X := List.multaAntigua(Edit3.Text);
+//  memo1.Lines.Add('La multa mas antigua es ' + X.Clave);
+//  memo1.Lines.Add('Cargada el dia ' + DateToSTR(X.Valor1));
+////  P := X.Valor2;
+////  memo1.Lines.Add('Con un valor de ' + P^.ToString + ' pesos.');
+//end;
+//
+////Boton que me muestra la multa mas reciente de ese vehiculo
+//procedure TForm1.Button4Click(Sender: TObject);
+//var X:TipoElemento;
 //  P: ^Integer;
-
-begin
-  X := List.multaAntigua(Edit3.Text);
-  memo1.Lines.Add('La multa mas antigua es ' + X.Clave);
-  memo1.Lines.Add('Cargada el dia ' + DateToSTR(X.Valor1));
+//begin
+//  X := List.multaReciente(Edit3.Text);
+//  memo1.Lines.Add('La multa mas recien es ' + FloatToStr(X.Clave));
+//  memo1.Lines.Add('Cargada el dia ' + DateToSTR(X.Valor1));
 //  P := X.Valor2;
 //  memo1.Lines.Add('Con un valor de ' + P^.ToString + ' pesos.');
-end;
-
-//Boton que me muestra la multa mas reciente de ese vehiculo
-procedure TForm1.Button4Click(Sender: TObject);
-var X:TipoElemento;
-  P: ^Integer;
-begin
-  X := List.multaReciente(Edit3.Text);
-  memo1.Lines.Add('La multa mas recien es ' + FloatToStr(X.Clave));
-  memo1.Lines.Add('Cargada el dia ' + DateToSTR(X.Valor1));
-  P := X.Valor2;
-  memo1.Lines.Add('Con un valor de ' + P^.ToString + ' pesos.');
-end;
+//end;
 
 //Boton que me muestra el vehiculo con la mayor cantidad de infraccion y su cantidad
 procedure TForm1.Button5Click(Sender: TObject);

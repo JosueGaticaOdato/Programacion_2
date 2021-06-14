@@ -108,7 +108,6 @@ object Form1: TForm1
     Height = 25
     Caption = 'Multa m'#225's antig'#252'a'
     TabOrder = 6
-    OnClick = Button3Click
   end
   object Button2: TButton
     Left = 25
@@ -126,7 +125,6 @@ object Form1: TForm1
     Height = 25
     Caption = 'Multa mas reciente'
     TabOrder = 8
-    OnClick = Button4Click
   end
   object Button5: TButton
     Left = 24
