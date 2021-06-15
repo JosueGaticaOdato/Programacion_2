@@ -39,20 +39,23 @@ var elemAuto: tipoElemento;
 begin
   elemAuto.Inicializar(Cadena,0);
   elemAuto.Clave := Patente;
-  if L.EsVacia then begin
-    L.Agregar(elemAuto);
+  if L.EsLLena then begin
+    seGuardo := Llena;
   end
   else begin
-    posAuto := L.Buscar(elemAuto);
-    if (posAuto = Nulo) and (not L.EsLLena) then begin
-      L.Agregar(elemAuto);      
+    if L.EsVacia then begin
+      L.Agregar(elemAuto);
     end
     else begin
-      seGuardo := Llena;
+      posAuto := L.Buscar(elemAuto);
+      if posAuto = Nulo then begin
+        L.Agregar(elemAuto);
+      end;
     end;
+    seGuardo := OK;
   end;
-  seGuardo := OK;
-  Result := seGuardo;  
+
+  Result := seGuardo;
 end;
 
 function Vehiculo.mostrarLista() : string;
