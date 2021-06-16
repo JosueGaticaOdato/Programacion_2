@@ -107,6 +107,7 @@ object Form1: TForm1
     Height = 25
     Caption = 'Calcular deudas'
     TabOrder = 6
+    OnClick = Button2Click
   end
   object Button4: TButton
     Left = 279
@@ -143,7 +144,7 @@ object Form1: TForm1
     TabOrder = 10
     WordWrap = True
   end
-  object Edit3: TEdit
+  object editConsulta: TEdit
     Left = 176
     Top = 306
     Width = 121

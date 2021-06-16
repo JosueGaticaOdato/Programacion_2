@@ -4,7 +4,7 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Tipos, TADMultas, ListArray, ListCursor, ListPointer,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Tipos, TADVehiculos, ListArray, ListCursor, ListPointer,
   Vcl.StdCtrls, Vcl.ComCtrls;
 
 type
@@ -25,13 +25,14 @@ type
     Button5: TButton;
     Button6: TButton;
     Button7: TButton;
-    Edit3: TEdit;
+    editConsulta: TEdit;
     Button1: TButton;
     procedure FormCreate(Sender: TObject);
     procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
   private
     { Private declarations }
-    LV: Vehiculo;
+    LV: Vehiculos;
 
   public
     { Public declarations }
@@ -63,15 +64,31 @@ implementation
 
 procedure TForm1.Button1Click(Sender: TObject);
 var seGuardo: Errores;
+    Importe: integer;
 begin
-  seGuardo := LV.Guardar(Edit1.Text,ComboBox1.Text,Edit2.Text,DateTimePicker1.Date);
-  if seGuardo = OK then begin
-    memo1.Lines.Add('Se guardó correctamente');
+  Importe := strToInt(Edit2.Text);
+
+  seGuardo := LV.guardarAuto(Edit1.Text);
+  if (seGuardo = OK) or (seGuardo = ClaveDuplicada) then begin
+    if seGuardo = OK then memo1.Lines.Add('El auto se guardó correctamente');
+    if LV.insertarMulta(Edit1.Text,ComboBox1.Text,Importe,DateTimePicker1.Date) = OK then begin
+      memo1.Lines.Add('La multa se guardó correctamente');
+    end
+    else begin
+      memo1.Lines.Add('No se guardó la multa');
+    end;
   end
   else begin
     memo1.Lines.Add('No se pudo guardar');
   end;
+  memo1.Lines.Add('Patentes: ');
   memo1.Lines.Add( LV.mostrarLista);
+end;
+
+procedure TForm1.Button2Click(Sender: TObject);
+
+begin
+ memo1.Lines.Add('El importe total adeudado es ' + intToStr(LV.totalMultas(editConsulta.Text)));
 end;
 
 procedure TForm1.FormCreate(Sender: TObject);

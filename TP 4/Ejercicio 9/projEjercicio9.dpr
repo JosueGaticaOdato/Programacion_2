@@ -7,7 +7,7 @@ uses
   ListCursor in '..\ListCursor.pas',
   ListPointer in '..\ListPointer.pas',
   Tipos in '..\Tipos.pas',
-  TADMultas in 'TADMultas.pas';
+  TADVehiculos in 'TADVehiculos.pas';
 
 {$R *.res}
 
