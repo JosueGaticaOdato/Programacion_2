@@ -46,6 +46,7 @@ type
 var
   Form1: TForm1;
 
+
 implementation
 {$R *.dfm}
 
@@ -71,7 +72,7 @@ procedure TForm1.btnGuardarClick(Sender: TObject);
 var seGuardo: Errores;
     Importe: integer;
 begin
-  if EditPatente.Text <> strVacio then begin
+  if LV.validarPatente(EditPatente.Text) then begin
     seGuardo := LV.guardarAuto(EditPatente.Text);
     if (seGuardo = OK) or (seGuardo = ClaveDuplicada) then begin
       if seGuardo = OK then begin
@@ -101,7 +102,7 @@ begin
     end;
   end
   else begin
-    memo1.Lines.Add('No se ingresaron datos de vehículo');
+    memo1.Lines.Add('No se ingresaron datos de vehículo o estos son incorrectos.');
   end;
 end;
 

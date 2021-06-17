@@ -8,7 +8,6 @@ uses
 const
   cantElemMax = 10;
   nError = -1;
-  strVacio = '';
 
 type
   TMulta = Record
@@ -34,6 +33,7 @@ type
     function cantMultasMayor() : string;
     function mayorDeuda() : string;
     function sinDeuda() : string;
+    function validarPatente(patente: string) : boolean;
   End;
 
 implementation
@@ -307,5 +307,33 @@ begin
   Result := Mostrar;
 end;
 
+function Vehiculos.validarPatente(patente: string) : boolean;
+var I,patVieja,patNueva: integer;
+    Correcta: boolean;
+begin
+  Correcta := True;
+  patVieja := 6;
+  patNueva := 7;
+  //valida los formatos de patente vieja y nueva
+  if (Length(patente) = patVieja) and (Correcta) then begin
+    for I := 1 to patVieja do begin
+      if (((I >= 1) and (I <= 3)) and ((Ord(patente[I]) <
+      Ord('a')) or (Ord(patente[I]) > Ord('z')))) or
+      (((I >= 4) and (I <= 6)) and ((Ord(patente[I]) <
+      Ord('0')) or (Ord(patente[I]) > Ord('9')))) then Correcta := False;
+    end;
+  end
+  else if (Length(patente) = patNueva) and (Correcta) then begin
+    for I := 1 to patNueva do begin
+
+      if (((I = 1) or (I = 2) or (I = 6) or (I = 7)) and ((Ord(patente[I]) <
+        Ord('a')) or (Ord(patente[I]) > Ord('z')))) or
+        (((I >= 3) and (I <= 5)) and ((Ord(patente[I]) <
+        Ord('0')) or (Ord(patente[I]) > Ord('9')))) then Correcta := False;
+    end;
+  end
+  else Correcta := False;
+  Result := Correcta;
+end;
 
 end.
