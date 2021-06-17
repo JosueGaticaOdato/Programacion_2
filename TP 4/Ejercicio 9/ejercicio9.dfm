@@ -81,7 +81,7 @@ object Form1: TForm1
     Top = 182
     Width = 145
     Height = 21
-    Date = 44354.000000000000000000
+    Date = 44364.000000000000000000
     Time = 0.901170567129156600
     TabOrder = 3
   end
@@ -92,39 +92,24 @@ object Form1: TForm1
     Height = 21
     TabOrder = 4
   end
-  object Button3: TButton
-    Left = 150
-    Top = 344
-    Width = 99
-    Height = 25
-    Caption = 'Multa m'#225's antig'#252'a'
-    TabOrder = 5
-  end
-  object Button2: TButton
+  object btnTotal: TButton
     Left = 25
     Top = 344
-    Width = 105
+    Width = 104
     Height = 25
-    Caption = 'Calcular deudas'
-    TabOrder = 6
-    OnClick = Button2Click
+    Caption = 'Total adeudado'
+    TabOrder = 5
+    OnClick = btnTotalClick
   end
-  object Button4: TButton
-    Left = 279
-    Top = 344
-    Width = 99
-    Height = 25
-    Caption = 'Multa mas reciente'
-    TabOrder = 7
-  end
-  object Button5: TButton
+  object btnMayorCant: TButton
     Left = 24
     Top = 384
     Width = 105
     Height = 49
     Caption = 'Vehiculo con mayor cantidad de infracciones'
-    TabOrder = 8
+    TabOrder = 6
     WordWrap = True
+    OnClick = btnMayorCantClick
   end
   object Button6: TButton
     Left = 150
@@ -132,7 +117,7 @@ object Form1: TForm1
     Width = 99
     Height = 49
     Caption = 'Vehiculo con la mayor deuda'
-    TabOrder = 9
+    TabOrder = 7
     WordWrap = True
   end
   object Button7: TButton
@@ -141,7 +126,7 @@ object Form1: TForm1
     Width = 99
     Height = 49
     Caption = 'Vehiculo sin deudas'
-    TabOrder = 10
+    TabOrder = 8
     WordWrap = True
   end
   object editConsulta: TEdit
@@ -149,15 +134,33 @@ object Form1: TForm1
     Top = 306
     Width = 121
     Height = 21
-    TabOrder = 11
+    TabOrder = 9
   end
-  object Button1: TButton
+  object btnGuardar: TButton
     Left = 25
     Top = 282
     Width = 90
     Height = 25
     Caption = 'Ingresar multa'
+    TabOrder = 10
+    OnClick = btnGuardarClick
+  end
+  object btnMultaReciente: TButton
+    Left = 279
+    Top = 344
+    Width = 99
+    Height = 25
+    Caption = 'Multa m'#225's reciente'
+    TabOrder = 11
+    OnClick = btnMultaRecienteClick
+  end
+  object btnMultaAntigua: TButton
+    Left = 150
+    Top = 344
+    Width = 99
+    Height = 25
+    Caption = 'Multa m'#225's Antig'#252'a'
     TabOrder = 12
-    OnClick = Button1Click
+    OnClick = btnMultaAntiguaClick
   end
 end

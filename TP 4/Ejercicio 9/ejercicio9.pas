@@ -18,18 +18,21 @@ type
     Label2: TLabel;
     Label3: TLabel;
     Label4: TLabel;
-    Button3: TButton;
-    Button2: TButton;
+    btnTotal: TButton;
     Label5: TLabel;
-    Button4: TButton;
-    Button5: TButton;
+    btnMayorCant: TButton;
     Button6: TButton;
     Button7: TButton;
     editConsulta: TEdit;
-    Button1: TButton;
+    btnGuardar: TButton;
+    btnMultaReciente: TButton;
+    btnMultaAntigua: TButton;
     procedure FormCreate(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
-    procedure Button2Click(Sender: TObject);
+    procedure btnGuardarClick(Sender: TObject);
+    procedure btnTotalClick(Sender: TObject);
+    procedure btnMultaAntiguaClick(Sender: TObject);
+    procedure btnMultaRecienteClick(Sender: TObject);
+    procedure btnMayorCantClick(Sender: TObject);
   private
     { Private declarations }
     LV: Vehiculos;
@@ -62,7 +65,7 @@ implementation
 
 
 
-procedure TForm1.Button1Click(Sender: TObject);
+procedure TForm1.btnGuardarClick(Sender: TObject);
 var seGuardo: Errores;
     Importe: integer;
 begin
@@ -79,16 +82,62 @@ begin
     end;
   end
   else begin
-    memo1.Lines.Add('No se pudo guardar');
+    memo1.Lines.Add('No se pudo guardar el auto');
   end;
   memo1.Lines.Add('Patentes: ');
   memo1.Lines.Add( LV.mostrarLista);
 end;
 
-procedure TForm1.Button2Click(Sender: TObject);
-
+procedure TForm1.btnMultaAntiguaClick(Sender: TObject);
+var Multa: tipoElemento;
 begin
- memo1.Lines.Add('El importe total adeudado es ' + intToStr(LV.totalMultas(editConsulta.Text)));
+  Multa := LV.fechaMulta(editConsulta.Text,true);
+  if Multa.Valor1 <> CError then begin
+
+    memo1.Lines.Add('La multa más antigüa es del ' + dateToStr(Multa.Clave));
+  end
+  else begin
+    memo1.Lines.Add('No hay un vehículo guardado con la patente ingresada');
+  end;
+end;
+
+procedure TForm1.btnMultaRecienteClick(Sender: TObject);
+var Multa: tipoElemento;
+begin
+  Multa := LV.fechaMulta(editConsulta.Text,false);
+  if Multa.Valor1 <> CError then begin
+
+    memo1.Lines.Add('La multa más reciente es del ' + dateToStr(Multa.Clave));
+  end
+  else begin
+    memo1.Lines.Add('No hay un vehículo guardado con la patente ingresada');
+  end;
+end;
+
+procedure TForm1.btnTotalClick(Sender: TObject);
+var Deuda: integer;
+begin
+  Deuda := LV.totalMultas(editConsulta.Text);
+
+  if Deuda <> nError then begin
+
+  memo1.Lines.Add('El importe total adeudado es ' + intToStr(Deuda));
+  end
+  else begin
+    memo1.Lines.Add('No hay un auto guardado con esa patente');
+  end;
+end;
+
+procedure TForm1.btnMayorCantClick(Sender: TObject);
+var Auto: string;
+begin
+  Auto := LV.cantMultasMayor();
+  if Auto <> 'Vacia' then begin
+  memo1.Lines.Add('El vehículo con la mayor cantidad de infracciones es '
+   + Auto);
+  end
+  else memo1.Lines.Add('No hay ningún auto guardado');
+
 end;
 
 procedure TForm1.FormCreate(Sender: TObject);
