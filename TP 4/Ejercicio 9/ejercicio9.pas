@@ -10,19 +10,19 @@ uses
 type
   TForm1 = class(TForm)
     Memo1: TMemo;
-    Edit1: TEdit;
+    EditPatente: TEdit;
     Label1: TLabel;
-    ComboBox1: TComboBox;
-    DateTimePicker1: TDateTimePicker;
-    Edit2: TEdit;
+    opcionesEstados: TComboBox;
+    fechaPicker: TDateTimePicker;
+    EditImporte: TEdit;
     Label2: TLabel;
     Label3: TLabel;
     Label4: TLabel;
     btnTotal: TButton;
     Label5: TLabel;
     btnMayorCant: TButton;
-    Button6: TButton;
-    Button7: TButton;
+    btnMayorDeuda: TButton;
+    btnSinDeuda: TButton;
     editConsulta: TEdit;
     btnGuardar: TButton;
     btnMultaReciente: TButton;
@@ -33,6 +33,8 @@ type
     procedure btnMultaAntiguaClick(Sender: TObject);
     procedure btnMultaRecienteClick(Sender: TObject);
     procedure btnMayorCantClick(Sender: TObject);
+    procedure btnMayorDeudaClick(Sender: TObject);
+    procedure btnSinDeudaClick(Sender: TObject);
   private
     { Private declarations }
     LV: Vehiculos;
@@ -69,35 +71,53 @@ procedure TForm1.btnGuardarClick(Sender: TObject);
 var seGuardo: Errores;
     Importe: integer;
 begin
-  Importe := strToInt(Edit2.Text);
+  if EditPatente.Text <> strVacio then begin
+    seGuardo := LV.guardarAuto(EditPatente.Text);
+    if (seGuardo = OK) or (seGuardo = ClaveDuplicada) then begin
+      if seGuardo = OK then begin
+        memo1.Lines.Add('El auto se guardó correctamente');
+      end
+      else begin
+        memo1.Lines.Add('Ya hay un auto guardado con esa patente');
+      end;
 
-  seGuardo := LV.guardarAuto(Edit1.Text);
-  if (seGuardo = OK) or (seGuardo = ClaveDuplicada) then begin
-    if seGuardo = OK then memo1.Lines.Add('El auto se guardó correctamente');
-    if LV.insertarMulta(Edit1.Text,ComboBox1.Text,Importe,DateTimePicker1.Date) = OK then begin
-      memo1.Lines.Add('La multa se guardó correctamente');
+      if tryStrToInt(EditImporte.Text,Importe) then begin
+        Importe := strToInt(EditImporte.Text);
+        if LV.insertarMulta(EditPatente.Text,opcionesEstados.Text,Importe,FechaPicker.Date) = OK then begin
+          memo1.Lines.Add('La multa se guardó correctamente');
+        end
+        else begin
+          memo1.Lines.Add('No se guardó la multa');
+        end;
+      end
+      else begin
+          memo1.Lines.Add('No se ingresaron datos de multa o estos son incorrectos.');
+      end;
+      memo1.Lines.Add('Patentes: ');
+      memo1.Lines.Add( LV.mostrarLista);
     end
     else begin
-      memo1.Lines.Add('No se guardó la multa');
+      memo1.Lines.Add('No se pudo ingresar el vehículo');
     end;
   end
   else begin
-    memo1.Lines.Add('No se pudo guardar el auto');
+    memo1.Lines.Add('No se ingresaron datos de vehículo');
   end;
-  memo1.Lines.Add('Patentes: ');
-  memo1.Lines.Add( LV.mostrarLista);
 end;
+
 
 procedure TForm1.btnMultaAntiguaClick(Sender: TObject);
 var Multa: tipoElemento;
 begin
   Multa := LV.fechaMulta(editConsulta.Text,true);
-  if Multa.Valor1 <> CError then begin
-
-    memo1.Lines.Add('La multa más antigüa es del ' + dateToStr(Multa.Clave));
+  if Multa.Valor1 = Vacia then begin
+    memo1.Lines.Add('No hay un vehículo guardado con la patente ingresada');
+  end
+  else if Multa.Valor1 = CError then begin
+    memo1.Lines.Add('El auto consultado no tiene multas');
   end
   else begin
-    memo1.Lines.Add('No hay un vehículo guardado con la patente ingresada');
+    memo1.Lines.Add('La multa más antigüa es del ' + dateToStr(Multa.Clave));
   end;
 end;
 
@@ -105,12 +125,14 @@ procedure TForm1.btnMultaRecienteClick(Sender: TObject);
 var Multa: tipoElemento;
 begin
   Multa := LV.fechaMulta(editConsulta.Text,false);
-  if Multa.Valor1 <> CError then begin
-
-    memo1.Lines.Add('La multa más reciente es del ' + dateToStr(Multa.Clave));
+  if Multa.Valor1 = Vacia then begin
+    memo1.Lines.Add('No hay un vehículo guardado con la patente ingresada');
+  end
+  else if Multa.Valor1 = CError then begin
+    memo1.Lines.Add('El auto consultado no tiene multas');
   end
   else begin
-    memo1.Lines.Add('No hay un vehículo guardado con la patente ingresada');
+    memo1.Lines.Add('La multa más reciente es del ' + dateToStr(Multa.Clave));
   end;
 end;
 
@@ -128,16 +150,51 @@ begin
   end;
 end;
 
+procedure TForm1.btnSinDeudaClick(Sender: TObject);
+var Patente: string;
+begin
+  Patente := LV.sinDeuda;
+  if Patente = 'CError' then begin
+    memo1.Lines.Add('No hay autos sin deudas');
+
+  end
+  else if Patente = 'Vacia' then begin
+    memo1.Lines.Add('No hay autos guardados');
+  end
+  else begin
+    memo1.Lines.Add('El vehículo ' + LV.sinDeuda() + ' no tiene deudas.');
+  end;
+end;
+
+procedure TForm1.btnMayorDeudaClick(Sender: TObject);
+var Patente: string;
+begin
+  Patente := LV.mayorDeuda;
+  if Patente = 'Vacia' then begin
+    memo1.Lines.Add('No hay autos guardados');
+  end
+  else if Patente = 'CError' then begin
+     memo1.Lines.Add('El o los autos guardados no tienen multas');
+  end
+  else begin
+    memo1.Lines.Add('El vehículo con la mayor deuda es ' + Patente);
+  end;
+end;
+
 procedure TForm1.btnMayorCantClick(Sender: TObject);
 var Auto: string;
 begin
   Auto := LV.cantMultasMayor();
-  if Auto <> 'Vacia' then begin
-  memo1.Lines.Add('El vehículo con la mayor cantidad de infracciones es '
-   + Auto);
+  if Auto = 'Vacia' then begin
+    memo1.Lines.Add('No hay ningún auto guardado');
   end
-  else memo1.Lines.Add('No hay ningún auto guardado');
-
+  else if Auto = 'CError' then begin
+    memo1.Lines.Add('El o los autos guardados no tienen multas');
+  end
+  else begin
+    memo1.Lines.Add('El vehículo con la mayor cantidad de infracciones es '
+   + Auto);
+  end;
 end;
 
 procedure TForm1.FormCreate(Sender: TObject);

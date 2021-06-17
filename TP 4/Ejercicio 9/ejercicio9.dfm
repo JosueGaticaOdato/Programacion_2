@@ -2,8 +2,8 @@ object Form1: TForm1
   Left = 0
   Top = 0
   Caption = 'Form1'
-  ClientHeight = 541
-  ClientWidth = 510
+  ClientHeight = 432
+  ClientWidth = 540
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -43,7 +43,7 @@ object Form1: TForm1
     Caption = 'Importe'
   end
   object Label5: TLabel
-    Left = 176
+    Left = 216
     Top = 287
     Width = 100
     Height = 13
@@ -54,18 +54,25 @@ object Form1: TForm1
     Top = 8
     Width = 225
     Height = 273
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
     Lines.Strings = (
       'Memo1')
+    ParentFont = False
+    ScrollBars = ssVertical
     TabOrder = 0
   end
-  object Edit1: TEdit
+  object EditPatente: TEdit
     Left = 8
     Top = 51
     Width = 145
     Height = 21
     TabOrder = 1
   end
-  object ComboBox1: TComboBox
+  object opcionesEstados: TComboBox
     Left = 0
     Top = 120
     Width = 145
@@ -76,7 +83,7 @@ object Form1: TForm1
       'Abonada'
       'Anulada')
   end
-  object DateTimePicker1: TDateTimePicker
+  object fechaPicker: TDateTimePicker
     Left = 8
     Top = 182
     Width = 145
@@ -85,15 +92,15 @@ object Form1: TForm1
     Time = 0.901170567129156600
     TabOrder = 3
   end
-  object Edit2: TEdit
+  object EditImporte: TEdit
     Left = 8
-    Top = 251
+    Top = 255
     Width = 145
     Height = 21
     TabOrder = 4
   end
   object btnTotal: TButton
-    Left = 25
+    Left = 89
     Top = 344
     Width = 104
     Height = 25
@@ -102,8 +109,8 @@ object Form1: TForm1
     OnClick = btnTotalClick
   end
   object btnMayorCant: TButton
-    Left = 24
-    Top = 384
+    Left = 422
+    Top = 37
     Width = 105
     Height = 49
     Caption = 'Vehiculo con mayor cantidad de infracciones'
@@ -111,26 +118,28 @@ object Form1: TForm1
     WordWrap = True
     OnClick = btnMayorCantClick
   end
-  object Button6: TButton
-    Left = 150
-    Top = 384
-    Width = 99
+  object btnMayorDeuda: TButton
+    Left = 422
+    Top = 180
+    Width = 105
     Height = 49
     Caption = 'Vehiculo con la mayor deuda'
     TabOrder = 7
     WordWrap = True
+    OnClick = btnMayorDeudaClick
   end
-  object Button7: TButton
-    Left = 278
-    Top = 384
-    Width = 99
+  object btnSinDeuda: TButton
+    Left = 422
+    Top = 106
+    Width = 105
     Height = 49
     Caption = 'Vehiculo sin deudas'
     TabOrder = 8
     WordWrap = True
+    OnClick = btnSinDeudaClick
   end
   object editConsulta: TEdit
-    Left = 176
+    Left = 216
     Top = 306
     Width = 121
     Height = 21
@@ -146,7 +155,7 @@ object Form1: TForm1
     OnClick = btnGuardarClick
   end
   object btnMultaReciente: TButton
-    Left = 279
+    Left = 335
     Top = 344
     Width = 99
     Height = 25
@@ -155,7 +164,7 @@ object Form1: TForm1
     OnClick = btnMultaRecienteClick
   end
   object btnMultaAntigua: TButton
-    Left = 150
+    Left = 216
     Top = 344
     Width = 99
     Height = 25
