@@ -2,12 +2,12 @@ program ProyectoEjercicio7;
 
 uses
   Vcl.Forms,
-  CodigoEjercicio87 in 'CodigoEjercicio87.pas' {Form1},
-  ListArray in 'ListArray.pas',
-  ListCursor in 'ListCursor.pas',
-  ListPointer in 'ListPointer.pas',
-  Tipos in 'Tipos.pas',
-  PacManTAD in 'PacManTAD.pas';
+  CodigoEjercicio7 in 'CodigoEjercicio7.pas' {Form1},
+  PacManTAD in 'PacManTAD.pas',
+  ListArray in '..\ListArray.pas',
+  ListCursor in '..\ListCursor.pas',
+  ListPointer in '..\ListPointer.pas',
+  Tipos in '..\Tipos.pas';
 
 {$R *.res}
 

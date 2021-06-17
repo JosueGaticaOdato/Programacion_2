@@ -1,4 +1,4 @@
-unit CodigoEjercicio87;
+unit CodigoEjercicio7;
 
 interface
 
