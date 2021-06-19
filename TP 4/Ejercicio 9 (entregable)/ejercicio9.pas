@@ -63,11 +63,6 @@ implementation
 ////    ¿Cuál es el vehículo que más deuda de infracciones tiene?
 ////    ¿Existe algún vehículo/s que no tenga deuda de infracciones?
 
-//ingresa la patente, busco si la patente ya esta, si la lista esta vacia agrego de una,
-//sino, veo si la lista de multas está llena, sino agrego la multa
-
-
-
 procedure TForm1.btnGuardarClick(Sender: TObject);
 var seGuardo: Errores;
     Importe: integer;

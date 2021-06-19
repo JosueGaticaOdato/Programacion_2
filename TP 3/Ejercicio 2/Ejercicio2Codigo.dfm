@@ -75,7 +75,7 @@ object Form1: TForm1
     TabOrder = 2
     Text = '1'
   end
-  object MCD: TEdit
+  object MCDEdit: TEdit
     Left = 276
     Top = 144
     Width = 121
