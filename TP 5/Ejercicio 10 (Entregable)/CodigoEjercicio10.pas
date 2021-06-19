@@ -33,6 +33,7 @@ implementation
 
 {$R *.dfm}
 
+//Boton que realiza la conversion
 procedure TForm1.Button1Click(Sender: TObject);
 var Valor: String;
 begin
@@ -41,6 +42,7 @@ begin
   memo1.Lines.Add('El numero ' + Edit1.Text + ' en base ' + Edit2.Text + ' es ' + Valor);
 end;
 
+//Creacion de la pila
 procedure TForm1.FormCreate(Sender: TObject);
 begin
   Memo1.Clear;

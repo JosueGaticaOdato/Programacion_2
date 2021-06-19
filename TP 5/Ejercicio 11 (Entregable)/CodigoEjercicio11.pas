@@ -34,6 +34,7 @@ implementation
 
 {$R *.dfm}
 
+//Boton que me devuelve el MCD y la llamada recursiva correspondiente
 procedure TForm1.btnMCDClick(Sender: TObject);
 var MCD: Integer;
 begin
@@ -43,9 +44,11 @@ begin
   memo1.Lines.Add(Pila.Mostrar_Pila);
 end;
 
+//Creacion de la pila
 procedure TForm1.FormCreate(Sender: TObject);
 begin
   Pila.Definir_Tamaño_Pila(CantidadMaxima);
+  memo1.Clear;
 end;
 
 end.

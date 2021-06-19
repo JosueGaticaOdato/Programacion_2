@@ -3,7 +3,7 @@ object Form1: TForm1
   Top = 0
   Caption = 'Ejercicio 10'
   ClientHeight = 193
-  ClientWidth = 194
+  ClientWidth = 283
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -15,21 +15,21 @@ object Form1: TForm1
   PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel
-    Left = 18
+    Left = 58
     Top = 13
     Width = 36
     Height = 13
     Caption = 'Decimal'
   end
   object Label2: TLabel
-    Left = 25
+    Left = 65
     Top = 39
     Width = 23
     Height = 13
     Caption = 'Base'
   end
   object Edit1: TEdit
-    Left = 65
+    Left = 105
     Top = 8
     Width = 121
     Height = 21
@@ -37,7 +37,7 @@ object Form1: TForm1
     Text = '569'
   end
   object Edit2: TEdit
-    Left = 65
+    Left = 105
     Top = 35
     Width = 121
     Height = 21
@@ -47,7 +47,7 @@ object Form1: TForm1
   object Memo1: TMemo
     Left = 8
     Top = 93
-    Width = 178
+    Width = 267
     Height = 89
     Lines.Strings = (
       'Memo1')
@@ -55,7 +55,7 @@ object Form1: TForm1
     TabOrder = 2
   end
   object Button1: TButton
-    Left = 40
+    Left = 96
     Top = 62
     Width = 97
     Height = 25

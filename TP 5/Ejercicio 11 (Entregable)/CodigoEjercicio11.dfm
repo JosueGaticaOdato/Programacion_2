@@ -42,8 +42,7 @@ object Form1: TForm1
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
-    ExplicitLeft = -16
-    ExplicitWidth = 296
+    ExplicitWidth = 204
   end
   object Numero1: TEdit
     Left = 8
@@ -51,7 +50,7 @@ object Form1: TForm1
     Width = 121
     Height = 21
     TabOrder = 0
-    Text = '1'
+    Text = '20'
   end
   object Numero2: TEdit
     Left = 146
@@ -59,7 +58,7 @@ object Form1: TForm1
     Width = 121
     Height = 21
     TabOrder = 1
-    Text = '1'
+    Text = '12'
   end
   object btnMCD: TButton
     Left = 96
