@@ -1,9 +1,9 @@
 object Form1: TForm1
   Left = 0
   Top = 0
-  Caption = 'Form1'
-  ClientHeight = 432
-  ClientWidth = 540
+  Caption = 'Ejercicio 9'
+  ClientHeight = 346
+  ClientWidth = 528
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -16,44 +16,44 @@ object Form1: TForm1
   TextHeight = 13
   object Label1: TLabel
     Left = 8
-    Top = 27
+    Top = 11
     Width = 38
     Height = 13
     Caption = 'Patente'
   end
   object Label2: TLabel
     Left = 8
-    Top = 101
+    Top = 73
     Width = 88
     Height = 13
     Caption = 'Estado de la multa'
   end
   object Label3: TLabel
     Left = 8
-    Top = 155
+    Top = 123
     Width = 29
     Height = 13
     Caption = 'Fecha'
   end
   object Label4: TLabel
     Left = 8
-    Top = 216
+    Top = 180
     Width = 38
     Height = 13
     Caption = 'Importe'
   end
   object Label5: TLabel
-    Left = 216
-    Top = 287
+    Left = 8
+    Top = 295
     Width = 100
     Height = 13
     Caption = 'Consulte por su auto'
   end
   object Memo1: TMemo
-    Left = 176
-    Top = 8
+    Left = 168
+    Top = 11
     Width = 225
-    Height = 273
+    Height = 270
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -13
@@ -67,14 +67,14 @@ object Form1: TForm1
   end
   object EditPatente: TEdit
     Left = 8
-    Top = 51
+    Top = 35
     Width = 145
     Height = 21
     TabOrder = 1
   end
   object opcionesEstados: TComboBox
-    Left = 0
-    Top = 120
+    Left = 8
+    Top = 92
     Width = 145
     Height = 21
     TabOrder = 2
@@ -85,7 +85,7 @@ object Form1: TForm1
   end
   object fechaPicker: TDateTimePicker
     Left = 8
-    Top = 182
+    Top = 142
     Width = 145
     Height = 21
     Date = 44364.000000000000000000
@@ -94,14 +94,14 @@ object Form1: TForm1
   end
   object EditImporte: TEdit
     Left = 8
-    Top = 255
+    Top = 208
     Width = 145
     Height = 21
     TabOrder = 4
   end
   object btnTotal: TButton
-    Left = 89
-    Top = 344
+    Left = 176
+    Top = 312
     Width = 104
     Height = 25
     Caption = 'Total adeudado'
@@ -109,8 +109,8 @@ object Form1: TForm1
     OnClick = btnTotalClick
   end
   object btnMayorCant: TButton
-    Left = 422
-    Top = 37
+    Left = 406
+    Top = 35
     Width = 105
     Height = 49
     Caption = 'Vehiculo con mayor cantidad de infracciones'
@@ -119,7 +119,7 @@ object Form1: TForm1
     OnClick = btnMayorCantClick
   end
   object btnMayorDeuda: TButton
-    Left = 422
+    Left = 406
     Top = 180
     Width = 105
     Height = 49
@@ -129,7 +129,7 @@ object Form1: TForm1
     OnClick = btnMayorDeudaClick
   end
   object btnSinDeuda: TButton
-    Left = 422
+    Left = 406
     Top = 106
     Width = 105
     Height = 49
@@ -139,15 +139,15 @@ object Form1: TForm1
     OnClick = btnSinDeudaClick
   end
   object editConsulta: TEdit
-    Left = 216
-    Top = 306
-    Width = 121
+    Left = 8
+    Top = 314
+    Width = 144
     Height = 21
     TabOrder = 9
   end
   object btnGuardar: TButton
     Left = 25
-    Top = 282
+    Top = 242
     Width = 90
     Height = 25
     Caption = 'Ingresar multa'
@@ -155,8 +155,8 @@ object Form1: TForm1
     OnClick = btnGuardarClick
   end
   object btnMultaReciente: TButton
-    Left = 335
-    Top = 344
+    Left = 391
+    Top = 312
     Width = 99
     Height = 25
     Caption = 'Multa m'#225's reciente'
@@ -164,8 +164,8 @@ object Form1: TForm1
     OnClick = btnMultaRecienteClick
   end
   object btnMultaAntigua: TButton
-    Left = 216
-    Top = 344
+    Left = 286
+    Top = 312
     Width = 99
     Height = 25
     Caption = 'Multa m'#225's Antig'#252'a'
