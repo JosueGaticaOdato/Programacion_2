@@ -15,7 +15,7 @@ object Form1: TForm1
   TextHeight = 13
   object Button2: TButton
     Left = 8
-    Top = 69
+    Top = 101
     Width = 177
     Height = 25
     Caption = #191'Es palindromo?'
@@ -24,7 +24,7 @@ object Form1: TForm1
   end
   object Button4: TButton
     Left = 8
-    Top = 38
+    Top = 69
     Width = 177
     Height = 25
     Caption = 'Mostrar pila'
@@ -33,21 +33,28 @@ object Form1: TForm1
   end
   object Memo1: TMemo
     Left = 8
-    Top = 100
+    Top = 132
     Width = 177
-    Height = 235
+    Height = 203
     Lines.Strings = (
       'Memo1')
     ScrollBars = ssBoth
     TabOrder = 2
   end
-  object Button3: TButton
+  object Palabra: TEdit
     Left = 8
-    Top = 7
+    Top = 11
+    Width = 177
+    Height = 21
+    TabOrder = 3
+  end
+  object Button1: TButton
+    Left = 8
+    Top = 38
     Width = 177
     Height = 25
-    Caption = 'Cargar palabra al azar'
-    TabOrder = 3
-    OnClick = Button3Click
+    Caption = 'Cargar palabra'
+    TabOrder = 4
+    OnClick = Button1Click
   end
 end

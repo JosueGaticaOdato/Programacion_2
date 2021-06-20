@@ -14,10 +14,11 @@ type
     Button2: TButton;
     Button4: TButton;
     Memo1: TMemo;
-    Button3: TButton;
+    Palabra: TEdit;
+    Button1: TButton;
     procedure Button4Click(Sender: TObject);
-    procedure Button3Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
   private
     { Private declarations }
     Pila: Ejercicio9;
@@ -32,7 +33,15 @@ implementation
 
 {$R *.dfm}
 
+//Boton que carga la palabra en una pila
+procedure TForm1.Button1Click(Sender: TObject);
+begin
+  Pila.Cargar_Palindromo(Palabra.Text);
+  memo1.Clear;
+  memo1.Lines.Add('Palabra cargado');
+end;
 
+//Boton que devuelve si la pila es o no palindromo
 procedure TForm1.Button2Click(Sender: TObject);
 var Palindromo: Boolean;
 begin
@@ -44,12 +53,7 @@ begin
   else memo1.Lines.Add('No es palindromo');
 end;
 
-procedure TForm1.Button3Click(Sender: TObject);
-begin
-  Pila.Cargar_Palindromo;
-  memo1.Lines.Add('Palabra cargado');
-end;
-
+//Boton que muestra el contenido de la pila
 procedure TForm1.Button4Click(Sender: TObject);
 begin
   memo1.Lines.Add('La pila es');
