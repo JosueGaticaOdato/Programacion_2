@@ -2,8 +2,7 @@ program Ejercicio2Proyecto;
 
 uses
   Vcl.Forms,
-  Ejercicio2Codigo in 'Ejercicio2Codigo.pas' {Form1},
-  McdTAD in 'McdTAD.pas';
+  Ejercicio2Codigo in 'Ejercicio2Codigo.pas' {Form1};
 
 {$R *.res}
 
