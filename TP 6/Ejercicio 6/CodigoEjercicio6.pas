@@ -6,6 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Tipos, TADEjercicio6, Vcl.StdCtrls;
 
+//Tamaño de las colas y determinacion del rango de su contenido
 const
   Tamaño1 = 3;
   Tamaño2 = 2;
@@ -14,15 +15,15 @@ const
 
 type
   TForm1 = class(TForm)
-    Button1: TButton;
-    Button3: TButton;
+    BtnCarga: TButton;
+    BtnIguales: TButton;
     Memo1: TMemo;
-    Button2: TButton;
-    Button4: TButton;
-    procedure Button1Click(Sender: TObject);
-    procedure Button2Click(Sender: TObject);
-    procedure Button3Click(Sender: TObject);
-    procedure Button4Click(Sender: TObject);
+    BtnMostrar: TButton;
+    BtnCargaEjmplo: TButton;
+    procedure BtnCargaClick(Sender: TObject);
+    procedure BtnMostrarClick(Sender: TObject);
+    procedure BtnIgualesClick(Sender: TObject);
+    procedure BtnCargaEjmploClick(Sender: TObject);
   private
     Cola1: Ejercicio6;
     Cola2: Ejercicio6;
@@ -38,14 +39,16 @@ implementation
 
 {$R *.dfm}
 
-procedure TForm1.Button1Click(Sender: TObject);
+//Boton que carga las colas aleatoriamente
+procedure TForm1.BtnCargaClick(Sender: TObject);
 begin
   Cola1.Cargar_Aleatorio(Tamaño1,Minimo,Maximo);
   Cola2.Cargar_Aleatorio(Tamaño2,Minimo,Maximo);
   memo1.Lines.Add('Colas cargadas');
 end;
 
-procedure TForm1.Button2Click(Sender: TObject);
+//Boton que muetra las colas en el memo
+procedure TForm1.BtnMostrarClick(Sender: TObject);
 begin
   memo1.Lines.Add('Cola 1:');
   memo1.Lines.Add(Cola1.Mostrar_Cola);
@@ -53,10 +56,12 @@ begin
   memo1.Lines.Add(Cola2.Mostrar_Cola);
 end;
 
-procedure TForm1.Button3Click(Sender: TObject);
+//Boton que revisa si dos colas son iguales
+procedure TForm1.BtnIgualesClick(Sender: TObject);
 var Iguales: Boolean;
 begin
   Iguales := Cola1.Son_Iguales(Cola1,Cola2);
+  //Iguales devolvera true si las colas son iguales, sino, devolvera Falso
   if Iguales then
   begin
     memo1.Lines.Add('Las colas son iguales');
@@ -67,7 +72,8 @@ begin
   end;
 end;
 
-procedure TForm1.Button4Click(Sender: TObject);
+//Boton que carga las colas en base al ejemplo dado en la practica
+procedure TForm1.BtnCargaEjmploClick(Sender: TObject);
 begin
   Cola1.Cargar_Ejemplo1;
   Cola2.Cargar_Ejemplo2;

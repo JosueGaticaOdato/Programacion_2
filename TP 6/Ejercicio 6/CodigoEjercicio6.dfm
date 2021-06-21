@@ -1,7 +1,7 @@
 object Form1: TForm1
   Left = 0
   Top = 0
-  Caption = 'Form1'
+  Caption = 'Ejercicio 6'
   ClientHeight = 205
   ClientWidth = 372
   Color = clBtnFace
@@ -13,7 +13,7 @@ object Form1: TForm1
   OldCreateOrder = False
   PixelsPerInch = 96
   TextHeight = 13
-  object Button1: TButton
+  object BtnCarga: TButton
     Left = 8
     Top = 8
     Width = 83
@@ -21,16 +21,16 @@ object Form1: TForm1
     Caption = 'Cargar colas aleatorias'
     TabOrder = 0
     WordWrap = True
-    OnClick = Button1Click
+    OnClick = BtnCargaClick
   end
-  object Button3: TButton
+  object BtnIguales: TButton
     Left = 275
     Top = 8
     Width = 83
     Height = 41
     Caption = #191'Son iguales?'
     TabOrder = 1
-    OnClick = Button3Click
+    OnClick = BtnIgualesClick
   end
   object Memo1: TMemo
     Left = 8
@@ -42,22 +42,22 @@ object Form1: TForm1
     ScrollBars = ssBoth
     TabOrder = 2
   end
-  object Button2: TButton
+  object BtnMostrar: TButton
     Left = 186
     Top = 8
     Width = 83
     Height = 41
     Caption = 'Mostrar colas'
     TabOrder = 3
-    OnClick = Button2Click
+    OnClick = BtnMostrarClick
   end
-  object Button4: TButton
+  object BtnCargaEjmplo: TButton
     Left = 97
     Top = 8
     Width = 83
     Height = 41
     Caption = 'Cargar ejemplo'
     TabOrder = 4
-    OnClick = Button4Click
+    OnClick = BtnCargaEjmploClick
   end
 end
