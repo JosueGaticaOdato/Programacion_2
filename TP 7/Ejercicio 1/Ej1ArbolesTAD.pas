@@ -33,7 +33,7 @@ implementation
 //Todos los nodos interiores (los que no son ni hojas ni raíz)
 //Determinar si todas las hojas están en el mismo nivel.
 //Determinar la complejidad algorítmica de los puntos a, b, c.
-
+//
 procedure Ej1.crearArbol(aTClave:tipoDatosClave;aCant:integer);
 begin
   A.Crear(aTClave,aCant);
