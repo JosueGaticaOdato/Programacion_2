@@ -21,6 +21,8 @@ type
     procedure btnCargarClick(Sender: TObject);
     procedure btnMostrarClick(Sender: TObject);
     procedure btnPadreClick(Sender: TObject);
+    procedure btnHijosClick(Sender: TObject);
+    procedure btnHermanosClick(Sender: TObject);
   private
     { Private declarations }
     AB:Ej2;
@@ -41,6 +43,18 @@ begin
   AB.cargarArbol;
 end;
 
+procedure TForm1.btnHermanosClick(Sender: TObject);
+begin
+  memo1.Lines.Add('Hermano: ');
+  memo1.Lines.Add(AB.listarHermanos(InputBox('Ingrese la clave', 'del elemento por el cual quiere consultar', '.')));
+end;
+
+procedure TForm1.btnHijosClick(Sender: TObject);
+begin
+  memo1.Lines.Add('Hijos: ');
+  memo1.Lines.Add(AB.listarHijos(InputBox('Ingrese la clave', 'del elemento por el cual quiere consultar', '.')));
+end;
+
 procedure TForm1.btnMostrarClick(Sender: TObject);
 begin
   memo1.Lines.Add('Recorrido en profundidad: ');
@@ -56,7 +70,8 @@ end;
 
 procedure TForm1.btnPadreClick(Sender: TObject);
 begin
-  AB.indicarPadre()
+  memo1.Lines.Add('Padre: ');
+  memo1.Lines.Add(AB.indicarPadre(InputBox('Ingrese la clave', 'del elemento por el cual quiere consultar', '.')));
 end;
 
 procedure TForm1.FormCreate(Sender: TObject);

@@ -83,6 +83,7 @@ object Form1: TForm1
     Height = 33
     Caption = 'Indicar Hijos'
     TabOrder = 4
+    OnClick = btnHijosClick
   end
   object btnHermanos: TButton
     Left = 30
@@ -91,6 +92,7 @@ object Form1: TForm1
     Height = 33
     Caption = 'Indicar Hermanos'
     TabOrder = 5
+    OnClick = btnHermanosClick
   end
   object btnNivel: TButton
     Left = 30
