@@ -20,7 +20,7 @@ type
     function Altura(): Integer;
     function Nivel(X: TipoElemento): Integer;
     function Nodos_Internos(): String;
-    //function Hojas_Mismo_Nivel(): Boolean;
+    function Hojas_Mismo_Nivel(): Boolean;
   End;
 
 implementation
@@ -90,16 +90,28 @@ begin
 end;
 
 function Ej7.Altura;
-var Cont: Integer;
+var Cont, Izq, Der: Integer;
 function AUXAltura(aP: PosicionArbol; Contador: Integer): Integer;
 begin
-  if A.RamaNula(A.HijoIzquierdo(aP)) then
+  if (A.RamaNula(A.HijoIzquierdo(aP))) and (A.RamaNula(A.HijoDerecho(aP)))then
   begin
-    Result := Contador
+    Result := Contador;
   end
   else
   begin
-    Result := AUXAltura(A.HijoIzquierdo(aP), Contador + 1);
+    if (not A.RamaNula(A.HijoIzquierdo(aP))) or (not A.RamaNula(A.HijoDerecho(aP)))  then
+    begin
+      Izq := AUXAltura(A.HijoIzquierdo(aP), Contador  + 1 );
+      Der := AUXAltura(A.HijoDerecho(aP), Contador);
+      if Izq > Der then
+      begin
+        Result := Izq;
+      end
+      else
+      begin
+        Result := Der;
+      end;
+    end;
   end;
 
 end;
@@ -134,6 +146,39 @@ end;
 //end;
 //
 
+function Ej7.Hojas_Mismo_Nivel(): Boolean;
+var Cont, Izq, Der: Integer;
+  Level: Boolean;
+function AUXHojas_Mismo_Nivel(aP: PosicionArbol): Integer;
+begin
+  if (A.RamaNula(A.HijoIzquierdo(aP))) or (not A.RamaNula(A.HijoDerecho(aP))) then
+  begin
+    Result := Nivel(A.Recuperar(aP));
+  end
+  else
+  begin
+    if (not A.RamaNula(A.HijoIzquierdo(aP))) or (not A.RamaNula(A.HijoDerecho(aP)))  then
+    begin
+      Izq := AUXHojas_Mismo_Nivel(A.HijoIzquierdo(aP));
+      Der := AUXHojas_Mismo_Nivel(A.HijoDerecho(aP));
+      if Izq = Der then
+      begin
+        Level := True;
+      end
+      else
+      begin
+        Level := False;
+      end;
+    end;
+  end;
+
+end;
+
+begin
+  Level := True;
+  Cont := AUXHojas_Mismo_Nivel(A.Root);
+  Result := Level;
+end;
 
 
 end.

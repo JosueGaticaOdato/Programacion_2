@@ -22,7 +22,6 @@ type
     procedure Button5Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure Button6Click(Sender: TObject);
-//    procedure Button6Click(Sender: TObject);
   private
     { Private declarations }
     Arbol : Ej7;
@@ -72,15 +71,10 @@ end;
 
 procedure TForm1.Button6Click(Sender: TObject);
 begin
-
+  if Arbol.Hojas_Mismo_Nivel then begin
+    memo1.Lines.Add('Todas las hojas tienen el mismo nivel');
+  end
+  else memo1.Lines.Add('No todas las hojas tienen el mismo nivel');
 end;
-
-//procedure TForm1.Button6Click(Sender: TObject);
-//begin
-//  if Arbol.Hojas_Mismo_Nivel then begin
-//    memo1.Lines.Add('Todas las hojas tienen el mismo nivel');
-//  end
-//  else memo1.Lines.Add('No todas las hojas tienen el mismo nivel');
-//end;
 
 end.
