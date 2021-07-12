@@ -3,7 +3,9 @@ unit Ej3HashTAD;
 interface
 
 uses
-  TadHash, TadHashZO, Tipos,SysUtils;
+  Tipos,SysUtils,
+  TadHash;
+  //TadHashZO;
 
 const
   Min = 1;
@@ -28,6 +30,8 @@ type
       aCantElem, aNPrimo: integer);
     procedure cargarTabla();
     function mostrarTabla(): string;
+    function Porcentaje_Ocupacion(): Extended;
+    function Claves_Cargadas_VS_ZO(): Extended;
 
   End;
 
@@ -156,6 +160,16 @@ procedure Ej3.crearTabla(aTClave: tipoDatosClave; aTHash: tipoFuncionesHash;
   aCantElem, aNPrimo: integer);
 begin
   T.Crear(aTClave, aTHash, aCantElem, aNPrimo);
+end;
+
+function Ej3.Porcentaje_Ocupacion():Extended;
+begin
+  Porcentaje_Ocupacion := (T.CantidadClaves DIV T.CantidadOcupados);
+end;
+
+function Ej3.Claves_Cargadas_VS_ZO;
+begin
+  Claves_Cargadas_VS_ZO := T.CantidadOcupados DIV T.CantidadClavesZO;
 end;
 
 end.

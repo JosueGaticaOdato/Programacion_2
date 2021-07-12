@@ -136,4 +136,24 @@ object Form1: TForm1
     Height = 21
     TabOrder = 9
   end
+  object Button2: TButton
+    Left = 345
+    Top = 337
+    Width = 97
+    Height = 56
+    Caption = 'Porcentaje de ocupacion de la tabla'
+    TabOrder = 10
+    WordWrap = True
+    OnClick = Button2Click
+  end
+  object Button3: TButton
+    Left = 465
+    Top = 338
+    Width = 97
+    Height = 54
+    Caption = 'Claves en la ZO vs Claves cargadas'
+    TabOrder = 11
+    WordWrap = True
+    OnClick = Button3Click
+  end
 end
