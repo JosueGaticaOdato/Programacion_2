@@ -23,6 +23,7 @@ type
     procedure btnPadreClick(Sender: TObject);
     procedure btnHijosClick(Sender: TObject);
     procedure btnHermanosClick(Sender: TObject);
+    procedure btnNivelClick(Sender: TObject);
   private
     { Private declarations }
     AB:Ej2;
@@ -66,6 +67,12 @@ begin
   memo1.Lines.Add(AB.mostrarPostOrden);
   memo1.Lines.Add('Recorrido en anchura: ');
   memo1.Lines.Add(AB.mostrarAnchura);
+end;
+
+procedure TForm1.btnNivelClick(Sender: TObject);
+begin
+  memo1.Lines.Add('Nivel: ');
+  memo1.Lines.Add(AB.Nivel(inputBox('Ingrese la clave', 'del elemento por el cual quiere consultar', '.')));
 end;
 
 procedure TForm1.btnPadreClick(Sender: TObject);

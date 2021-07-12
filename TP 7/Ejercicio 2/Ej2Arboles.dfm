@@ -101,6 +101,7 @@ object Form1: TForm1
     Height = 33
     Caption = 'Indicar Nivel'
     TabOrder = 6
+    OnClick = btnNivelClick
   end
   object btnAltura: TButton
     Left = 30

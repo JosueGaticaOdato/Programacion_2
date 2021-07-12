@@ -23,6 +23,10 @@ type
     function indicarPadre(aC: variant) : variant;
     function listarHijos(aC: variant) : string;
     function listarHermanos(aC: variant) : string;
+    function Nivel(aC:variant) : variant;
+    function Altura() : integer;
+    function nodosMismoNivel(aC:variant) : string;
+    function getHermano(aC: variant) : posicionArbol;
   End;
 
 implementation
@@ -36,18 +40,61 @@ implementation
 //    Calcular el nivel en el que se encuentra.
 //    Calcular la altura de su rama (Altura del Subárbol).
 //    Listar todos los nodos que están en el mismo nivel.
-function Ej2.listarHermanos(aC: Variant) : string;
-var Hermano:string;
+
+function Ej2.getHermano(aC: variant) : posicionArbol;
+var Hermano: posicionArbol;
     X:tipoElemento;
     Padre:posicionArbol;
 begin
   X.Clave := aC;
-  Padre := A.Padre(A.BuscarPreOrden(X));
-  if A.HijoIzquierdo(Padre).Datos.Clave = aC then begin
-    if A.HijoDerecho(Padre) <> Nulo then Hermano := A.HijoDerecho(Padre).Datos.Clave;
-  end
-  else if A.HijoIzquierdo(Padre) <> Nulo then Hermano := A.HijoIzquierdo(Padre).Datos.Clave;
+  if A.BuscarPreOrden(X) <> A.Root then begin
+    Padre := A.Padre(A.BuscarPreOrden(X));
+    if A.HijoIzquierdo(Padre).Datos.Clave = aC then begin
+      if A.HijoDerecho(Padre) <> Nulo then Hermano := A.HijoDerecho(Padre);
+    end
+    else if A.HijoIzquierdo(Padre) <> Nulo then Hermano := A.HijoIzquierdo(Padre);
+  end;
   Result := Hermano;
+end;
+
+function Ej2.nodosMismoNivel(aC: Variant) : string;
+var X:tipoElemento;
+    Nodo: posicionArbol;
+    Nivel: integer;
+    Nodos: string;
+begin
+  Nodos := '';
+  X.Clave := aC;
+  Nivel := A.Nivel(A.BuscarPreOrden(X));
+  Nodo := A.Root;
+  while not A.RamaNula(Nodo) do begin
+    if A.Nivel(Nodo) = Nivel then begin
+      Nodos := Nodos + A.Recuperar(Nodo).Clave + ' | ';
+      if getHermano(aC) <> Nulo then Nodos := Nodos + getHermano(aC).Datos.Clave + ' | ';
+    end
+    else if A.HijoIzquierdo(Nodo) <> Nulo then Nodo := A.HijoIzquierdo(Nodo)
+    else if A.HijoDerecho(Nodo) <> Nulo then Nodo := A.HijoDerecho(Nodo)
+    else A.Padre(Nodo)
+
+  end;
+end;
+
+function Ej2.Altura() : integer;
+begin
+  A.Altura;
+end;
+
+function Ej2.Nivel(aC: Variant) : variant;
+var X:tipoElemento;
+begin
+  X.Clave := aC;
+  Result := A.Nivel(A.BuscarPreOrden(X));
+end;
+
+function Ej2.listarHermanos(aC: Variant) : string;
+var Hermano:string;
+begin
+  Result := getHermano(aC).Datos.Clave;
 end;
 
 
@@ -66,7 +113,7 @@ var Padre:variant;
     X:tipoElemento;
 begin
   X.Clave := aC;
-  Padre := A.Padre(A.BuscarPreOrden(X)).Datos.Clave;
+  if A.Padre(A.BuscarPreOrden(X)) <> Nulo then Padre := A.Padre(A.BuscarPreOrden(X)).Datos.Clave;
   Result := Padre;
 end;
 
