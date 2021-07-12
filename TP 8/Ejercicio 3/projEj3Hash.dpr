@@ -2,12 +2,12 @@ program projEj3Hash;
 
 uses
   Vcl.Forms,
-  Ej3Hash in '..\Ej3Hash.pas' {Form1},
+  Ej3Hash in 'Ej3Hash.pas' {Form1},
+  Ej3HashTAD in 'Ej3HashTAD.pas',
   TadHash in '..\TadHash.pas',
   TadHashZO in '..\TadHashZO.pas',
-  Ej3HashTAD in '..\Ej3HashTAD.pas',
   Tipos in '..\..\Tipos.pas',
-  ListArray in '..\..\practica3-listas\ListArray.pas';
+  ListArray in '..\..\TP 4\ListArray.pas';
 
 {$R *.res}
 

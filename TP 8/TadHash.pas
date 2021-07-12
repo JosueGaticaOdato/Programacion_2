@@ -31,7 +31,7 @@ Type
     Size: LongInt;
   Public
     Function Crear(avTipoClave: TipoDatosClave;
-      avTipoFuncionHash: TipoFuncionesHash; alSize: Lon gInt;
+      avTipoFuncionHash: TipoFuncionesHash; alSize: LongInt;
       alNroPrimo: LongInt): Errores;
     Function EsVacia(): Boolean;
     Function EsLLena(): Boolean;
@@ -41,7 +41,7 @@ Type
     Function Recuperar(P: PosicionTabla; PL: Variant): TipoElemento;
     Function RetornarClaves(): String;
     Function LLenarClavesRandom(alSize, alNroPrimo: LongInt;
-      RangoDesde, RangoHasta: LongInt): Er rores;
+      RangoDesde, RangoHasta: LongInt): Errores;
     Function CantidadClaves(): LongInt;
     Function CantidadOcupados(): LongInt;
     Function CantidadClavesZO(): LongInt;
@@ -75,7 +75,8 @@ Begin
   if alSize > MaxTable then
     Crear := CError;
   if (alSize >= (Min + 1)) And (alSize <= MaxTable) then
-    BeginSetLength(Tabla, (alSize + 1));
+    Begin
+    SetLength(Tabla, (alSize + 1));
   For I := MinTable To alSize Do
   Begin
     Tabla[I].Ocupado := False;
@@ -337,7 +338,8 @@ Begin
       Begin
         Q := Tabla[I].ListaColision.Comienzo;
         While Q <> Nulo Do
-          BeginX := Tabla[I].ListaColision.Recuperar(Q);
+          Begin
+          X := Tabla[I].ListaColision.Recuperar(Q);
         S := X.ArmarString;
         SS := SS + cTab + 'LC: ' + S + cCRLF;
         Q := Tabla[I].ListaColision.Siguiente(Q);

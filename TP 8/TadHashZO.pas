@@ -34,7 +34,7 @@ Type
     Function BuscarZO(X: TipoElemento): PosicionTabla;
   Public
     Function Crear(avTipoClave: TipoDatosClave;
-      avTipoFuncionHash: TipoFuncionesHash; alSize: Lon gInt;
+      avTipoFuncionHash: TipoFuncionesHash; alSize: LongInt;
       alNroPrimo: LongInt): Errores;
     Function EsVacia(): Boolean;
     Function EsLLena(): Boolean;
@@ -44,7 +44,7 @@ Type
     Function Recuperar(P: PosicionTabla; MarcaZO: Variant): TipoElemento;
     Function RetornarClaves(): String;
     Function LLenarClavesRandom(alSize, alNroPrimo: LongInt;
-      RangoDesde, RangoHasta: LongInt): Er rores;
+      RangoDesde, RangoHasta: LongInt): Errores;
     Function CantidadClaves(): LongInt;
     Function CantidadOcupados(): LongInt;
     Function CantidadClavesZO(): LongInt;
@@ -162,7 +162,8 @@ Begin
         FuncionTransformacion := D
       Else
         FuncionTransformacion := (D Mod NSize);
-      EndElse
+      End
+      Else
       Begin
         S := S.Substring(0, Length(IntToStr(NSize)));
         P := StrToInt(S);
@@ -417,7 +418,8 @@ Begin
     For I := MinTable To Size Do
     Begin
       If Tabla[I].Ocupado = True Then
-        BeginX := Tabla[I].Clave;
+        Begin
+        X := Tabla[I].Clave;
       S := X.ArmarString;
       SS := SS + S + cCRLF;
     End;
