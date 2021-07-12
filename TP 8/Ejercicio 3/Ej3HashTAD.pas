@@ -19,11 +19,11 @@ type
   private
     T: TablaHash;
   public
-    procedure crearArchivo();
-    procedure cargarProducto(aCodigo,aPrecio:longInt;aStock:integer;aDetalle:string);
-    function eliminarProducto(aCodigo:longInt) : boolean;
-    function modificarProducto(aCodigo,aPrecio:longint;aStock:integer;aDetalle:string) : boolean;
-    function mostrarArchivo() : string;
+    procedure crearArchivo(aFile:string);
+    procedure cargarProducto(aCodigo,aPrecio:longInt;aStock:integer;aFile,aDetalle:string);
+    function eliminarProducto(aCodigo:longInt;aFile:string) : boolean;
+    function modificarProducto(aCodigo, aPrecio:longint; aStock: Integer; aFile,aDetalle: string) : boolean;
+    function mostrarArchivo(aFile:string) : string;
     procedure crearTabla(aTClave: tipoDatosClave; aTHash: tipoFuncionesHash;
       aCantElem, aNPrimo: integer);
     procedure cargarTabla();
@@ -54,9 +54,9 @@ implementation
 // Hacer un ABM para poder para cargar manualmente el archivo. El código es un
 // valor de 7 dígitos.
 
-function Ej3.modificarProducto(aCodigo: Integer; aPrecio: Integer; aStock: Integer; aDetalle: string) : boolean;
+function Ej3.modificarProducto(aCodigo, aPrecio:longint; aStock: Integer; aFile,aDetalle: string) : boolean;
 begin
-  if fileExists('.\Productos.dat') then begin
+  if fileExists(aFile) then begin
     Reset(AP);
     while not EOF(AP) do begin
       Read(AP,RP);
@@ -71,11 +71,11 @@ begin
 
 end;
 
-function Ej3.mostrarArchivo : string;
+function Ej3.mostrarArchivo(aFile:string) : string;
 var S: string;
 begin
   S:='';
-  if FileExists('.\Productos.dat') then begin
+  if FileExists(aFile) then begin
     Reset(AP);
     while not EOF(AP) do begin
       Read(AP,RP);
@@ -88,10 +88,10 @@ begin
   end;
 end;
 
-function Ej3.eliminarProducto(aCodigo:longInt) : boolean;
+function Ej3.eliminarProducto(aCodigo:longInt;aFile:string) : boolean;
 var Borrado:boolean;
 begin
-  if FileExists('.\Productos.dat') then begin
+  if FileExists(aFile) then begin
     Reset(AP);
     while (not EOF(AP)) and (RP.Codigo <> aCodigo) do begin
       Read(AP,RP);
@@ -107,10 +107,10 @@ begin
   Result := Borrado;
 end;
 
-procedure Ej3.cargarProducto(aCodigo,aPrecio:longInt;aStock:integer;aDetalle:string);
+procedure Ej3.cargarProducto(aCodigo,aPrecio:longInt;aStock:integer;aFile,aDetalle:string);
 begin
-  AssignFile(AP,'.\Productos.dat');
-  if not FileExists('.\Productos.dat') then begin
+  AssignFile(AP,aFile);
+  if not FileExists(aFile) then begin
     Rewrite(AP);
     CloseFile(AP);
   end;
@@ -125,10 +125,10 @@ begin
   CloseFile(AP);
 end;
 
-procedure Ej3.crearArchivo;
+procedure Ej3.crearArchivo(aFile:string);
 begin
-  AssignFile(AP, '.\Productos.dat');
-  if not FileExists('.\Productos.dat') then begin
+  AssignFile(AP, aFile);
+  if not FileExists(aFile) then begin
     Rewrite(AP);
     CloseFile(AP);
   end;

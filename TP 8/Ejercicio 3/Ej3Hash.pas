@@ -55,7 +55,7 @@ procedure TForm1.btnCargarClick(Sender: TObject);
 var Codigo,Precio,Stock:integer;
 begin
   if (tryStrToInt(editCodigo.Text,Codigo)) and (tryStrToInt(editPrecio.Text,Precio)) and (tryStrToInt(editStock.Text,Stock)) then begin
-    TH.cargarProducto(Codigo,Precio,Stock,editDetalle.Text);
+    TH.cargarProducto(Codigo,Precio,Stock,'.\Productos.dat',editDetalle.Text);
     memo1.Lines.Add('Producto cargado correctamente');
   end;
 end;
@@ -64,7 +64,7 @@ procedure TForm1.btnEliminarClick(Sender: TObject);
 var Codigo:integer;
 begin
   if tryStrToInt(editEliminar.Text,Codigo) then begin
-    if TH.eliminarProducto(Codigo) then begin
+    if TH.eliminarProducto(Codigo,'.\Productos.dat') then begin
       memo1.Lines.Add('Se eliminó correctamente');
     end;
   end;
@@ -72,13 +72,13 @@ end;
 
 procedure TForm1.btnMostrarClick(Sender: TObject);
 begin
-  memo1.Lines.Add(TH.mostrarArchivo);
+  memo1.Lines.Add(TH.mostrarArchivo('.\Productos.dat'));
 end;
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
   memo1.Clear;
-  TH.crearArchivo;
+  TH.crearArchivo('.\Productos.dat');
 end;
 
 end.
