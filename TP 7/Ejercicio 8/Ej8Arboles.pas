@@ -45,17 +45,29 @@ procedure TForm1.btnCargarClick(Sender: TObject);
 var Cuit,Tel,Cel:integer;
 begin
   if (tryStrToInt(editCuit.Text,Cuit)) and (tryStrToInt(editTelefono.Text,Tel)) and (tryStrToInt(editCelular.Text,Cel)) then begin
-    if AB.cargarArchivo(cFile,Cuit,editRazon.Text,editDomicilio.Text,Tel,Cel) then begin
-      memo1.Lines.Add('El archivo se cargó correctamente');
-    end
-    else memo1.Lines.Add('No se pudo cargar el archivo');
+    AB.cargarArchivo(cFile,Cuit,editRazon.Text,editDomicilio.Text,Tel,Cel);
+    memo1.Lines.Add('El archivo se cargó correctamente')
   end
   else memo1.Lines.Add('Los datos ingresados no son correctos');
 end;
 
 procedure TForm1.btnMostrarClick(Sender: TObject);
+//var AD:aDatos;
+//    RD:Datos;
 begin
   memo1.Lines.Add(AB.mostrarArchivo(cFile));
+//  assignFile(AD,cFile);
+//  Reset(AD,cFile);
+//  while not EOF(AD) do begin
+//    Read(AD,RD);
+//    memo1.Lines.Add(RD.CUIT.ToString);
+//    memo1.Lines.Add(RD.razonSocial);
+//    memo1.Lines.Add(RD.Domicilio);
+//    memo1.Lines.Add(RD.Telefono.ToString);
+//    memo1.Lines.Add(RD.Celular.ToString);
+//
+//  end;
+//  CloseFile(AD);
 end;
 
 procedure TForm1.FormCreate(Sender: TObject);
