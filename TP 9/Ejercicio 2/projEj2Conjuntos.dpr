@@ -1,16 +1,14 @@
-program projEj1Conjuntos;
+program projEj2Conjuntos;
 
 uses
   Vcl.Forms,
-  Conjuntos in '..\Conjuntos.pas',
+  Ej2Conjuntos in 'Ej2Conjuntos.pas' {Form1},
+  Ej2ConjuntosTAD in 'Ej2ConjuntosTAD.pas',
+  Tipos in '..\..\Tipos.pas',
   ConjuntosAVL in '..\ConjuntosAVL.pas',
   ArbolesBinariosAVL in '..\..\TP 7\ArbolesBinariosAVL.pas',
   QueuesPointer in '..\..\TP 6\QueuesPointer.pas',
-  StackPointer in '..\..\TP 5\StackPointer.pas',
-  ListPointer in '..\..\TP 4\ListPointer.pas',
-  Tipos in '..\..\Tipos.pas',
-  Ej1Conjuntos in 'Ej1Conjuntos.pas' {Form1},
-  Ej1ConjuntosTAD in 'Ej1ConjuntosTAD.pas';
+  StackPointer in '..\..\TP 5\StackPointer.pas';
 
 {$R *.res}
 

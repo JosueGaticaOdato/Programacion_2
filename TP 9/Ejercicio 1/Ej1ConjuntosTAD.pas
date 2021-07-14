@@ -3,25 +3,24 @@ unit Ej1ConjuntosTAD;
 interface
 
 uses
-  Conjuntos,ConjuntosAVL,Tipos;
+  Conjuntos,ConjuntosAVL,Tipos,Math;
 
 const
   tipoClave = Cadena;
   cantElem = 5;
   Min = 1;
-  Max = 20;
 
 type
   Ej1 = Object
   private
     C: Conjunto;
   public
-    function crearConjunto(aTClave:tipoDatosClave;aSize,aMin,aMax:integer) : boolean;
+    function crearConjunto(aTClave:tipoDatosClave;aSize,aMin:integer) : boolean;
     function mostrarConjunto(aC:Ej1) : string;
     function Union(aC1:Ej1; var aC2: Ej1) : Ej1;
     function Interseccion(aC1:Ej1; var aC2: Ej1) : Ej1;
     function cDiferencia(aC1:Ej1;var aC2: Ej1) : Ej1;
-    function Pertenencia(aC:Ej1;aNro:integer) : boolean;
+    function Pertenencia(aC:Ej1;aClave:string) : boolean;
   End;
 
 implementation
@@ -51,12 +50,12 @@ begin
   Result := eC;
 end;
 
-function Ej1.Pertenencia(aC: Ej1;aNro:integer) : boolean;
+function Ej1.Pertenencia(aC: Ej1;aClave:string) : boolean;
 var Elem:tipoElemento;
     Pertenece:boolean;
 begin
   Elem.Inicializar(aC.C.DatoDeLaClave,'');
-  Elem.Clave := aNro;
+  Elem.Clave := aClave;
   if aC.C.Pertenece(Elem) then Pertenece := True
   else Pertenece := False;
   Result := Pertenece;
@@ -67,10 +66,17 @@ begin
   Result := aC.C.RetornarClaves;
 end;
 
-function Ej1.crearConjunto(aTClave:tipoDatosClave;aSize,aMin,aMax:integer) : boolean;
+function Ej1.crearConjunto(aTClave:tipoDatosClave;aSize,aMin:integer) : boolean;
+var
+  I: Integer;
+  Elem:tipoElemento;
 begin
   C.Crear(aTClave,aSize);
-  C.LlenarClavesRandom(aSize,aMin,aMax)
+  Randomize;
+  for I := aMin to aSize do begin
+    Elem.Clave := Chr(RandomRange(Ord('A'),Ord('z')));
+    C.Agregar(Elem);
+  end;
 end;
 
 end.

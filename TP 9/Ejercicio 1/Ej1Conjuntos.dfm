@@ -2,8 +2,8 @@ object Form1: TForm1
   Left = 0
   Top = 0
   Caption = 'Form1'
-  ClientHeight = 306
-  ClientWidth = 715
+  ClientHeight = 321
+  ClientWidth = 756
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -16,7 +16,7 @@ object Form1: TForm1
   TextHeight = 13
   object Label1: TLabel
     Left = 24
-    Top = 226
+    Top = 237
     Width = 365
     Height = 18
     Caption = 'Ingrese el elemento para saber si pertenece al conjunto'
@@ -39,7 +39,7 @@ object Form1: TForm1
   object Memo1: TMemo
     Left = 176
     Top = 24
-    Width = 531
+    Width = 572
     Height = 193
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -72,7 +72,7 @@ object Form1: TForm1
   end
   object btnDiferencia: TButton
     Left = 8
-    Top = 168
+    Top = 161
     Width = 153
     Height = 25
     Caption = 'Diferencia de conjuntos'
@@ -81,7 +81,7 @@ object Form1: TForm1
   end
   object btnPertenencia: TButton
     Left = 8
-    Top = 272
+    Top = 288
     Width = 153
     Height = 25
     Caption = 'Pertenencia'
@@ -90,14 +90,14 @@ object Form1: TForm1
   end
   object editElemento: TEdit
     Left = 24
-    Top = 245
+    Top = 261
     Width = 121
     Height = 21
     TabOrder = 6
   end
   object checkBoxC1: TCheckBox
     Left = 208
-    Top = 276
+    Top = 290
     Width = 97
     Height = 17
     Caption = 'Conjunto 1'
@@ -111,7 +111,7 @@ object Form1: TForm1
   end
   object checkBoxC2: TCheckBox
     Left = 311
-    Top = 276
+    Top = 290
     Width = 97
     Height = 17
     Caption = 'Conjunto 2'
@@ -122,5 +122,14 @@ object Form1: TForm1
     Font.Style = []
     ParentFont = False
     TabOrder = 8
+  end
+  object btnCargar: TButton
+    Left = 8
+    Top = 206
+    Width = 153
+    Height = 25
+    Caption = 'Cargar conjuntos'
+    TabOrder = 9
+    OnClick = btnCargarClick
   end
 end
