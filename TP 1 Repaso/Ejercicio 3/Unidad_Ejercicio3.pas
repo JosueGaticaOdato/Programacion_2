@@ -108,7 +108,7 @@ Var T: TextFile;
   S: String;
   i: Integer;
 begin
-  //Asigno el archivo y consulto si existe
+  //Asigno el archivo y consulto si existe.
   AssignFile(T,'.\Texto.txt');
 
   if not FileExists('.\Texto.txt') then
