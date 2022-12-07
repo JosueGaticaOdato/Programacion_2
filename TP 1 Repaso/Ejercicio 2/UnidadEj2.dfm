@@ -10,10 +10,17 @@ object Form1: TForm1
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
-  OldCreateOrder = False
   OnCreate = FormCreate
-  PixelsPerInch = 96
   TextHeight = 13
+  object Label2: TLabel
+    Left = 64
+    Top = 30
+    Width = 72
+    Height = 13
+    Align = alCustom
+    Alignment = taCenter
+    Caption = 'Escribir cadena'
+  end
   object Label1: TLabel
     Left = 0
     Top = 0
@@ -29,15 +36,6 @@ object Form1: TForm1
     Font.Style = []
     ParentFont = False
     ExplicitWidth = 91
-  end
-  object Label2: TLabel
-    Left = 64
-    Top = 30
-    Width = 72
-    Height = 13
-    Align = alCustom
-    Alignment = taCenter
-    Caption = 'Escribir cadena'
   end
   object Memo1: TMemo
     Left = 216
