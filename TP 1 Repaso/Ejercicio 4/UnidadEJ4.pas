@@ -6,8 +6,12 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls;
 
+const
+  min = 1;
+  max = 10;
+
 type
-  Matriz = Array [1..10,1..10] of Integer;
+  Matriz = Array [min..max,min..max] of Integer;
 
 type
   TForm1 = class(TForm)
@@ -33,31 +37,37 @@ var
 implementation
 
 {$R *.dfm}
+//Funcion que carga el cuadrado
 function Cargar_Cuadrado(var aM: Matriz; Maximo: Integer): Double;
-var i,j,x, Cuadrado: Integer;
+var
+i,j,x, Cuadrado: Integer;
 Paso: Boolean;
 begin
+  //Obtengo el tamaño del cuadrado
   Cuadrado := (Maximo * Maximo);
   randomize;
-  x := 1;
-  while x < Cuadrado + 1 do
+  //Mientras no ocupe las posiciones de todo los cuadrados
+  for x := 1 to Cuadrado do
   begin
     Paso := True;
+    //Paso significa que puso el valor en la celda
     while Paso do
     begin
       Paso := False;
+      //Obtengo valores raondom dentro del maximo
       i := 1 + Random(Maximo);
       j := 1 + Random(Maximo);
+      //Consulto si es igual a 0, si es asi agrego el numero
       if aM[i,j] = 0 then
       begin
         aM[i,j] := x;
       end
       else
       begin
+        //Sino consulto devuelta
         Paso := True;
       end;
     end;
-  x := x + 1;
   end;
 
 end;

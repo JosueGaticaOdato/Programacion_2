@@ -10,8 +10,6 @@ object Form1: TForm1
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
-  OldCreateOrder = False
-  PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel
     Left = 0
@@ -32,8 +30,8 @@ object Form1: TForm1
   object Label2: TLabel
     Left = 8
     Top = 77
-    Width = 146
-    Height = 21
+    Width = 144
+    Height = 13
     Alignment = taCenter
     Caption = 'Determinar Tama'#241'o (Max. 10)'
   end
