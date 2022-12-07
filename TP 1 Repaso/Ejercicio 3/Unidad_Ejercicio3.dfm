@@ -10,8 +10,6 @@ object Form1: TForm1
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
-  OldCreateOrder = False
-  PixelsPerInch = 96
   TextHeight = 13
   object Memo1: TMemo
     Left = 167
@@ -52,11 +50,20 @@ object Form1: TForm1
   end
   object Button4: TButton
     Left = 8
-    Top = 150
+    Top = 142
     Width = 153
     Height = 25
     Caption = 'Split o Parsing'
     TabOrder = 4
     OnClick = Button4Click
+  end
+  object Button5: TButton
+    Left = 8
+    Top = 173
+    Width = 153
+    Height = 25
+    Caption = 'Contenido en minuscula'
+    TabOrder = 5
+    OnClick = Button5Click
   end
 end

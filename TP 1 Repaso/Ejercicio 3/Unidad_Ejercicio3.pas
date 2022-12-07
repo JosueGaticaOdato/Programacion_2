@@ -13,9 +13,11 @@ type
     Button2: TButton;
     Button3: TButton;
     Button4: TButton;
+    Button5: TButton;
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
+    procedure Button5Click(Sender: TObject);
     procedure Button4Click(Sender: TObject);
   private
     { Private declarations }
@@ -31,64 +33,123 @@ implementation
 
 {$R *.dfm}
 
+//Creacion del archivo de texto
 procedure TForm1.Button1Click(Sender: TObject);
 Var T: TextFile;
   S: String;
   i: Integer;
 begin
+  //Asigno el archivo y su variable
   AssignFile(T,'.\Texto.txt');
 
+  //Si no existe, lo crea
   if not FileExists('.\Texto.txt') then
   begin
     Rewrite(T);
     CloseFile(T);
   end;
+  //Muestro que se creo el archivo
   memo1.Lines.Add('Archivo creado!');
 end;
 
+//le creo 10 lineas al archivo
 procedure TForm1.Button2Click(Sender: TObject);
 Var T: TextFile;
     S: String;
     i: Integer;
 begin
+  //Asigno y abro el archivo
   AssignFile(T,'.\Texto.txt');
   Append(T);
 
   for i := 1 to 10 do
   begin
+    //Escribo en el archivo
     S := ('Estoy escribiendo en la linea numero° ' + i.ToString);
     WriteLn(T,S)
   end;
   Memo1.Lines.Add('Las lineas fueron creadas!');
-  CloseFile(T);
+  CloseFile(T); //Cierro
 
 end;
 
+//Muestro lo que tiene el archivo
 procedure TForm1.Button3Click(Sender: TObject);
 Var T: TextFile;
   S: String;
   i: Integer;
 begin
+  //Asigno el archivo y consulto si existe
   AssignFile(T,'.\Texto.txt');
 
   if not FileExists('.\Texto.txt') then
   begin
+    //Si no existe lo creo
     Rewrite(T);
     CloseFile(T);
   end;
 
+  //Abro en el inicio
   Reset(T);
 
+  //Mientras no llegue al fin del archivo
   while NOT Eof(T) do
   begin
-    Readln(T,S);
+    Readln(T,S);  //Leo la linea y la muestro
     memo1.Lines.Add(S);
   end;
 
-  CloseFile(T);
+  CloseFile(T);  //Cierro
 end;
 
-// Funcion Interna a la implementacion
+//Muestro el contenido en minusculas
+procedure TForm1.Button5Click(Sender: TObject);
+Var T: TextFile;
+  S: String;
+  i: Integer;
+begin
+  //Asigno el archivo y consulto si existe
+  AssignFile(T,'.\Texto.txt');
+
+  if not FileExists('.\Texto.txt') then
+  begin
+    //Si no existe lo creo
+    Rewrite(T);
+    CloseFile(T);
+  end;
+
+  //Abro en el inicio
+  Reset(T);
+
+  //Mientras no llegue al fin del archivo
+  while NOT Eof(T) do
+  begin
+    Readln(T,S);  //Leo la linea y la muestro
+    memo1.Lines.Add(LowerCase(S)); //Muestro en minuscula
+  end;
+
+  CloseFile(T);  //Cierro
+end;
+
+Function palabraYaUtilizada(palabra: String;var Vector: Vector): Boolean;
+var
+utilizada : boolean;
+i: integer;
+begin
+  utilizada := false;
+  i := 0;
+  while (not utilizada and (i < length(vector))) do
+  begin
+    if (vector[i] = palabra) then
+    begin
+      utilizada := true;
+    end;
+    inc(i);
+  end;
+  palabraYaUtilizada := utilizada;
+end;
+
+// Funcion Parsing, Interna a la implementacion
 Function Parsing(aSS: String; aSep: String): Vector;
 Var I: Integer;
     P: Integer;
@@ -112,6 +173,7 @@ Begin
   Parsing := V;
 End;
 
+//Mostrar el Parsgin
 procedure TForm1.Button4Click(Sender: TObject);
 Var T: TextFile;
   S, Cadena: String;
@@ -119,6 +181,7 @@ Var T: TextFile;
   V: Vector;
 begin
   AssignFile(T,'.\Texto.txt');
+  S := '';
 
   if not FileExists('.\Texto.txt') then
   begin
@@ -130,10 +193,15 @@ begin
 
   while NOT Eof(T) do
   begin
-    Cadena := Readln(T,S);
+    Readln(T,S);
     V := Parsing(S,' ');
-    memo1.Lines.Add(S);
+    for i := 0 to length(V) - 1 do
+    begin
+      memo1.Lines.Add(V[i]);
+    end;
   end;
 
 end;
+
+
 end.
