@@ -6,6 +6,9 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, FuncionesMatematicas;
 
+const
+  valoresDelVector = 10;
+
 type
   TForm1 = class(TForm)
     Memo1: TMemo;
@@ -23,7 +26,6 @@ type
     { Private declarations }
   public
     V: Vector;
-    B: Vector;
   end;
 
 var
@@ -38,7 +40,7 @@ var i: Integer;
 begin
   for i := Min to Max do begin
     Randomize;
-    V[i] := 1 + Random(10);
+    V[i] := 1 + Random(valoresDelVector);
   end;
   memo1.Lines.Add('El vector fue cargado con exito');
 end;
@@ -74,7 +76,8 @@ end;
 procedure TForm1.Button5Click(Sender: TObject);
 begin
   memo1.Lines.Add('');
-  memo1.Lines.Add('La moda es ' + Moda(V,B).ToString);
+  memo1.Lines.Add('La moda es ' + Moda(V).ToString);
+  memo1.Lines.Add('La cantidad de veces que se repite es ' + Verifica(V,Moda(V)).ToString);
 end;
 
 end.
