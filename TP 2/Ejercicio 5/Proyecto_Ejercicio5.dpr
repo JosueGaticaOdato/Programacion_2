@@ -1,9 +1,9 @@
-program Proyecto_Ejercicio2;
+program Proyecto_Ejercicio5;
 
 uses
   Vcl.Forms,
-  Unit_Ejercicio2 in 'Unit_Ejercicio2.pas' {Form1},
-  Unit_Vector in 'Unit_Vector.pas';
+  Unit_Ejercicio5 in 'Unit_Ejercicio5.pas' {Form1},
+  Unit_Fecha in 'Unit_Fecha.pas';
 
 {$R *.res}
 
