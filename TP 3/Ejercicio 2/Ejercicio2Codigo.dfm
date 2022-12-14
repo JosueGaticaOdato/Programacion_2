@@ -2,28 +2,19 @@ object Form1: TForm1
   Left = 0
   Top = 0
   Caption = 'Form1'
-  ClientHeight = 183
-  ClientWidth = 447
+  ClientHeight = 189
+  ClientWidth = 364
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
-  OldCreateOrder = False
-  PixelsPerInch = 96
   TextHeight = 13
-  object Label1: TLabel
-    Left = 24
-    Top = 147
-    Width = 246
-    Height = 13
-    Caption = 'El maximo comun divisor entre esos dos numero es:'
-  end
   object Label2: TLabel
     Left = 0
     Top = 0
-    Width = 447
+    Width = 364
     Height = 24
     Align = alTop
     Alignment = taCenter
@@ -34,24 +25,25 @@ object Form1: TForm1
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
-    ExplicitWidth = 204
+    ExplicitLeft = -42
+    ExplicitWidth = 411
   end
   object Label3: TLabel
-    Left = 305
+    Left = 263
     Top = 39
     Width = 46
     Height = 13
     Caption = 'Numero 2'
   end
   object Label4: TLabel
-    Left = 89
+    Left = 47
     Top = 39
     Width = 46
     Height = 13
     Caption = 'Numero 1'
   end
   object Numero1: TEdit
-    Left = 50
+    Left = 8
     Top = 58
     Width = 121
     Height = 21
@@ -59,16 +51,16 @@ object Form1: TForm1
     Text = '1'
   end
   object btnMCD: TButton
-    Left = 176
-    Top = 96
+    Left = 78
+    Top = 104
     Width = 75
     Height = 25
-    Caption = 'Generar'
+    Caption = 'MCD'
     TabOrder = 1
     OnClick = btnMCDClick
   end
   object Numero2: TEdit
-    Left = 266
+    Left = 224
     Top = 58
     Width = 121
     Height = 21
@@ -76,10 +68,19 @@ object Form1: TForm1
     Text = '1'
   end
   object MCDEdit: TEdit
-    Left = 276
-    Top = 144
-    Width = 121
+    Left = 78
+    Top = 160
+    Width = 189
     Height = 21
     TabOrder = 3
+  end
+  object Button1: TButton
+    Left = 192
+    Top = 104
+    Width = 75
+    Height = 25
+    Caption = 'Producto'
+    TabOrder = 4
+    OnClick = Button1Click
   end
 end
