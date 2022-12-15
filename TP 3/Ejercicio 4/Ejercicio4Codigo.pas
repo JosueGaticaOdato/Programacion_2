@@ -28,6 +28,11 @@ implementation
 
 {$R *.dfm}
 
+(*
+Generar un algoritmo recursivo que calcule el k-ésimo
+número de la serie de Fibonacci.
+*)
+
 function Fibonacci (Numero: Integer): Integer;
 begin
   //Caso base

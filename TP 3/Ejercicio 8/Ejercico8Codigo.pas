@@ -26,6 +26,18 @@ implementation
 
 {$R *.dfm}
 
+(*
+Se tiene una cadena que representa una onda digital
+de señales L (Low) y H (High).
+Se pide mostrar la onda que representa utilizando _ y |.
+
+Por ejemplo, si se tiene la cadena HHHHLLLLHHHHHLLHHLLHH,
+su onda digital se puede ver algo así:
+
+_ _ _ _            _ _ _ _ _         _ _         _ _
+       | _ _ _ _ |           | _ _ |     | _ _ |
+*)
+
 //Funcion recursiva que devuelve la onda correspondiente
 function Onda_Digital (Cadena: String; Posicion: Integer): String;
 begin

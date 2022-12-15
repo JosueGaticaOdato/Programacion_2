@@ -1,4 +1,4 @@
-unit Ejercicio14Codigo;
+﻿unit Ejercicio14Codigo;
 
 interface
 
@@ -31,6 +31,32 @@ var
 implementation
 
 {$R *.dfm}
+
+(*
+Se dice que n es un ńumero que explosivo cuando éste
+explota en varios fragmentos más chicos que él, dada una bomba.
+
+Si se tiene que n es el número y b la bomba, tales que n es mayor
+que b, se puede hacer que n explote en dos números
+n1 = n / b (división entera) y n2 = n - (n / b).
+
+Pero b es una bomba que produce una reacción en cadena,
+si n1 o n2 son mayores que b, estos también explotan con
+la regla anterior, hasta que se encuentre que el número no
+es mayor que b; entonces se dice que ya no se puede explotar el número.
+
+Escribe una función que retorne una lista con los
+pedazos del número n, dado que se tiene la bomba b.
+
+Por ejemplo:
+
+Número: 10
+Bomba: 3
+Resultado: [3 2 1 1 3]
+Número: 20
+Bomba: 5
+Resultado: [4 3 2 2 1 1 1 1 5]
+*)
 
 //Funcion que realiza el parsing o split
 Function Parsing(aSS: String; aSep: String): Vector;

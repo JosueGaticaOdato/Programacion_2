@@ -10,13 +10,11 @@ object Form1: TForm1
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
-  OldCreateOrder = False
-  PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel
     Left = 139
     Top = 44
-    Width = 89
+    Width = 84
     Height = 13
     Alignment = taCenter
     Caption = 'Escriba el numero'
@@ -40,7 +38,7 @@ object Form1: TForm1
   object Label3: TLabel
     Left = 56
     Top = 91
-    Width = 265
+    Width = 262
     Height = 13
     Caption = 'El resultado de la serie de Fibonacci en ese numero es:'
   end

@@ -86,6 +86,19 @@ begin
   result := Suma;
 end;
 
+(*
+Definir una función recursiva que dado un conjunto de
+números naturales devuelva una lista con los subconjuntos
+del mismo tales que la suma de los elementos de cada subconjunto
+sumen una cantidad dada.
+
+Por ejemplo:
+
+Dado el conjunto A = {10, 3, 1, 7, 4, 2}
+
+La lista de los conjuntos que sumen 7 sería: R = [{3, 4}, {1, 4, 2}, {7}]
+*)
+
 //Funcion recursivav
 function SubconjuntoAUX(Numeros, Acumulador: Vector; Cantidad, Posicion, Indice: Integer): String;
 var Suma, x, y: Integer;
@@ -125,7 +138,7 @@ var Acumulado : Vector;
   Texto: String;
 begin
   Texto := '';
-  //Caso base, si el numero elegido es igual a la cantidad devuelvo el numer
+  //Caso base, si el numero elegido es igual a la cantidad devuelvo el numero
   if Numeros[Posicion] = Cantidad then
   begin
     Texto := Texto + Numeros[Posicion].ToString;

@@ -28,7 +28,9 @@ implementation
 
 {$R *.dfm}
 
-//Analizar en clase
+(*
+Colocar puntos a los numeros de mas de 3 cifras
+*)
 function Colocar_Puntos(Numero: String; Inicio, Fin: Integer): String;
 Var i: Integer;
   Texto: String;

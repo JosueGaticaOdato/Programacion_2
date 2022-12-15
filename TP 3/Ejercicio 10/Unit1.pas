@@ -55,6 +55,32 @@ var
 
 implementation
 
+(*
+En la química orgánica se tienen cadenas de Carbono e
+Hidrógeno juntos, que forman distintas clases de alcanos,
+que se diferencian unos de otros por la cantidad de carbonos que existen.
+La forma de encontrar además la nominación correcta es
+considerando la cadena lineal más larga que se pueda tener,
+la misma que da la nominación básica y encima de esa se obtienen otras más,
+que se basan en las ramificaciones existentes sobre la cadena lineal principal.
+Lo importante por el momento es identificar la cadena lineal
+de carbono más larga que se pueda hallar en una composición.
+
+Dada una composición representada en una matriz de símbolos {C, .},
+se pide escribir un algoritmo recursivo para encontrar la cadena lineal
+más larga de carbonos. La cadena siempre empieza en la posición (1, 1).
+
+Por ejemplo, se tiene la composición:
+
+C	.	.	.	.	.	.	.	.	.	.	.	.
+C	C	.	C	.	.	.	.	.	.	.	.	.
+.	C	.	C	.	.	.	.	.	C	.	.	.
+.	C	.	C	.	.	.	.	.	C	.	.	.
+.	C	C	C	C	C	C	C	C	C	.	.	.
+.	C	.	.	.	.	.	.	.	.	.	.	.
+.	C	.	.	.	.	.	.	.	.	.	.	.
+*)
+
 //Funcion que devuelve el vector mas largo
 function Vector_Mas_Largo (C1,C2,C3,C4: Vector): Vector;
 begin

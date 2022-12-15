@@ -10,13 +10,11 @@ object Ejercicio_1: TEjercicio_1
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
-  OldCreateOrder = False
-  PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel
     Left = 28
     Top = 36
-    Width = 121
+    Width = 91
     Height = 13
     Caption = 'Ingrese la palabra:'
   end

@@ -32,6 +32,8 @@ implementation
 
 {$R *.dfm}
 
+
+
 //Ejercicio 2 2021: Maximo comun divisor entre dos numeros
 function MaximoComunDivisor(Numero1,Numero2: Integer): Integer;
 begin
@@ -48,6 +50,13 @@ begin
     Result := MaximoComunDivisor(Numero1,Numero2 - Numero1);
   end;
 end;
+
+(*
+Dados dos números enteros m y n, construir una función
+recursiva que devuelva el producto de ambos,
+calculando el mismo como sumas sucesivas.
+Esto es: m*n=m+m+…+m, n veces.
+*)
 
 //Ejercicio 2 2022: Producto recursiva
 function Producto(Numero1,Numero2: Integer): Integer;

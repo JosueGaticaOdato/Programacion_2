@@ -10,13 +10,11 @@ object Ejercicio3: TEjercicio3
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
-  OldCreateOrder = False
-  PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel
     Left = 24
     Top = 21
-    Width = 121
+    Width = 50
     Height = 13
     Alignment = taCenter
     Caption = 'Numero 1:'
@@ -24,7 +22,7 @@ object Ejercicio3: TEjercicio3
   object Label2: TLabel
     Left = 24
     Top = 125
-    Width = 121
+    Width = 50
     Height = 13
     Alignment = taCenter
     Caption = 'Numero 2:'
@@ -33,7 +31,7 @@ object Ejercicio3: TEjercicio3
     Left = 70
     Top = 76
     Width = 22
-    Height = 34
+    Height = 48
     Caption = '*'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -45,7 +43,7 @@ object Ejercicio3: TEjercicio3
   object Label4: TLabel
     Left = 214
     Top = 66
-    Width = 163
+    Width = 165
     Height = 13
     Caption = 'El resultado de la multiplicacion es:'
   end

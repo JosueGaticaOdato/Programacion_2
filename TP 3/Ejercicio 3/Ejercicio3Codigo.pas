@@ -31,6 +31,13 @@ implementation
 
 {$R *.dfm}
 
+(*
+Dados dos números enteros m y n,
+construir una función recursiva que devuelva el producto de ambos,
+calculando el mismo como sumas sucesivas.
+Esto es: m*n=m+m+…+m, n veces.
+*)
+
 function Producto(Numero1,Numero2: Integer): Integer;
 begin
   //Caso base en caso de restar con numero positivo y negativo

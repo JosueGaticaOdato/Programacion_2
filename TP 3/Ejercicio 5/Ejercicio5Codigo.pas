@@ -31,16 +31,45 @@ implementation
 
 {$R *.dfm}
 
+(*
+Dados los números enteros m y n, construir una función recursiva
+que devuelva el cociente de ambos, calculando el mismo mediante restas sucesivas.
+Se deberá tener en cuenta que en el caso de que la división no sea exacta,
+se devolverán hasta 4 cifras decimales (si es necesario).
+*)
+
 //FALTA REALIZAR EL RESTO CON DECIMAL
 function Division(Numero1, Numero2: Integer): Double;
 begin
-  //Caso base: en caso de que la resta sea menor a cero, el resultado de la division es 0
+  //Caso base: en caso de que la resta sea menor a cero,
+  //el resultado de la division es 0
   if Numero1 - Numero2 < 0 then
   begin
     Result := 0;
   end
   else
   begin
+    //El resultado sera 1 (porque quiere decir que se puede dividir)
+    //y hago el llamado teniendo como parametro el N1-N2 y el divisor que no cambia
+    Result := 1 + Division(Numero1 - Numero2, Numero2)
+  end;
+end;
+
+function DivisionBis(Numero1,Numero2: Integer): Double;
+begin
+  //Caso base: en caso de que la resta sea cero,
+  //el resultado de la division es 0
+  if Numero1 - Numero2 = 0 then
+  begin
+    Result := 0;
+  end
+  else
+  begin
+    if (Numero1 - Numero2) < 0 then //Menor que 0, le pongo coma
+    begin
+      Result :=
+    end;
+
     //El resultado sera 1 (porque quiere decir que se puede dividir)
     //y hago el llamado teniendo como parametro el N1-N2 y el divisor que no cambia
     Result := 1 + Division(Numero1 - Numero2, Numero2)

@@ -26,6 +26,12 @@ implementation
 
 {$R *.dfm}
 
+(*
+Construir una función recursiva que retorne verdadero si una
+cadena de caracteres pasada como parámetro es un palíndromo.
+Ej. “neuquen” ya que se lee igual de atrás hacia adelante.
+*)
+
 //Funcion que devuelve booleano
 function Palindromo (Palabra: String; Inicio, Fin: Integer): Boolean;
 begin

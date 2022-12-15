@@ -25,8 +25,7 @@ object Form1: TForm1
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
-    ExplicitLeft = -42
-    ExplicitWidth = 411
+    ExplicitWidth = 204
   end
   object Label3: TLabel
     Left = 263
