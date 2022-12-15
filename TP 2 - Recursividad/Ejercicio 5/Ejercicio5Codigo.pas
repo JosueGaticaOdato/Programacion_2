@@ -55,10 +55,13 @@ begin
   end;
 end;
 
+
+(*
 function DivisionBis(Numero1,Numero2: Integer): Double;
 begin
   //Caso base: en caso de que la resta sea cero,
   //el resultado de la division es 0
+  //Es una division exacta
   if Numero1 - Numero2 = 0 then
   begin
     Result := 0;
@@ -75,6 +78,7 @@ begin
     Result := 1 + Division(Numero1 - Numero2, Numero2)
   end;
 end;
+*)
 
 procedure TForm1.BtnDividirClick(Sender: TObject);
 var N1,N2: Integer;
