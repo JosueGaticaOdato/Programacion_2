@@ -33,6 +33,20 @@ implementation
 
 {$R *.dfm}
 
+{
+Ejercicio 3
+Generar un archivo de texto (TXT) con el Block de Notas o similar.
+En el archivo no deben existir caracteres como puntos, comas, puntos
+y comas, dos puntos, etc.
+
+Realizar una rutina que lea el archivo de texto
+y lo cargue a un control “memo” pasando todas las palabras a minúsculas.
+
+Cargar un vector de String con todas las palabras distintas
+del archivo. Realizar el parsing o split (división palabra
+por palabra) de cada línea por espacios.
+}
+
 //Creacion del archivo de texto
 procedure TForm1.Button1Click(Sender: TObject);
 Var T: TextFile;
@@ -131,6 +145,8 @@ begin
   CloseFile(T);  //Cierro
 end;
 
+//Funcion que me dice si la palabra ya se utilizo o no
+//de esto depende si se carga en el vector o no
 Function palabraYaUtilizada(palabra: String;var Vector: Vector): Boolean;
 var
 utilizada : boolean;
@@ -138,11 +154,12 @@ i: integer;
 begin
   utilizada := false;
   i := 0;
-  while (not utilizada and (i < length(vector))) do
+  while (not utilizada and (i < length(vector))) do //Mientras no llegue al final
+  // y no se haya utilizado
   begin
-    if (vector[i] = palabra) then
+    if (vector[i] = palabra) then //Si existe la palabra
     begin
-      utilizada := true;
+      utilizada := true; //Devuelvo verdadero, osea, que la palabra se uso
     end;
     inc(i);
   end;
@@ -150,10 +167,10 @@ begin
 end;
 
 // Funcion Parsing, Interna a la implementacion
-Function Parsing(aSS: String; aSep: String): Vector;
+procedure Parsing(aSS: String; aSep: String;var aV: Vector);
 Var I: Integer;
     P: Integer;
-    V: Vector;
+    Texto: String;
 Begin
   I := 0;
   // Controlo que el ultimo caracter sea el separador, sino lo agrega
@@ -162,15 +179,18 @@ Begin
   // Hacemos el split
   P := Pos(aSep, aSS);
   while P > 0 do Begin
-    Inc(I);
-    SetLength(V, I);  // Se redimensiona el array y no se pierden los datos
-    V[I-1] := Copy(aSS, 1, P-1);
-    aSS := Copy(aSS, P+1, Length(aSS));
-    P := Pos(aSep, aSS);
+    Texto := Copy(aSS, 1, P-1); //Obtengo el texto
+    if (not palabraYaUtilizada(Texto,aV)) then //Consutlo si ya existe
+    begin
+      //Si no existe...
+      I := Length(aV); //Obtengo el tamaño del arreglo
+      Inc(I); //Aumento la variable de posicion
+      SetLength(aV, I);  // Se redimensiona el array y no se pierden los datos
+      aV[I-1] := Texto; //Agrego el texto
+    end;
+    aSS := Copy(aSS, P+1, Length(aSS)); //Obtengo el resto del texot
+    P := Pos(aSep, aSS); //Obtengo la nueva posicion a cortar
   End;
-
-  // Retorno el array
-  Parsing := V;
 End;
 
 //Mostrar el Parsgin
@@ -191,16 +211,17 @@ begin
 
   Reset(T);
 
+  //Mietras no llegue al final del archivo
   while NOT Eof(T) do
   begin
-    Readln(T,S);
-    V := Parsing(S,' ');
-    for i := 0 to length(V) - 1 do
-    begin
-      memo1.Lines.Add(V[i]);
-    end;
+    Readln(T,S); //Leo la linea
+    Parsing(S,' ',V); //Le hago el parsing
   end;
-
+  //Muestro en pantalla todo lo que obtuve
+  for i := 0 to length(V) - 1 do
+  begin
+    memo1.Lines.Add(V[i]);
+  end;
 end;
 
 

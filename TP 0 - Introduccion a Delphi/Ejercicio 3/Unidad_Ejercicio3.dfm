@@ -32,7 +32,7 @@ object Form1: TForm1
   end
   object Button2: TButton
     Left = 8
-    Top = 72
+    Top = 71
     Width = 153
     Height = 25
     Caption = 'Crear 10 lineas'
@@ -41,7 +41,7 @@ object Form1: TForm1
   end
   object Button3: TButton
     Left = 8
-    Top = 111
+    Top = 110
     Width = 153
     Height = 25
     Caption = 'Mostrar contenido'
@@ -50,7 +50,7 @@ object Form1: TForm1
   end
   object Button4: TButton
     Left = 8
-    Top = 142
+    Top = 149
     Width = 153
     Height = 25
     Caption = 'Split o Parsing'
@@ -59,7 +59,7 @@ object Form1: TForm1
   end
   object Button5: TButton
     Left = 8
-    Top = 173
+    Top = 189
     Width = 153
     Height = 25
     Caption = 'Contenido en minuscula'
