@@ -1,6 +1,6 @@
 TP0-Repaso:
-Hecho: 1
-Falta: 2-3-4-5-6-7-8-9-10-11
+Hecho: 1-2
+Falta: 3-4-5-6-7-8-9-10-11
 
 TP1-TAD:
 Hecho: 1-2-3-4-5-6-7-9
