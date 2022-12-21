@@ -18,11 +18,9 @@ type
     Label1: TLabel;
     Edit1: TEdit;
     Button1: TButton;
-    Button2: TButton;
     Label2: TLabel;
     Memo1: TMemo;
     procedure Button1Click(Sender: TObject);
-    procedure Button2Click(Sender: TObject);
   private
     M: Matriz;
   public
@@ -37,6 +35,25 @@ var
 implementation
 
 {$R *.dfm}
+
+{
+Ejercicio 4
+Generar un programa que permita armar un Cuadrado Latino,
+una matriz cuadrada de n x n con números generados
+aleatoriamente entre el 1 y n2 (no repetidos).
+
+Ejemplo: Un cuadrado latino de grado 4 es una matriz donde n=4
+
+Matrix 4 x 4
+
+5	 7	 1	 15
+12 11	 2	 14
+9  16	 8	 4
+3	 10	 13  6
+}
+
+{FUNCIONES Y PROCEDIMIENTOS}
+
 //Funcion que carga el cuadrado
 function Cargar_Cuadrado(var aM: Matriz; Maximo: Integer): Double;
 var
@@ -69,14 +86,12 @@ begin
       end;
     end;
   end;
-
 end;
 
-procedure TForm1.Button1Click(Sender: TObject);
-var i,j,Max : Integer;
+//Creacion del cuadrado latino con 0
+procedure crearCuadrado(var aM: Matriz; Max: Integer);
+var i,j : Integer;
 begin
-  memo1.Clear;
-  Max := strtoint(Edit1.Text);
   for i := 1 to Max do
   begin
     for j := 1 to Max do
@@ -84,16 +99,22 @@ begin
       M[i,j] := 0;
     end;
   end;
-
-  Cargar_cuadrado(M,Max);
-  memo1.lines.Add('Cuadrado cargado exitosamente!');
 end;
 
-procedure TForm1.Button2Click(Sender: TObject);
-var i,j, Max: Integer;
+{BOTONES}
+
+//Boton que genera y muestra el cuadrado latino
+procedure TForm1.Button1Click(Sender: TObject);
+var i,j,Max : Integer;
 begin
-  memo1.Lines.Add('El cuadrado latino es el siguiente:');
+  memo1.Clear;
   Max := strtoint(Edit1.Text);
+  crearCuadrado(M,Max);
+  Cargar_cuadrado(M,Max);
+  memo1.lines.Add('Cuadrado cargado exitosamente!');
+
+  //muestra el cuadrado latino
+  memo1.Lines.Add('El cuadrado latino es el siguiente:');
   for i := 1 to Max do
   begin
     for j := 1 to Max do
