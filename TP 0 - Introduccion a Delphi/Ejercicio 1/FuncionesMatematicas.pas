@@ -7,19 +7,52 @@ interface
 Const
   //Cantidad de valores que tendra el vector
   Min = 1;
-  Max = 10;
+  Max = 9;
   tamañoVector = Max - Min + 1;
+  valoresDelVector = 10;
 
 
 type
   Vector = array[Min..Max] of integer;
+  procedure cargarVector(var aV: Vector);
+  procedure cargarVectorEjemplo(var aV: Vector);
   function Media(aV: Vector): Double;
   function Ordenar(var aV: Vector): Double;
   function Mediana(var aV: Vector): Double;
   function Moda(var aV: Vector): integer;
   function Verifica(aV: Vector;numero: integer): integer;
+  function Minimo(var aV: Vector): integer;
+  function Maximo(var aV: Vector): integer;
+
 
 implementation
+
+//Procedimiento que carga el vector de forma aleatoria (los valores
+//posibles del vector los determina una constante)
+procedure cargarVector(var aV: Vector);
+var
+i : integer;
+begin
+  for I := Min to Max do
+  begin
+    Randomize;
+    aV[I] := 1 + random(valoresDelVector);
+  end;
+end;
+
+//Procedimiento que carga el vector como el ejemplo del ejercicio
+procedure cargarVectorEjemplo(var aV: Vector);
+begin
+  aV[1] := 2;
+  aV[2] := 4;
+  aV[3] := 4;
+  aV[4] := 4;
+  aV[5] := 5;
+  aV[6] := 6;
+  aV[7] := 8;
+  aV[8] := 9;
+  aV[9] := 10;
+end;
 
 //Funcion que calcula la media de un vector
 function Media(aV: Vector): Double;
@@ -63,10 +96,20 @@ end;
 
 //Funcion que calcula la mediana, o el valor del medio
 function Mediana(var aV: Vector): Double;
-var j : Integer;
+var
+valor : double;
+mitad,j : Integer;
 begin
-  j := (Max - Min + 1) Div 2;
-  Mediana := aV[j];
+  mitad := tamañoVector DIV 2;
+  if ((tamañoVector MOD 2) = 0) then //Si el tamaño es par
+  begin
+    valor := (aV[mitad] + aV[mitad + 1])/2 //Es la suma de las dos posiciones dividido 2
+  end
+  else //Si el tamaño es impar
+  begin
+    valor := aV[mitad + 1]; //Es el valor del medio (le sumo 1 porque el div saca la parte fraccionaria)
+  end;
+  Mediana := valor;
 end;
 
 //Funcion que me dice la cantidad de veces que aparece un numero en el vector
@@ -107,6 +150,20 @@ begin
     end;
   end;
   Moda := valor;
+end;
+
+//Funcion que me devuelve el valor minimo
+function Minimo(var aV: Vector): integer;
+begin
+  Ordenar(aV);
+  Result := aV[Min];
+end;
+
+//Funcion que me devuelve el valor Maximo
+function Maximo(var aV: Vector): integer;
+begin
+  Ordenar(aV);
+  Result := aV[Max];
 end;
 
 end.

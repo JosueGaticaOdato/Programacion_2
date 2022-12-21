@@ -41,6 +41,21 @@ implementation
 
 {$R *.dfm}
 
+(*
+Dadas 2 listas (L1 y L2) determinar si L2 es múltiplo de L1.
+Se considera múltiplo si cada elemento L2 se divide en forma
+exacta por el valor L1 de la misma posición.
+
+Por Ejemplo: si L1 = (2, 5, 7, 3) y L2 = (8, 20, 28, 12)
+entonces L2 es divisible por L1 porque cada posición de L2
+se divide por el valor de L1 de la misma posición en forma exacta.
+Si el resultado de la división retorna el mismo valor para cada posición
+se dice que L2 es múltiplo de L1 por un escalar.
+Para este caso 4 es el escalar de L1.
+El algoritmo debe contemplar esta situación.
+*)
+
+//Procedure que carga la lista siguiendo el ejemplo del ejercicio
 procedure Ejemplo(var L1,L2: Lista);
 var X:Tipoelemento;
 begin
@@ -64,22 +79,26 @@ begin
   L2.Agregar(x);
 end;
 
+//Funcion principal que me dice si L2 es divisible de L1
 function Es_Divisible(L1,L2: Lista): Boolean;
 var Posicion1, Posicion2: PosicionLista;
   Valor1, Valor2: TipoElemento;
   Resto: Integer;
   No_Divisible: Boolean;
 begin
+  //Obtengo las posiciones y los valores del inicio
   Posicion1 := L1.Comienzo;
   Posicion2 := L2.Comienzo;
   No_Divisible := True;
   Valor1 := L1.Recuperar(Posicion1);
   Valor2 := L2.Recuperar(Posicion2);
+  //Mientras no llegue a un valor nulo y no se halla comprobado que es divisible
   while (Posicion1 <> Nulo) and (Posicion2 <> Nulo) and (No_Divisible) do
   begin
-    Resto := Valor2.Clave MOD Valor1.Clave;
-    if Resto = 0 then
+    Resto := Valor2.Clave MOD Valor1.Clave; //Calculo el resto
+    if Resto = 0 then //Si es 0 es divisible
     begin
+      //Voy por los siguientes
       Posicion1 := L1.Siguiente(Posicion1);
       Posicion2 := L2.Siguiente(Posicion2);
       Valor1 := L1.Recuperar(Posicion1);
@@ -87,12 +106,13 @@ begin
     end
     else
     begin
-      No_Divisible := False;
+      No_Divisible := False; //Si no es 0 no es divisible y ya da falso
     end;
   end;
   Result := No_Divisible;
 end;
 
+//Funcion que calcula el escalar en el caso de que exista
 function Escalar(L1,L2: Lista): Integer;
 var Posicion1, Posicion2: PosicionLista;
   Valor1, Valor2: TipoElemento;
@@ -103,24 +123,27 @@ begin
   Posicion2 := L2.Comienzo;
   Valor1 := L1.Recuperar(Posicion1);
   Valor2 := L2.Recuperar(Posicion2);
-  Principal := Valor2.Clave DIV Valor1.Clave;
+  Principal := Valor2.Clave DIV Valor1.Clave; //Saco la division exacta
   No_hay_escalar := True;
+  //Si el siguiente no es nulo y aun se comprueba que existe el escalar
   while (L1.Siguiente(Posicion1) <> Nulo) and (L1.Siguiente(Posicion2) <> Nulo) and (No_hay_escalar) do
   begin
+    //Pido los siguientes datos
     Posicion1 := L1.Siguiente(Posicion1);
     Posicion2 := L1.Siguiente(Posicion2);
     Valor1 := L1.Recuperar(Posicion1);
     Valor2 := L2.Recuperar(Posicion2);
-    Division := Valor2.Clave DIV Valor1.Clave;
-    if Principal <> Division then
+    Division := Valor2.Clave DIV Valor1.Clave; //Sacola division
+    if Principal <> Division then //Si son distintos, no hay escalar
     begin
-      Principal := 0;
+      Principal := 0; //Devuelvo 0, para decir que no hay escalar
       No_hay_escalar := False;
     end;
   end;
   Result := Principal;
 end;
 
+//Cargar las listas de forma aleatoria
 procedure TForm1.Button1Click(Sender: TObject);
 begin
   Lista1.LlenarClavesRandom(cantElementos, minRandom, maxRandom);
@@ -128,6 +151,7 @@ begin
   memo1.Lines.Add('Listas cargadas de forma aleatoria satisfactoriamente');
 end;
 
+//Mostar las listas
 procedure TForm1.Button2Click(Sender: TObject);
 begin
   memo1.Lines.Add('Contenido lista 1:');
@@ -136,28 +160,30 @@ begin
   memo1.Lines.Add(Lista2.RetornarClaves);
 end;
 
+//Cargar con los valores de ejemplo
 procedure TForm1.Button3Click(Sender: TObject);
 begin
   Ejemplo(Lista1,Lista2);
   memo1.Lines.Add('Cargado con valores del ejemplo');
 end;
 
+//Boton que me dice si es divisible o no
 procedure TForm1.Button4Click(Sender: TObject);
 var Divisible: Boolean;
   Valor: Integer;
 begin
-  Divisible := Es_Divisible(Lista1,Lista2);
-  if Divisible then
+  Divisible := Es_Divisible(Lista1,Lista2);//Llamo a la funcion
+  if Divisible then //Si es disivible, tengo que calcular el escalar
   begin
     memo1.Lines.Add('Es divisible!');
     Valor := Escalar(Lista1,Lista2);
-    if Valor <> 0 then
+    if Valor <> 0 then //Si es distinto de 0 el escalar, entonces existe
     begin
-      memo1.Lines.Add('El escalar es ' + Valor.ToString);
+      memo1.Lines.Add('El escalar es ' + Valor.ToString); //Lo muestro
     end
     else
     begin
-      memo1.Lines.Add('No tiene un escalar');
+      memo1.Lines.Add('No tiene un escalar'); //Sino no tiene
     end;
   end
   else

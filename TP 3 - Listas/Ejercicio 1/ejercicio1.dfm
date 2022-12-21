@@ -10,9 +10,7 @@ object Form1: TForm1
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
-  OldCreateOrder = False
   OnCreate = FormCreate
-  PixelsPerInch = 96
   TextHeight = 13
   object Memo1: TMemo
     Left = 208
@@ -44,7 +42,7 @@ object Form1: TForm1
     Top = 168
     Width = 145
     Height = 41
-    Caption = 'Mayor de los datos'
+    Caption = 'Menor de los datos'
     TabOrder = 2
     OnClick = btnMayorClick
   end
@@ -62,7 +60,7 @@ object Form1: TForm1
     Top = 232
     Width = 145
     Height = 41
-    Caption = 'Minimo y Repeticion'
+    Caption = 'Maximo y Repeticion'
     TabOrder = 4
     OnClick = Button2Click
   end
