@@ -1,0 +1,5 @@
+Cliente Anio    Mes Minutos_Trabajados
+1000	2019	01	50,0
+1001	2020	02	120
+1001	2021	03	96
+1001	2022	01	48
