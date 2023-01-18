@@ -7,19 +7,19 @@ uses
 
 const
   min = 1;
-  max = 10;
+  max = 5;
 
 type
   Arreglo = Array[min..max] of Integer;
 
-  Vector = Object
+  Vector = Object //Objeto vector
     private
       arreglo: Arreglo;
     public
       function getVector(): Arreglo;
       procedure vaciar();
       procedure carga(desde:integer;hasta:integer;repite: boolean);
-      procedure prodescalar(escalar: Integer);
+      function prodescalar(escalar: Integer): Vector;
       function mostrar(): String;
       function sumatoria(): Integer;
       function promedio(): double;
@@ -34,11 +34,13 @@ type
 
 implementation
 
+//Get para obtener el vector
 function Vector.getVector: Arreglo;
 begin
   getVector := arreglo;
 end;
 
+//Vaciar vector
 procedure Vector.vaciar();
 var  i: integer;
 begin
@@ -48,10 +50,11 @@ begin
     end;
 end;
 
+//Procedimiento que carga el vector, con valores repetidos o no
 procedure Vector.carga(desde: Integer; hasta: Integer; repite: Boolean);
 var i,Cantidad,Valor: integer;
 begin
-  //Carga repitiendo
+  //Carga repitiendo (si es true)
   if repite then
   begin
     for i := min to length(arreglo) do
@@ -59,17 +62,18 @@ begin
       arreglo[i] := (Random(hasta - desde) + desde + 1);
     end;
   end
-  else if ((hasta - desde) > length(arreglo)) then//Carga sin repeticion
+  else if ((hasta - desde + 1) >= length(arreglo)) then//Carga sin repeticion
+  //Solamente si los numeros posibles son mas grandes que el tamaño del vector
   begin
     i := 0;
     Cantidad := 0;
     Valor := desde;
     while Cantidad < length(arreglo) do
     begin
-      i := Random(max) + min;
-      if (arreglo[i] = 0) then
+      i := Random(max) + min; //Cargo en una posicion random
+      if (arreglo[i] = 0) then //Si es 0 la cargo
       begin
-        arreglo[i] := Valor;
+        arreglo[i] := Valor; //Coloco el valor
         Inc(Cantidad);
         Inc(Valor);
       end;
@@ -77,6 +81,7 @@ begin
   end;
 end;
 
+//Funcion que muestra el vector con su posicion
 function Vector.mostrar: string;
 var
 texto: String;
@@ -89,6 +94,7 @@ begin
   mostrar := texto;
 end;
 
+//Funcion que realiza la sumatoria de todos los valores que tiene el vector
 function Vector.sumatoria(): Integer;
 var Sumador, i: integer;
 begin
@@ -100,6 +106,7 @@ begin
   sumatoria := Sumador;
 end;
 
+//Funcion que calcula el promedio de los valores del vector
 function Vector.promedio: Double;
 var Sumador, i: integer;
 begin
@@ -111,11 +118,13 @@ begin
   promedio := Sumador / length(arreglo);
 end;
 
+//Funcion que me devuelve el maximo valor
 function Vector.maximoValor(): integer;
 begin
   maximoValor := arreglo[maximoValorPosicion()];
 end;
 
+//Funcion que me dice la posicion del maximo valor
 function Vector.maximoValorPosicion(): integer;
 var maximo, posicion, i: integer;
 begin
@@ -132,11 +141,13 @@ begin
   maximoValorPosicion := posicion;
 end;
 
+//Funcion que me dice cual es el valor minimo
 function Vector.minimoValor(): integer;
 begin
   minimoValor := arreglo[minimoValorPosicion()];
 end;
 
+//Funcion que calcula la posicion del valor minimo
 function Vector.minimoValorPosicion(): integer;
 var minimo, posicion, i: integer;
 begin
@@ -153,6 +164,7 @@ begin
   minimoValorPosicion := posicion;
 end;
 
+//Funcion que devuelve un string con los elementos intercalados por un String
 function Vector.intercalado(separador: string): string;
 var
 texto: String;
@@ -166,15 +178,20 @@ begin
   intercalado := texto;
 end;
 
-procedure Vector.prodescalar(escalar: Integer);
-var i: integer;
+//Procedimiento que calcula el producto escalar
+function Vector.prodescalar(escalar: Integer): Vector;
+var
+VprodEscalar: Vector;
+i: integer;
 begin
  for i := min to length(arreglo) do
     begin
-      arreglo[i] := arreglo[i] * escalar;
+      VprodEscalar.arreglo[i] := arreglo[i] * escalar;
     end;
+ Result := VprodEscalar;
 end;
 
+//Procedimiento que realiza la suma de dos vectores iguales
 procedure Vector.sumaVectores(sumVector: Vector);
 var i: integer;
 begin

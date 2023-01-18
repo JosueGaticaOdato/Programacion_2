@@ -18,7 +18,7 @@ object Form1: TForm1
     Width = 121
     Height = 23
     TabOrder = 0
-    Text = 'Edit1'
+    Text = 'Desde'
   end
   object Edit2: TEdit
     Left = 152
@@ -26,14 +26,14 @@ object Form1: TForm1
     Width = 121
     Height = 23
     TabOrder = 1
-    Text = 'Edit2'
+    Text = 'Hasta'
   end
   object CheckBox1: TCheckBox
-    Left = 282
+    Left = 290
     Top = 19
-    Width = 97
+    Width = 75
     Height = 17
-    Caption = 'CheckBox1'
+    Caption = 'Repite'
     DoubleBuffered = False
     ParentDoubleBuffered = False
     TabOrder = 2
