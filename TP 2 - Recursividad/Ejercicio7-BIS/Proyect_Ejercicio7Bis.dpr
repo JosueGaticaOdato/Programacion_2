@@ -1,8 +1,8 @@
-program Proyecto_Ejercicio7;
+program Proyect_Ejercicio7Bis;
 
 uses
   Vcl.Forms,
-  Ejercicio7 in 'Ejercicio7.pas' {Form1};
+  Proyecto_Ejercicio7BIS in 'Proyecto_Ejercicio7BIS.pas' {Form1};
 
 {$R *.res}
 
