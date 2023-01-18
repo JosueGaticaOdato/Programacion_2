@@ -8,10 +8,13 @@ uses
   Vcl.ExtCtrls;
 
 Const
-  Cantidad_Billetes = 15;
+  Cantidad_Billetes = 15; //Constante con la cantidad de billetes posibles
 
 type
-   Enumerado = (Cantidad_001,Cantidad_005,Cantidad_010,Cantidad_025,Cantidad_050,Cantidad_1,Cantidad_2,Cantidad_5,Cantidad_10,Cantidad_20,Cantidad_50,Cantidad_100,Cantidad_200,Cantidad_500,Cantidad_1000);
+  //Enumerado con las cantidad de cada billete
+   Enumerado = (Cantidad_001,Cantidad_005,Cantidad_010,Cantidad_025,
+   Cantidad_050,Cantidad_1,Cantidad_2,Cantidad_5,Cantidad_10,
+   Cantidad_20,Cantidad_50,Cantidad_100,Cantidad_200,Cantidad_500,Cantidad_1000);
 
   TEjercicio9 = class(TForm)
     Memo1: TMemo;
@@ -91,6 +94,24 @@ implementation
 
 {$R *.dfm}
 
+{
+Ejercicio 9 (entregable)
+Crear un TAD CajaRegistradora que tiene contenedores,
+uno para cada moneda y billete en circulación legal.
+Una caja permite:
+
+.Cargar: lo cual incrementa un contenedor con la cantidad de billetes indicada.
+.DarVuelto: dada una cantidad a cobrar y los billetes con
+ los que se realizó el pago, devuelve el número de billetes de cada
+ tipo que se debe retornar al cliente, utilizando los billetes
+ de mayor valor siempre que haya disponibles e incrementando
+ la cantidad de billetes que ingresaron por el pago.
+.Saldo: devuelve el saldo total del cajero
+.CerrarCaja: retorna los billetes y monedas que quedaron
+ al final del turno en la caja registradora.
+
+}
+
 //Carga de billete
 procedure TEjercicio9.BtnBilletesClick(Sender: TObject);
 var
@@ -106,12 +127,12 @@ begin
   if not(Se_Cargo) then
     begin
       //Si es falso, quiere decir que cargo el billete
-      if Billete >= 10 then
+      if Billete >= 10 then //Si es mayor que 10 es billete
         begin
         memo1.Lines.Add('');
         memo1.Lines.Add('Billete de ' + floattostr(Billete)+ ' pesos cargado exitosamente!');
         end
-      else
+      else //Sino es moneda
       begin
         memo1.Lines.Add('');
         memo1.Lines.Add('Moneda de ' + floattostr(Billete) + ' pesos cargado exitosamente!');
@@ -155,7 +176,7 @@ begin
   memo1.Lines.Add('');
 end;
 
-//VUELTO
+//Calculo del vuelto
 procedure TEjercicio9.btnVueltoClick(Sender: TObject);
 var Plata_Cliente: CajaRegistradora;
     Total_Plata_Cliente, Compra: Real;

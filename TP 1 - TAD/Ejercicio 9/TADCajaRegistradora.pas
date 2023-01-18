@@ -6,8 +6,10 @@ Uses
   SysUtils, Math;
 
 const
-  //Billetes contiene el valor de cada billete, funciona como vector apareado de cantidades
-  Billetes : Array [1..15] of Real = (0.01,0.05,0.10,0.25,0.50,1,2,5,10,20,50,100,200,500,1000);
+  //Billetes contiene el valor de cada billete,
+  //funciona como vector apareado de cantidades
+  Billetes : Array [1..15] of Real = (0.01,
+    0.05,0.10,0.25,0.50,1,2,5,10,20,50,100,200,500,1000);
   //Tamaño de billetes y cantidades
   Tamaño = 15;
   Error_Caja = 'La caja no cuenta con dinero suficiente';
@@ -18,9 +20,8 @@ type
   Vector_Vuelto = Array [1..15] of Integer;
 
   CajaRegistradora = Object
-  //Defini los datos
     private
-      //Este dato es un vector donde guardo los valores de los billetes y monedas
+      //Vector donde guardo los valores de los billetes y monedas
       Cantidades : Array [1..15] of Integer;
     public
       procedure Determinar_billetes_monedas();
@@ -113,7 +114,8 @@ function CajaRegistradora.Devuelve_cantidad_billete(Posicion: Integer): Integer;
 
 //-----------------------------------------------
 
-//Este procedure realiza la carga de billetes del cliente en un TAD de tipo caja registradora (que no es la caja principal)
+//Este procedure realiza la carga de billetes del cliente en un TAD
+// de tipo caja registradora (que no es la caja principal)
 procedure CajaRegistradora.Carga_Billetes_Cliente(Cantidad_001, Cantidad_005, Cantidad_010, Cantidad_025, Cantidad_050, Cantidad_1, Cantidad_2, Cantidad_5, Cantidad_10, Cantidad_20, Cantidad_50, Cantidad_100, Cantidad_200, Cantidad_500, Cantidad_1000: string);
 begin
   Cantidades[1] := strtoint(Cantidad_001);

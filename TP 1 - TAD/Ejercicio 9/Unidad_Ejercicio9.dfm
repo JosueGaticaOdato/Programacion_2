@@ -11,9 +11,7 @@ object Ejercicio9: TEjercicio9
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
-  OldCreateOrder = False
   OnCreate = FormCreate
-  PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel
     Left = 0
@@ -512,6 +510,7 @@ object Ejercicio9: TEjercicio9
     Height = 21
     Alignment = taCenter
     TabOrder = 2
+    Text = 'Valor Billete'
   end
   object CantidadB: TEdit
     Left = 27
@@ -520,6 +519,7 @@ object Ejercicio9: TEjercicio9
     Height = 21
     Alignment = taCenter
     TabOrder = 3
+    Text = 'Cantidad'
   end
   object btnSaldo: TButton
     Left = 27
