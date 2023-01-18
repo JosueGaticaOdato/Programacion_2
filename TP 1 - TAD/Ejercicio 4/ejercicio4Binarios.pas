@@ -49,6 +49,17 @@ implementation
 
 {$R *.dfm}
 
+{
+Ejercicio 4
+Crear un TAD Binario que represente un número binario.
+El TAD debe disponer de las siguientes operaciones:
+
+.Sumar dos números binarios.
+.Restar dos números binarios (con complemento a 2).
+.Convertir un número binario a un número decimal y viceversa.
+.Resolver la Operación Binaria AND, OR y XOR.
+}
+
 //Click de AND
 procedure TForm1.btnANDClick(Sender: TObject);
 var nro1, nro2, OperadorAND: Binario;

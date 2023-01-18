@@ -4,7 +4,7 @@ Falta: 9
 
 TP1-TAD:
 Hecho: 1-2-3-4-5-6-7-9
-Falta: 8-10
+Falta:8-10
 
 TP2-Recursividad:
 Hechos:1-2-3-5-6-8-9-10
