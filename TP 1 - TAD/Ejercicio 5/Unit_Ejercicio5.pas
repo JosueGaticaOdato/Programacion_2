@@ -36,6 +36,18 @@ implementation
 
 {$R *.dfm}
 
+{
+Ejercicio 5
+Crear un TAD Fecha, compuesta de día, mes y año, que defina las siguientes operaciones:
+
+.Verificar que la fecha sea correcta (por ejemplo, 30/2/2019 es incorrecta).
+.Sumar o restar varios días a una fecha.
+.Calcular la diferencia de días entre dos fechas.
+.Comparar una fecha con otra y retornar: [ANTERIOR, POSTERIOR, IGUAL].
+.Retornar si la fecha corresponde a un año bisiesto.}
+
+
+//BOTON RESTAR DIAS
 procedure TForm1.Button1Click(Sender: TObject);
 var nuevaFecha: TDate;
 begin
@@ -44,6 +56,8 @@ begin
   Edit2.Text := Datetostr(nuevaFecha);
 end;
 
+
+//BOTON SUMAR DIAS
 procedure TForm1.Button2Click(Sender: TObject);
 var nuevaFecha: TDate;
 begin
@@ -52,6 +66,8 @@ begin
   Edit2.Text := Datetostr(nuevaFecha);
 end;
 
+
+//BOTON DIFERENCIA ENTRE FECHAS
 procedure TForm1.Button3Click(Sender: TObject);
 var dias: integer;
 begin
@@ -60,12 +76,14 @@ begin
   Edit2.Text := Inttostr(dias);
 end;
 
+//BOTON COMPARAR FECHAS
 procedure TForm1.Button4Click(Sender: TObject);
 begin
   F.asignar(DatePicker1.Date);
   Edit2.Text := F.comparacion(DatePicker2.Date);
 end;
 
+//BOTON BISIESTO
 procedure TForm1.Button5Click(Sender: TObject);
 begin
   F.asignar(DatePicker1.Date);
