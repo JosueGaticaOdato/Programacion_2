@@ -2,8 +2,8 @@ object Form1: TForm1
   Left = 0
   Top = 0
   Caption = 'Form1'
-  ClientHeight = 420
-  ClientWidth = 202
+  ClientHeight = 351
+  ClientWidth = 548
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -12,10 +12,10 @@ object Form1: TForm1
   Font.Style = []
   TextHeight = 15
   object Memo1: TMemo
-    Left = 8
-    Top = 287
-    Width = 185
-    Height = 122
+    Left = 208
+    Top = 8
+    Width = 329
+    Height = 334
     Lines.Strings = (
       'Memo1')
     ScrollBars = ssVertical
@@ -23,7 +23,7 @@ object Form1: TForm1
   end
   object Button1: TButton
     Left = 8
-    Top = 72
+    Top = 133
     Width = 185
     Height = 25
     Caption = 'Diagonal Principal'
@@ -32,7 +32,7 @@ object Form1: TForm1
   end
   object Button2: TButton
     Left = 8
-    Top = 134
+    Top = 195
     Width = 185
     Height = 25
     Caption = 'Maxima fila'
@@ -41,7 +41,7 @@ object Form1: TForm1
   end
   object Button3: TButton
     Left = 8
-    Top = 103
+    Top = 164
     Width = 185
     Height = 25
     Caption = 'Diagonal opuesta'
@@ -50,7 +50,7 @@ object Form1: TForm1
   end
   object Button4: TButton
     Left = 8
-    Top = 165
+    Top = 226
     Width = 185
     Height = 25
     Caption = 'Maxima columna'
@@ -59,7 +59,7 @@ object Form1: TForm1
   end
   object Button5: TButton
     Left = 9
-    Top = 256
+    Top = 317
     Width = 185
     Height = 25
     Caption = 'Multiplicar escalar'
@@ -68,7 +68,7 @@ object Form1: TForm1
   end
   object Button6: TButton
     Left = 9
-    Top = 225
+    Top = 286
     Width = 185
     Height = 25
     Caption = 'Buscar'
@@ -77,7 +77,7 @@ object Form1: TForm1
   end
   object Edit1: TEdit
     Left = 9
-    Top = 196
+    Top = 257
     Width = 185
     Height = 23
     TabOrder = 7
@@ -100,5 +100,23 @@ object Form1: TForm1
     Caption = 'Mostrar'
     TabOrder = 9
     OnClick = Button8Click
+  end
+  object Button9: TButton
+    Left = 8
+    Top = 71
+    Width = 186
+    Height = 25
+    Caption = 'Sumar con otra matriz'
+    TabOrder = 10
+    OnClick = Button9Click
+  end
+  object Button10: TButton
+    Left = 8
+    Top = 102
+    Width = 186
+    Height = 25
+    Caption = 'Multiplicar con otra matriz'
+    TabOrder = 11
+    OnClick = Button10Click
   end
 end
