@@ -9,9 +9,9 @@ uses
 
 const
   tamMin = 1;
-  tamMax = 5;
+  tamMax = 100000; //Era 1000 ero no se nota la diferencia entre los 3
   valorMin = 1;
-  valorMax = 10;
+  valorMax = 10000;
 
 type
   TForm1 = class(TForm)
@@ -50,14 +50,15 @@ implementation
 
 procedure cargarVectores();
 var
-  I: Integer;
+  I, Valor: Integer;
 begin
   for I := tamMin to tamMax do
   begin
     Randomize();
-    VectorBurbuja[I] := Random(valorMax);
-    VectorQSort[I] := Random(valorMax);
-    VectorSeleccion[I] := Random(valorMax);
+    Valor := valorMin + Random(valorMax);
+    VectorBurbuja[I] := Valor;
+    VectorQSort[I] := Valor;
+    VectorSeleccion[I] := Valor;
   end;
 end;
 
@@ -117,6 +118,81 @@ BEGIN
   IF (pared+1<derecho) THEN quick_sort(vector,pared,derecho);
 END;
 
+//---------------------------------------------------------------------
+// Ordenamiento RAPIDO, uno de los mas eficientes
+//---------------------------------------------------------------------
+Procedure QSort(var Items : Vector;aAsc: Boolean);
+  // Proceso que resuelve el orden Ascendente
+  Procedure IntAsc(al_Firts, al_Last: LongInt);
+  Var ll_i, ll_j: LongInt;
+      ll_centro: LongInt;
+      ll_temp: LongInt;
+  Begin
+    ll_i := al_Firts;
+    ll_j := al_Last;
+    ll_centro := Items[(al_Firts + al_Last) div 2];
+    Repeat
+        While Items[ll_i] < ll_centro Do Begin
+            ll_i := ll_i + 1;
+        End;
+        While Items[ll_j] > ll_centro Do Begin
+            ll_j := ll_j - 1;
+        End;
+        If ll_i <= ll_j Then Begin
+            ll_temp := Items[ll_i];
+            Items[ll_i] := Items[ll_j];
+            Items[ll_j] := ll_temp;
+            ll_i := ll_i + 1;
+            ll_j := ll_j - 1;
+        End;
+    Until ll_i > ll_j;
+      If al_Firts < ll_j Then Begin
+        IntAsc(al_Firts, ll_j);
+    End;
+    If ll_i < al_Last Then Begin
+        IntAsc(ll_i, al_Last);
+    End;
+  End;
+  // Proceso que resuelve el orden Descendente
+  Procedure IntDesc(al_Firts, al_Last: LongInt);
+  Var ll_i, ll_j: LongInt;
+      ll_centro: LongInt;
+      ll_temp: LongInt;
+  Begin
+    ll_i := al_Firts;
+    ll_j := al_Last;
+    ll_centro := Items[(al_Firts + al_Last) div 2];
+    Repeat
+        While Items[ll_i] > ll_centro Do Begin
+            ll_i := ll_i + 1;
+        End;
+        While Items[ll_j] < ll_centro Do Begin
+            ll_j := ll_j - 1;
+        End;
+        If ll_i <= ll_j Then Begin
+            ll_temp := Items[ll_i];
+            Items[ll_i] := Items[ll_j];
+            Items[ll_j] := ll_temp;
+            ll_i := ll_i + 1;
+            ll_j := ll_j - 1;
+        End;
+    Until ll_i > ll_j;
+      If al_Firts < ll_j Then Begin
+        IntDesc(al_Firts, ll_j);
+    End;
+    If ll_i < al_Last Then Begin
+        IntDesc(ll_i, al_Last);
+    End;
+  End;
+
+  // Llama al Proceso interno
+Begin
+  if length(items) > tamMin then Begin
+    if aASC then IntAsc(tamMin,length(items))
+    Else IntDesc(tamMin,length(items));
+  End;
+End;
+
 procedure Burbuja(var aV: Vector); { Ordena según burbuja }
 var
   I, swap: Integer;
@@ -138,16 +214,31 @@ end;
 procedure TForm1.Button2Click(Sender: TObject);
 var
    T0: Cardinal;
+   inicio : String;
 begin
-   T0 := GetTickCount;
+   inicio := datetimetostr(now);
    Burbuja(VectorBurbuja);
-   memo1.Lines.Add('Burbuja tarda' + TimeToStr(Now - T0));
-   T0 := GetTickCount;
-   quick_sort(VectorQSort);
-   memo1.Lines.Add('QSort tarda' + TimeToStr(Now - T0));
-   T0 := GetTickCount;
+   memo1.Lines.Add('Inicio Burbuja: ' + inicio);
+   memo1.Lines.Add('Burbuja tarda' + datetimetostr(now));
+   inicio := datetimetostr(now);
+   QSort(VectorQSort,true);
+   memo1.Lines.Add('Inicio quicksort: ' + inicio);
+   memo1.Lines.Add('QSort tarda' + datetimetostr(now));
+   inicio := datetimetostr(now);
    seleccion(Vectorseleccion);
-   memo1.Lines.Add('Burbuja tarda' + TimeToStr(Now - T0));
+   memo1.Lines.Add('Inicio seleccion: ' + inicio);
+   memo1.Lines.Add('Seleccion tarda' + datetimetostr(now));
 end;
+
+{
+Resultados
+Inicio Burbuja: 22/1/2023 04:32:47
+Burbuja tarda22/1/2023 04:34:22
+Inicio quicksort: 22/1/2023 04:34:22
+QSort tarda22/1/2023 04:34:22
+Inicio seleccion: 22/1/2023 04:34:22
+Seleccion tarda22/1/2023 04:34:45
+
+}
 
 end.
