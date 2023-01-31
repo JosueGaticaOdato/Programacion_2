@@ -3,11 +3,12 @@ unit TADTarjetaDeCredito;
 interface
 
 uses
-  System.SysUtils;
+  System.SysUtils, System.DateUtils;
 
 const
   digitos = 4;
-  limites = 5;
+  limites = 500;
+  limitesCuotas = 300;
   RangoMin1MasterCard = 2021;
   RangoMax1MasterCard = 2720;
   RangoMin2MasterCard = 51;
@@ -19,18 +20,26 @@ const
   RangoMaestro = 50;
   RangoVisa = 4;
 
+
 type
+  Entidades = (Visa,Mastercard, American_Express, Maestro, INVALIDA);
+
   Tarjeta = Object
   private
     numero: Integer;
     fecha_vencimiento: TDate;
-    limite_creditos: Integer;
+    limite_creditos: extended;
+    limite_creditos_cuotas: extended;
+    emisora: Entidades;
   public
-    function cargarTarjeta(tarjetaACargar: Integer; vencimiento: TDate)
-      : boolean;
+    function cargarTarjeta(tarjetaACargar: Integer; vencimiento: TDate): boolean;
     function validarNro(): boolean;
-    function mostrarLimite(): Integer;
-    function EntidadEmisora(): String;
+    function getEntidadEmisora(): String;
+    function MostrarLimites(): String;
+    procedure EntidadEmisora();
+    function Comprar(valorCompra, cantCuotas: integer; cuotas: boolean): boolean;
+    procedure pagoEnUnaCuota(valorCompra: integer);
+    procedure pagarEnCuotas(valorCompra,cantCuotas: Integer);
   End;
 
   Vector = Array [1 .. digitos] of Integer;
@@ -196,42 +205,40 @@ begin
   cargarDigitosEnVector(digitos, numero);
   DuplicarPares(digitos);
   suma := sumarDigitos(digitos);
-  if (suma MOD 8) = 0 then
+  if (suma MOD 10) = 0 then
   begin
     valida := true;
   end;
 end;
 
 //Funcion que me dice cual es la emisora de la tajeta
-function Tarjeta.EntidadEmisora(): String;
+procedure Tarjeta.EntidadEmisora();
 var Resultado: String;
 begin
     if isEmisoraVisa(numero) then
     begin
-      Resultado := 'Visa';
+      emisora:= Entidades.Visa;
     end
     else if isemisoraMastercard(numero) then
     begin
-      Resultado := 'Mastercard';
+      emisora:= Entidades.Mastercard;
     end
     else if isemisoraAmerican(numero) then
     begin
-      Resultado := 'American Express';
+      emisora := Entidades.American_Express;
     end
     else if isemisoraMaestro(numero) then
     begin
-      Resultado := 'Maestro';
+      emisora := Entidades.Maestro;
     end
     else
     begin
-      Resultado := 'No valida';
+      emisora := Entidades.INVALIDA;
     end;
-  Result := Resultado;
 end;
 
 // Funcion que carga la tarjeta en el TAD
-function Tarjeta.cargarTarjeta(tarjetaACargar: Integer;
-  vencimiento: TDate): boolean;
+function Tarjeta.cargarTarjeta(tarjetaACargar: Integer; vencimiento: TDate): boolean;
 var
   cargada: boolean;
 begin
@@ -242,15 +249,110 @@ begin
     numero := tarjetaACargar;
     fecha_vencimiento := vencimiento;
     limite_creditos := limites;
+    limite_creditos_cuotas := limitesCuotas;
     cargada := true;
+    entidadEmisora();
   end;
   Result := cargada;
 end;
 
-// Funcion que muestra el limite de compras
-function Tarjeta.mostrarLimite(): Integer;
+//Getter para obtener la entidad emisora de la tarjeta
+function Tarjeta.getEntidadEmisora(): String;
+var entidad: String;
 begin
-  Result := limite_creditos;
+  case emisora of //Estuve leyendo y es la unica manejar de transformar el enumerado a String en Delphi
+    Entidades.Visa: entidad := 'Visa';
+    Entidades.Mastercard: entidad := 'MasterCard';
+    Entidades.American_Express: entidad := 'American Express';
+    Entidades.Maestro: entidad := 'Maestro';
+    Entidades.INVALIDA: entidad := 'Invalida';
+  end;
+  Result := entidad;
+end;
+
+//Obtener los limites de compra de la tarjeta
+function Tarjeta.MostrarLimites(): String;
+begin
+  Result := 'Una cuota: ' + limite_creditos.ToString + #13#10 + 'En cuotas: ' + limite_creditos_cuotas.ToString;
+end;
+
+//Procedimiento si la persona paga en una sola cuota
+procedure Tarjeta.pagoEnUnaCuota(valorCompra: integer);
+begin
+    {
+  Una vez aceptado el movimiento,
+  se debe reducir el límite de crédito
+  en una cuota teniendo en cuenta que si la
+  tarjeta es una Visa o una American Express
+  se descuenta el 80% del monto, en el resto de
+  las tarjetas se descuenta el monto completo}
+  if isemisoraVisa(numero) or isemisoraAmerican(numero)  then
+  begin
+    limite_creditos := limite_creditos - (valorCompra*80/100); //Se trunca el valor (CAMBIAR)
+  end
+  else
+  begin
+    limite_creditos := limite_creditos - valorCompra;
+  end;
+end;
+
+//Procedimiento si la persona paga en cuotas
+procedure Tarjeta.pagarEnCuotas(valorCompra,cantCuotas: Integer);
+var
+i,descuento: integer;
+valorEnCuotas: extended;
+begin
+  {
+  En cambio si se trata de una compra en cuotas, todas las tarjetas descuentan,
+  en compras hasta 6 cuotas, el 90% del monto adeudado (cuotas de la 2da en adelante)
+  al limite de compras en cuotas, y descuentan del límite de compras en una cuota el monto
+  de la primera cuota. En compras de más de 6 cuotas es igual, salvo que descuentan sólo el 70%
+  de las cuotas adeudas del limite de compra en cuotas.}
+  if cantCuotas <= 6 then
+  begin
+    descuento := 90;
+  end
+  else
+  begin
+    descuento := 70;
+  end;
+  valorEnCuotas := valorCompra/cantCuotas;
+  limite_creditos := limite_creditos - (valorEnCuotas);
+  limite_creditos_cuotas := limite_creditos_cuotas - (valorEnCuotas); //Primera cuota
+  limite_creditos_cuotas := limite_creditos_cuotas - (((valorEnCuotas)*descuento/100) * (CantCuotas - 1)); //A partir de la segunda cuota
+
+end;
+
+//Funcion que realiza la compra
+function Tarjeta.Comprar(valorCompra,cantCuotas: Integer; cuotas: boolean): Boolean;
+var compra: boolean;
+isVencida: integer;
+begin
+  {Valio si se puede hacer la compra:
+  .Que el numero sea valido
+  .Que no este vencida
+  .Que el valor de compra no supere el limite estipulado}
+  isVencida := CompareDate(fecha_vencimiento, now());
+  if ValidarNro() and ((isVencida = 1) or (isVencida = 0)) and
+    ((valorCompra < limite_creditos) or (valorCompra < limite_creditos_cuotas))  then
+  begin
+    //Movimiento aceptado
+    if cuotas then //PAGA EN CUOTAS
+    begin
+      pagarEnCuotas(valorCompra,cantCuotas);
+    end
+    else //PAGO EN UNA SOLA CUOTA
+    begin
+      pagoEnUnaCuota(valorCompra);
+    end;
+    compra:= true;
+  end
+  else
+  begin
+    //Movimiento cancelado
+    compra:= false;
+  end;
+  Result:= compra;
 end;
 
 end.
