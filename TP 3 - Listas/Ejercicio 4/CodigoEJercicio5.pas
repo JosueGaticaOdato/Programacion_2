@@ -41,6 +41,19 @@ implementation
 
 {$R *.dfm}
 
+{
+Ejercicio 4
+Generar un algoritmo que determine si una lista
+es sublista de otra. Se considera que es una sublista si
+todos los valores de la segunda se encuentran dentro de
+la primera sin importar el orden o posición de cada elemento.
+Se pide además determinar la complejidad algorítmica de la solución.
+
+Ejemplo: si L1 contiene los elementos (A, Z, B, D, H, K)
+y L2 contiene los elementos (D, K, A) se dice que L2 es sublista de L1.
+}
+
+//Funcion que me dice si L2 es sublista de L1
 function SubLista(L1,L2: Lista): Boolean;
 var Posicion1, Posicion2: PosicionLista;
   Valor1, Valor2: TipoElemento;
@@ -48,32 +61,35 @@ var Posicion1, Posicion2: PosicionLista;
 begin
   Bandera2:= True;
   Posicion2 := L2.Comienzo;
-  while (Posicion2 <> Nulo) and Bandera2 do
+  while (Posicion2 <> Nulo) and Bandera2 do //Recorro la lista2 primero
   begin
     Valor2 := L2.Recuperar(Posicion2);
     Posicion1 := L1.Comienzo;
     Bandera1 := True;
-    while (Posicion1 <> Nulo) and Bandera1 do
+    while (Posicion1 <> Nulo) and Bandera1 do //Recorro la lista2
     begin
       Valor1 := L1.Recuperar(Posicion1);
-      if Valor1.Clave = Valor2.Clave then
+      if Valor1.Clave = Valor2.Clave then //Comparo cada valor de L1 con el valor de L2
       begin
-        Bandera1 := False;
+        Bandera1 := False; //Si son iguales quiere decir que esta el elemento L2 en L1
       end
       else
       begin
         Posicion1 := L1.Siguiente(Posicion1);
       end;
     end;
-    if Posicion1 = Nulo then
+
+    if Posicion1 = Nulo then //Al final del bucle, consulto si estoy en nulo, ya que este
+    //determina si llegue al final de la lista y no encontre el valor
     begin
       Bandera2 := False;
     end;
     Posicion2 := L2.Siguiente(Posicion2);
   end;
-  Result := Bandera2;
+  Result := Bandera2; //Devuelvo la bandera 2
 end;
 
+//Procedure que carga las listas con los valores de ejemplo del ejercicio
 procedure Ejemplo(var L1,L2: Lista);
 var X:Tipoelemento;
 begin
@@ -100,6 +116,7 @@ begin
   L2.Agregar(x);
 end;
 
+//Boton que carga la lista de forma aleatoria (no encontre otra forma aparte de con ASCII)
 procedure TForm1.Button1Click(Sender: TObject);
 var I: Integer;
   Contenido: Integer;
@@ -123,6 +140,7 @@ begin
   memo1.Lines.Add('Listas cargadas de forma aleatoria satisfactoriamente');
 end;
 
+//Boton que muestra el contenido de las listas
 procedure TForm1.Button2Click(Sender: TObject);
 begin
   memo1.Lines.Add('Contenido lista 1:');
@@ -131,12 +149,14 @@ begin
   memo1.Lines.Add(Lista2.RetornarClaves);
 end;
 
+//Boton que carga la lista con los valores de ejemplo
 procedure TForm1.Button3Click(Sender: TObject);
 begin
   Ejemplo(Lista1,Lista2);
   memo1.Lines.Add('Cargado con valores del ejemplo');
 end;
 
+//Boton que me dice si L2 es sublista de L1
 procedure TForm1.Button4Click(Sender: TObject);
 var Valor: Boolean;
 begin
