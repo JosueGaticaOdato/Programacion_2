@@ -59,7 +59,7 @@ begin
       L.Insertar(Elem2,P);
       L.Insertar(Aux,Q);
     end;
-    Burbujeo(L, P+1, Q+1);
+    Burbujeo(L, L.Siguiente(P), L.Siguiente(Q));
   end;
 end;
 
@@ -72,7 +72,7 @@ end;
 
 procedure TForm1.Button2Click(Sender: TObject);
 begin
-  Burbujeo(Li,1,2);
+  Burbujeo(Li,Li.Comienzo,Li.Siguiente(Li.Comienzo));
   memo1.Lines.Add(Li.RetornarClaves);
 end;
 
