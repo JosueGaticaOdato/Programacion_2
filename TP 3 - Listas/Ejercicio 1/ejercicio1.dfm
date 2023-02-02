@@ -75,11 +75,38 @@ object Form1: TForm1
   end
   object Button4: TButton
     Left = 24
-    Top = 408
+    Top = 448
     Width = 145
     Height = 41
     Caption = 'Generar numeros Unicos'
     TabOrder = 6
     OnClick = Button4Click
+  end
+  object Button5: TButton
+    Left = 24
+    Top = 393
+    Width = 145
+    Height = 40
+    Caption = 'Generar lista nueva con multiplos'
+    TabOrder = 7
+    WordWrap = True
+    OnClick = Button5Click
+  end
+  object Edit1: TEdit
+    Left = 24
+    Top = 351
+    Width = 145
+    Height = 21
+    TabOrder = 8
+    Text = '0'
+  end
+  object Button6: TButton
+    Left = 24
+    Top = 495
+    Width = 145
+    Height = 42
+    Caption = 'Reflejar lista'
+    TabOrder = 9
+    OnClick = Button6Click
   end
 end
