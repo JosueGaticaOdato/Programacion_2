@@ -10,9 +10,7 @@ object Form1: TForm1
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
-  OldCreateOrder = False
   OnCreate = FormCreate
-  PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel
     Left = 287
@@ -44,9 +42,9 @@ object Form1: TForm1
   end
   object Hora: TTimePicker
     Left = 184
-    Top = 10
-    Width = 137
-    Height = 33
+    Top = 7
+    Width = 121
+    Height = 41
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -16
@@ -99,6 +97,7 @@ object Form1: TForm1
     Left = 287
     Top = 122
     Width = 116
+    Height = 41
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -16

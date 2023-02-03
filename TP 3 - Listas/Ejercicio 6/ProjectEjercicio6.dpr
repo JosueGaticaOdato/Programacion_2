@@ -1,8 +1,9 @@
-program projEjer6;
+program ProjectEjercicio6;
 
 uses
   Vcl.Forms,
-  ejercicio6 in 'ejercicio6.pas' {Form1},
+  Ejercicio6 in 'Ejercicio6.pas' {Form1},
+  TADPolinomio in 'TADPolinomio.pas',
   ListArray in '..\ListArray.pas',
   ListCursor in '..\ListCursor.pas',
   ListPointer in '..\ListPointer.pas',

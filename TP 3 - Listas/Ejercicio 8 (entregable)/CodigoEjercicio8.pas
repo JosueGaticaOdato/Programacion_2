@@ -52,8 +52,39 @@ implementation
 
 {$R *.dfm}
 
+{
+Ejercicio 9
+Generar un TAD que permita administrar la agenda de un ejecutivo.
+Se tiene un listado de tiempo se pretende dedicar a cada actividad:
+(almuerzo de negocios: 120; atender cliente: 10; atender cliente VIP: 30;
+reunión con gerente: 30; etc).
 
-//Complejidad Algoritmica: Lineal (Asignar, Condicionales para saber contenido,agregar al final)
+Programar las funciones necesarias que permitan insertar actividades a la agenda,
+controlando que no se superpongan actividades, guardando solo qué actividad se
+agenda y el horario de comienzo. Se pide que esta lista se mantenga ordenada
+por el horario.
+
+Por ejemplo:
+
+(reunion con gerente, 9:30; atender cliente VIP, 10:30;
+almuerzo de negocios, 12:0; atender cliente VIP, 16: 30;
+atender Cliente, 17:10).
+
+Agregar una funcion que permita saber qué está haciendo el ejecutivo dado un horario.
+
+Por ejemplo:
+
+12:45 -> almuerzo de negocios.
+17:45 -> libre.
+
+Un índice que le interesa a los ejecutivos es el porcentaje de
+ocupación de su día. Agregar una función que calcule este índice.
+
+}
+
+
+//Complejidad Algoritmica: Lineal (Asignar, Condicionales para saber
+//contenido,agregar al final)
 //Boton que agrega la actividad a la lista
 procedure TForm1.Button1Click(Sender: TObject);
 var X: TipoElemento;

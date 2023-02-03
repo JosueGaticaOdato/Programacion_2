@@ -49,6 +49,30 @@ implementation
 
 {$R *.dfm}
 
+{
+Ejercicio 8
+Se necesita saber el puntaje que suma un pacman en su
+recorrido hasta llegar a terminar el nivel.
+
+En su recorrido se puede encontrar con frutas con distinto puntaje
+y con el activador del bonus que duplica todos los puntos de las cosas que
+coma durante 10 pasos y que habilita la posibilidad de comerse el fantasma.
+Si se come el fantasma sin el bonus activado: Pierde.
+
+Escribir un algoritmo que permita calcular el puntaje dada una
+lista de objetos que se come el pacman. Para el cálculo tener en
+cuenta el siguiente listado de objetos que se come el pacman:
+(puntito: 1, frutilla: 10, banana: 30, cerezas: 50, fantasma: 100).
+
+Por ejemplo:
+(puntito, frutilla, puntito, puntito, banana, puntito, puntito,
+fantasma, puntito, puntito, cerezas, puntito) -> Perdiste.
+
+(puntito, puntito, puntito, banana, puntito, puntito, bonus,
+puntito, puntito, fantasma, puntito, puntito, cerezas, puntito) -> 345.
+
+}
+
 //Los botones 1 al 6, realizar la carga en la lista de los objetos que
 //se comio el pac-man
 procedure TForm1.Button1Click(Sender: TObject);

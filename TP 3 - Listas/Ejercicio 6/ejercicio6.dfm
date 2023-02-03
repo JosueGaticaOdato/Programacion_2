@@ -2,50 +2,82 @@ object Form1: TForm1
   Left = 0
   Top = 0
   Caption = 'Form1'
-  ClientHeight = 242
-  ClientWidth = 527
+  ClientHeight = 424
+  ClientWidth = 618
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
-  Font.Height = -11
-  Font.Name = 'Tahoma'
+  Font.Height = -12
+  Font.Name = 'Segoe UI'
   Font.Style = []
-  TextHeight = 13
+  OnCreate = FormCreate
+  TextHeight = 15
   object Button1: TButton
-    Left = 24
-    Top = 22
-    Width = 209
-    Height = 25
-    Caption = 'Cargar lista'
+    Left = 8
+    Top = 112
+    Width = 129
+    Height = 49
+    Caption = 'Mostrar polinomio'
     TabOrder = 0
     OnClick = Button1Click
   end
   object Button2: TButton
-    Left = 24
-    Top = 113
-    Width = 209
-    Height = 25
-    Caption = 'Ordenar lista con burbujeo (decreciente)'
+    Left = 8
+    Top = 207
+    Width = 129
+    Height = 58
+    Caption = 'Evaluar en un punto'
     TabOrder = 1
-    OnClick = Button2Click
   end
-  object Memo1: TMemo
-    Left = 256
-    Top = 24
-    Width = 249
-    Height = 201
-    Lines.Strings = (
-      'Memo1')
-    ScrollBars = ssVertical
+  object Edit1: TEdit
+    Left = 8
+    Top = 167
+    Width = 129
+    Height = 23
     TabOrder = 2
+    Text = 'Edit1'
   end
   object Button3: TButton
-    Left = 24
-    Top = 64
-    Width = 209
-    Height = 27
-    Caption = 'Mostrar lista'
+    Left = 8
+    Top = 271
+    Width = 129
+    Height = 58
+    Caption = 'Valores caracter'#237'sticos'
     TabOrder = 3
-    OnClick = Button3Click
+    WordWrap = True
+  end
+  object Button4: TButton
+    Left = 262
+    Top = 8
+    Width = 75
+    Height = 25
+    Caption = 'Cargar'
+    TabOrder = 4
+    OnClick = Button4Click
+  end
+  object C: TEdit
+    Left = 8
+    Top = 8
+    Width = 121
+    Height = 23
+    TabOrder = 5
+    Text = 'Coeficiente'
+  end
+  object G: TEdit
+    Left = 135
+    Top = 8
+    Width = 121
+    Height = 23
+    TabOrder = 6
+    Text = 'Grado'
+  end
+  object Memo1: TMemo
+    Left = 152
+    Top = 112
+    Width = 313
+    Height = 217
+    Lines.Strings = (
+      'Memo1')
+    TabOrder = 7
   end
 end
