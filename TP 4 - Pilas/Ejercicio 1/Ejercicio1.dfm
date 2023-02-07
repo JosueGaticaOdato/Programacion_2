@@ -2,16 +2,16 @@ object Form1: TForm1
   Left = 0
   Top = 0
   Caption = 'Form1'
-  ClientHeight = 236
-  ClientWidth = 445
+  ClientHeight = 239
+  ClientWidth = 441
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
-  Font.Height = -11
-  Font.Name = 'Tahoma'
+  Font.Height = -12
+  Font.Name = 'Segoe UI'
   Font.Style = []
   OnCreate = FormCreate
-  TextHeight = 13
+  TextHeight = 15
   object Button1: TButton
     Left = 4
     Top = 8
@@ -55,7 +55,7 @@ object Form1: TForm1
     Left = 4
     Top = 47
     Width = 186
-    Height = 21
+    Height = 23
     TabOrder = 4
     Text = 'Edit1'
   end
