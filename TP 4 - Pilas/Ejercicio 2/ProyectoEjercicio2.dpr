@@ -7,7 +7,7 @@ uses
   StackArray in '..\StackArray.pas',
   StackCursor in '..\StackCursor.pas',
   StackPointer in '..\StackPointer.pas',
-  Tipos in '..\..\TP 4\Tipos.pas';
+  Tipos in '..\Tipos.pas';
 
 {$R *.res}
 
