@@ -101,6 +101,7 @@ end;
 //Si son distintis voy al siguiente de la cola 2. Si todos son distintos, freno
 //el bucle y devuelvo falso.
 //.Recupero los elementos de ambas colas
+
 function Ejercicio6.Son_Iguales(Cola1,Cola2: Ejercicio6): Boolean;
 var AUX1,AUX2: Cola;
   X,Y: TipoElemento;

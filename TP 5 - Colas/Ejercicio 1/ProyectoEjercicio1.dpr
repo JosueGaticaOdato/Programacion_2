@@ -3,11 +3,14 @@ program ProyectoEjercicio1;
 uses
   Vcl.Forms,
   CodigoEjercicio1 in 'CodigoEjercicio1.pas' {Form1},
-  TADEjercicio1 in 'TADEjercicio1.pas',
   QueuesArrayNCMejorada in '..\QueuesArrayNCMejorada.pas',
   QueuesCursor in '..\QueuesCursor.pas',
   QueuesPointer in '..\QueuesPointer.pas',
-  Tipos in '..\Tipos.pas';
+  Tipos in '..\Tipos.pas',
+  StackArray in '..\..\TP 4 - Pilas\StackArray.pas',
+  StackCursor in '..\..\TP 4 - Pilas\StackCursor.pas',
+  StackPointer in '..\..\TP 4 - Pilas\StackPointer.pas',
+  TADEjercicio1Pila in '..\..\TP 4 - Pilas\Ejercicio 1\TADEjercicio1Pila.pas';
 
 {$R *.res}
 

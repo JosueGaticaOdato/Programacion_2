@@ -38,31 +38,42 @@ implementation
 
 {$R *.dfm}
 
+{
+Ejercicio 2
+Dadas dos colas, determinar si sus contenidos son iguales tanto en posición como en datos,
+sin destruirlas. Utilizar para la resolución del problema una sola cola auxiliar.
+
+Determinar la complejidad algorítmica de la solución.
+}
+
+//Boton que carga las dos colas de forma aleatoria
 procedure TForm1.Button1Click(Sender: TObject);
 begin
-  Cola1.Cargar_Aleatorio(Tamaño, Minimo, Maximo);
-  Cola2.Cargar_Aleatorio(Tamaño, Minimo, Maximo);
+  Cola1.cargarAleatorio(Tamaño, Minimo, Maximo);
+  Cola2.cargarAleatorio(Tamaño, Minimo, Maximo);
   memo1.Lines.Add('Colas cargadas aleatoriamente');
 end;
 
+//Boton que carga las dos colas iguales
 procedure TForm1.Button2Click(Sender: TObject);
 begin
-  Cola1.Cargar_Iguales(Cola2);
+  Cola1.cargarColaIguales(Cola2);
   memo1.Lines.Add('Colas cargadas iguales');
 end;
 
+//Boton que muestra el contenido de las dos colas
 procedure TForm1.Button3Click(Sender: TObject);
 begin
   memo1.Lines.Add('Cola 1:');
-  memo1.Lines.Add(Cola1.Mostrar_Cola);
+  memo1.Lines.Add(Cola1.mostrarCola);
   memo1.Lines.Add('Cola 2:');
-  memo1.Lines.Add(Cola2.Mostrar_Cola);
+  memo1.Lines.Add(Cola2.mostrarCola);
 end;
 
 procedure TForm1.Button4Click(Sender: TObject);
 var iguales: Boolean;
 begin
-  Iguales := Cola1.Son_Iguales(Cola1,Cola2);
+  Iguales := Cola1.sonIguales(Cola1,Cola2);
   if Iguales then
   begin
     memo1.Lines.Add('Son iguales');
@@ -75,8 +86,8 @@ end;
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
-  Cola1.Crear_Cola(Numero,Tamaño);
-  Cola2.Crear_Cola(Numero,Tamaño);
+  Cola1.crearCola(Numero,Tamaño);
+  Cola2.crearCola(Numero,Tamaño);
 end;
 
 end.

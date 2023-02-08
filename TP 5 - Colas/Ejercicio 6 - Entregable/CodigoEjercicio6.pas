@@ -39,6 +39,17 @@ implementation
 
 {$R *.dfm}
 
+{
+Ejercicio 6
+Dadas 2 colas cargadas con valores alfanuméricos se pide determinar si ambas contienen los mismos elementos.
+Se considera que contendrán los mismos elementos sin importar su posición o las repeticiones. No se deben perder las colas originales.
+
+Determinar la complejidad algorítmica de la solución.
+
+Ejemplo: Si C1 = (A, B, E, D, H, A, Z) y C2 = (B, A, D, H, Z, E) se
+consideran que contienen los mismos elementos y deberá retornar verdadero.
+}
+
 //Boton que carga las colas aleatoriamente
 procedure TForm1.BtnCargaClick(Sender: TObject);
 begin

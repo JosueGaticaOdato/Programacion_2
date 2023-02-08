@@ -21,6 +21,9 @@ type
       procedure Crear_Cola(Tipo_Clave: Variant; Tamaño: Integer);
       function Mostrar_Cola():String;
       procedure Cargar_Cola(Numero_Cola: Integer; Tiempo: TipoElemento);
+      procedure AtenderC1(Q: Integer; VAR Cola: Integer; VAR Cadena: String);
+      procedure AtenderC2(Q: Integer; VAR Cola: Integer; VAR Cadena: String);
+      procedure AtenderC3(Q: Integer; VAR Cola: Integer; VAR Cadena: String);
       function Atender(Q: Integer): String;
 
   End;
@@ -50,17 +53,71 @@ end;
 procedure Ejercicio7.Cargar_Cola(Numero_Cola: Integer; Tiempo: TipoElemento);
 begin
   //Segun el numero pasado, carga en su respectiva cola
-  if Numero_Cola = 0 then
+  case Numero_Cola of
+    0: C1.Encolar(Tiempo);
+    1: C2.Encolar(Tiempo);
+    2: C3.Encolar(Tiempo);
+  end;
+end;
+
+//Procedimientos que atiende cada caja en particular
+procedure Ejercicio7.AtenderC1(Q: Integer; VAR Cola: Integer; VAR Cadena: String);
+var X: TipoElemento;
+begin
+  //Recupero, desencolo y resto
+  X := C1.Recuperar;
+  C1.DesEncolar;
+  X.Clave := X.Clave - Q;
+  //Si da 0, devuelvo el cliente y el numero de cola, tambien aumento el contador
+  if X.Clave = 0 then
   begin
-    C1.Encolar(Tiempo);
-  end
-  else if Numero_Cola = 1 then
-  begin
-    C2.Encolar(Tiempo);
+    Cadena := Cadena + 'Cliente ' + Cola.ToString + ' - Cola 1'  + #13#10;
+    Inc(Cola);
   end
   else
   begin
-    C3.Encolar(Tiempo);
+  //Si no es 0, directamente encolo el resultado que quedo
+    C1.Encolar(X);
+  end;
+end;
+
+procedure Ejercicio7.AtenderC2(Q: Integer; VAR Cola: Integer; VAR Cadena: String);
+var X: TipoElemento;
+begin
+  //Recupero, desencolo y resto
+  X := C2.Recuperar;
+  C2.DesEncolar;
+  X.Clave := X.Clave - Q;
+  //Si da 0, devuelvo el cliente y el numero de cola, tambien aumento el contador
+  if X.Clave = 0 then
+  begin
+    Cadena := Cadena + 'Cliente ' + Cola.ToString + ' - Cola 2'  + #13#10;
+    Inc(Cola);
+  end
+  else
+  begin
+  //Si no es 0, directamente encolo el resultado que quedo
+    C2.Encolar(X);
+  end;
+end;
+
+procedure Ejercicio7.AtenderC3(Q: Integer; VAR Cola: Integer; VAR Cadena: String);
+var X: TipoElemento;
+begin
+  //Recupero, desencolo y resto
+  X := C3.Recuperar;
+  C3.DesEncolar;
+  X.Clave := X.Clave - Q;
+  //Si da 0, devuelvo el cliente y el numero de cola, tambien aumento el contador
+  if X.Clave = 0 then
+  begin
+    Cadena := Cadena + 'Cliente ' + Cola.ToString + ' - Cola 3'  + #13#10;
+    Inc(Cola);
+  end
+  else
+  begin
+  //Si no es 0, directamente encolo el resultado que quedo
+    C3.Encolar(X);
   end;
 end;
 
@@ -89,57 +146,17 @@ begin
     //Consulto si la cola esta vacia
     if not C1.EsVacia then
     begin
-      //Recupero, desencolo y resto
-      X := C1.Recuperar;
-      C1.DesEncolar;
-      X.Clave := X.Clave - Q;
-      //Si da 0, devuelvo el cliente y el numero de cola, tambien aumento el contador
-      if X.Clave = 0 then
-      begin
-        Cadena := Cadena + 'Cliente ' + Cola1.ToString + ' - Cola 1'  + #13#10;
-        Cola1 := Cola1 + 1;
-      end
-      else
-      begin
-      //Si no es 0, directamente encolo el resultado que quedo
-        C1.Encolar(X);
-      end;
+      atenderC1(Q,Cola1,Cadena);
     end;
     //Consulto si la cola esta vacia
     if not C2.EsVacia then
     begin
-      X := C2.Recuperar;
-      C2.DesEncolar;
-      X.Clave := X.Clave - Q;
-      //Si da 0, devuelvo el cliente y el numero de cola, tambien aumento el contador
-      if X.Clave = 0 then
-      begin
-        Cadena := Cadena + 'Cliente ' + Cola2.ToString + ' - Cola 2' + #13#10;
-        Cola2 := Cola2 + 1;
-      end
-      else
-      //Si no es 0, directamente encolo el resultado que quedo
-      begin
-        C2.Encolar(X);
-      end;
+      atenderC2(Q,Cola2,Cadena);
     end;
     //Consulto si la cola esta vacia
     if not C3.EsVacia then
     begin
-      X := C3.Recuperar;
-      C3.DesEncolar;
-      X.Clave := X.Clave - Q;
-      //Si da 0, devuelvo el cliente y el numero de cola, tambien aumento el contador
-      if X.Clave = 0 then
-      begin
-        Cadena := Cadena + 'Cliente ' + Cola3.ToString + ' - Cola 3'  + #13#10;
-        Cola3 := Cola3 + 1;
-      end
-      else
-      //Si no es 0, directamente encolo el resultado que quedo
-      begin
-        C3.Encolar(X);
-      end;
+      atenderC3(Q,Cola3,Cadena);
     end;
   end;
   //Devuelvo el string con las colas que fueron atendidas

@@ -8,41 +8,49 @@ uses
   //QueuesCursor;
   QueuesPointer;
 
+const
+  valorRandomCargarIguales = 10;
+
 type
   Ejercicio2 = Object
     private
       C: Cola;
     Public
-      procedure Crear_Cola(Tipo_Clave: Variant; Tamaño: Integer);
-      procedure Cargar_Aleatorio(Tamaño, RangoA, RangoB: Integer);
-      function Mostrar_Cola():String;
-      procedure Apilar_Cola_Origen(Auxiliar: Cola; Cola1,Cola2: Cola);
-      procedure Cargar_Iguales(var C1: Ejercicio2);
-      function Son_Iguales(var C1, C2: Ejercicio2): Boolean; 
+      procedure crearCola(Tipo_Clave: Variant; Tamaño: Integer);
+      procedure cargarAleatorio(Tamaño, RangoA, RangoB: Integer);
+      function mostrarCola():String;
+      procedure cargarColaIguales(var C1: Ejercicio2);
+      procedure recuperarColasOrigen(Auxiliar: Cola; Cola1,Cola2: Cola);
+      function sonIguales(var C1, C2: Ejercicio2): Boolean;
   End;
 
 implementation
 
-procedure Ejercicio2.Crear_Cola(Tipo_Clave: Variant; Tamaño: Integer);
+//Procedimiento que crea la cola dado un tamaño
+procedure Ejercicio2.crearCola(Tipo_Clave: Variant; Tamaño: Integer);
 begin
   C.Crear(Tipo_Clave, Tamaño);
 end;
 
-procedure Ejercicio2.Cargar_Aleatorio(Tamaño, RangoA, RangoB: Integer);
+//Procedimiento que carga la cola de forma aleatoria dado dos rangos
+procedure Ejercicio2.cargarAleatorio(Tamaño, RangoA, RangoB: Integer);
 begin
   C.LLenarClavesRandom(Tamaño, RangoA, RangoB);
 end;
 
-function Ejercicio2.Mostrar_Cola;
+//Funcion que muestra la cola
+function Ejercicio2.mostrarCola;
 begin
-  Mostrar_Cola := C.RetornarClaves;
+  mostrarCola := C.RetornarClaves;
 end;
 
-procedure Ejercicio2.Apilar_Cola_Origen(Auxiliar: Cola; Cola1,Cola2: Cola);
+//Procedimiento que recupera los valores de las dos colas origen dada una cola aux
+procedure Ejercicio2.recuperarColasOrigen(Auxiliar: Cola; Cola1,Cola2: Cola);
 var X: TipoElemento;
 begin
-  while not Auxiliar.EsVacia do
+  while not Auxiliar.EsVacia do //Hasta que no termine de recorrer la auxiliar
   begin
+    //Recupero, desencolo en auxilair y encolo en mis dos origenes
     X := Auxiliar.Recuperar;
     Auxiliar.DesEncolar;
     Cola1.Encolar(X);
@@ -50,21 +58,28 @@ begin
   end;
 end;
 
-procedure Ejercicio2.Cargar_Iguales(var C1: Ejercicio2);
+//Procedimiento que carga las dos colas iguales
+procedure Ejercicio2.cargarColaIguales(var C1: Ejercicio2);
 var
   i: Integer;
   X: TipoElemento;
 begin
   Randomize;
+  //Vacio primero las dos colas
+  C.Crear(C.DatoDeLaClave,C.SizeQueue);
+  C1.C.Crear(C.DatoDeLaClave,C.SizeQueue);
   for i := 1 to C.SizeQueue do
   begin
-    X.Clave := Random(10);
+    //Obtengo el valor de la clave y encolo en ambas
+    X.Clave := Random(valorRandomCargarIguales);
     C.Encolar(X);
     C1.C.Encolar(X);
   end;
 end;
 
-function Ejercicio2.Son_Iguales(var C1, C2: Ejercicio2): Boolean;
+//Funcion que comprueba si las dos colas son iguales, sin perder las colas originales
+//ESTA MAL HECHO, HAY QUE ARREGLAR
+function Ejercicio2.sonIguales(var C1, C2: Ejercicio2): Boolean;
 var X,Y: TipoElemento;
   Bandera: Boolean;
   AUX1: Cola;
@@ -85,7 +100,7 @@ begin
       C1.C.DesEncolar;
     end;
   end;
-  Apilar_Cola_Origen(AUX1,C1.C,C2.C);
+  recuperarColasOrigen(AUX1,C1.C,C2.C);
   Result := Bandera;
 end;
 

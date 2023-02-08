@@ -10,12 +10,10 @@ object Form1: TForm1
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
-  OldCreateOrder = False
   OnCreate = FormCreate
-  PixelsPerInch = 96
   TextHeight = 13
   object Button1: TButton
-    Left = 58
+    Left = 8
     Top = 8
     Width = 97
     Height = 41
@@ -52,5 +50,14 @@ object Form1: TForm1
     TabOrder = 3
     WordWrap = True
     OnClick = cClick
+  end
+  object Button2: TButton
+    Left = 111
+    Top = 8
+    Width = 96
+    Height = 41
+    Caption = 'Cargar ejemplo'
+    TabOrder = 4
+    OnClick = Button2Click
   end
 end

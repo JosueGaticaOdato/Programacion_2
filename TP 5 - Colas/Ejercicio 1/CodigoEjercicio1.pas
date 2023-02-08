@@ -4,7 +4,7 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Tipos, TADEjercicio1;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Tipos, TADEjercicio1Cola;
 
 const
   Cantidad = 4;
@@ -27,6 +27,7 @@ type
     Label1: TLabel;
     Edit2: TEdit;
     Label2: TLabel;
+    Button10: TButton;
     procedure Button1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure Button2Click(Sender: TObject);
@@ -36,6 +37,8 @@ type
     procedure Button5Click(Sender: TObject);
     procedure Button8Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
+    procedure Button10Click(Sender: TObject);
+    procedure Button9Click(Sender: TObject);
   private
     { Private declarations }
     Cola1: Ejercicio1;
@@ -51,34 +54,57 @@ implementation
 
 {$R *.dfm}
 
+{
+
+Ejercicio 1
+Resolver los siguientes puntos:
+
+  Concatenar dos colas dejando el resultado en la primera de ellas.
+  Informar si un elemento dado se encuentra en la cola.
+  Agregar un nuevo elemento en una posición dada (colarse).
+  Dado un elemento sacarlo de la cola todas las veces que aparezca.
+  Contar los elementos de la cola.
+  Realizar una función que realice una copia de una cola.
+  Invertir del contenido de una cola sin destruir la cola original.
+
+}
+
+//Boton que carga la cola de forma aleatoria
+procedure TForm1.Button10Click(Sender: TObject);
+begin
+  memo1.Lines.Add('Cola 2:');
+  memo1.Lines.Add(Cola2.mostrarCola);
+end;
+
 procedure TForm1.Button1Click(Sender: TObject);
 begin
-  Cola1.Cargar_Aleatorio(Cantidad,Minimo,Maximo);
-  Cola2.Cargar_Aleatorio(Cantidad,Minimo,Maximo);
+  Cola1.cargarAleatorio(Cantidad,Minimo,Maximo);
+  Cola2.cargarAleatorio(Cantidad,Minimo,Maximo);
   memo1.Lines.Add('Colas cargadas');
 end;
 
+//Boton que muestra el contenido de la cola
 procedure TForm1.Button2Click(Sender: TObject);
 begin
   memo1.Lines.Add('Cola 1:');
-  memo1.Lines.Add(Cola1.Mostrar_Cola);
-  memo1.Lines.Add('Cola 2:');
-  memo1.Lines.Add(Cola2.Mostrar_Cola);
+  memo1.Lines.Add(Cola1.mostrarCola);
 end;
 
+//Boton que concatena el contenio de dos colas
 procedure TForm1.Button3Click(Sender: TObject);
 begin
   Cola1.Concatenar(Cola2);
   memo1.Lines.Add('Colas concatenadas');
 end;
 
+//Boton que busca si un elemento esta en la cola o no
 procedure TForm1.Button4Click(Sender: TObject);
 var X: TipoElemento;
   Existe: Boolean;
 begin
   X.Inicializar(Numero,0);
   X.Clave := StrtoInt(Edit1.Text);
-  Existe := Cola1.Chequear_Elemento(X);
+  Existe := Cola1.comprobarElemento(X);
   if Existe then
   begin
     memo1.Lines.Add('El elemento ' + Edit1.Text + ' esta en la cola');
@@ -89,6 +115,7 @@ begin
   end;
 end;
 
+//Boton que busca y elimina un elemento de la cola
 procedure TForm1.Button5Click(Sender: TObject);
 var X: TipoElemento;
 begin
@@ -97,6 +124,7 @@ begin
   memo1.Lines.Add('Elemento eliminado');
 end;
 
+//Boton que agrega en una posicion un elemento a la cola
 procedure TForm1.Button6Click(Sender: TObject);
 var X: TipoElemento;
   Posicion: Integer;
@@ -107,26 +135,37 @@ begin
   memo1.Lines.Add('Elemento agredado');
 end;
 
+//Boton que me dice la cantidad de elementos de la cola
 procedure TForm1.Button7Click(Sender: TObject);
 var CantidadElementos: Integer;
 begin
-  CantidadElementos := Cola1.Contar_Elementos;
+  CantidadElementos := Cola1.contarElementos;
   memo1.Lines.Add('La cantidad de elementos de la cola 1 es: ' + CantidadElementos.ToString);
 end;
 
+//Boton que realiza una copia de la cola
 procedure TForm1.Button8Click(Sender: TObject);
 var Copia: Ejercicio1;
 begin
   Copia := Cola1.Copia;
   memo1.Lines.Add('Copia realizada!');
   memo1.Lines.Add('Contenido de la copia');
-  memo1.Lines.Add(Copia.Mostrar_Cola);
+  memo1.Lines.Add(Copia.mostrarCola);
+end;
+
+procedure TForm1.Button9Click(Sender: TObject);
+var Invertida: Ejercicio1;
+begin
+  Invertida := Cola1.Invertir;
+  memo1.Lines.Add('Cola invertida!');
+  memo1.Lines.Add('Contenido:');
+  memo1.Lines.Add(Invertida.mostrarCola);
 end;
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
-  Cola1.Crear_Cola(Cadena,4);
-  Cola2.Crear_Cola(Cadena,4);
+  Cola1.crearCola(Cadena,Cantidad);
+  Cola2.crearCola(Cadena,Cantidad);
 end;
 
 end.

@@ -40,6 +40,33 @@ implementation
 
 {$R *.dfm}
 
+{
+Ejercicio 7
+  Un negocio tiene 3 ventanillas para atender a sus clientes. Los clientes forman cola en cada ventanilla.
+  Un día, dos de los tres empleados que atienden las ventanillas no pueden asistir al trabajo,
+  quedando uno solo para atender a las tres colas. Este empleado decide que, a medida que lleguen los clientes,
+  atenderá por cierta cantidad de minutos (que denominaremos Q) a cada cola, paseándose por todas las colas equitativamente.
+
+  Se pide que implemente un algoritmo que modele esta situación y dé como resultado el orden en que fueron atendidos los clientes.
+
+  Ejemplo: El algoritmo recibe un Q de tiempo que atenderá a cada cola y
+  las tres colas cargadas con clientes, donde cada cliente es la cantidad de tiempo que se necesita para atenderlo.
+  Q = 10
+  Cola1 = (40, 20, 30)
+  Cola2 = (20, 10)
+  Cola3 = (10, 10, 10)
+
+  Resultado =
+  Cliente 1 Cola 3,
+  Cliente 1 Cola 2,
+  Cliente 2 Cola 3,
+  Cliente 2 Cola 2,
+  Cliente 3 Cola 3,
+  Cliente 1 Cola 1,
+  Cliente 2 Cola 1,
+  Cliente 3 Cola 1}
+
+//Boton que carga la cola
 procedure TForm1.Button1Click(Sender: TObject);
 var X: TipoElemento;
 begin
@@ -49,6 +76,7 @@ begin
   memo1.Lines.Add('Cola cargada con exito');
 end;
 
+//Boton que muestra como tiene que atender las colas
 procedure TForm1.Button2Click(Sender: TObject);
 var Texto: String;
 begin
@@ -59,9 +87,9 @@ begin
   memo1.Lines.Add(Texto);
 end;
 
+//Boton que muestra el contenido de las colas
 procedure TForm1.Button3Click(Sender: TObject);
 begin
-  //Funcion que muestra el contenido de las colas
   memo1.Clear;
   memo1.Lines.Add(Colas.Mostrar_Cola);
 end;
