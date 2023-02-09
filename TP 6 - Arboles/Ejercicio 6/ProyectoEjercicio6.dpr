@@ -1,13 +1,13 @@
-program projEj2Arboles;
+program ProyectoEjercicio6;
 
 uses
   Vcl.Forms,
-  Ej2Arboles in 'Ej2Arboles.pas' {Form1},
-  Ej2ArbolesTAD in 'Ej2ArbolesTAD.pas',
+  Ejercicio6 in 'Ejercicio6.pas' {Form1},
+  TADEjercicio6 in 'TADEjercicio6.pas',
   ArbolesBinarios in '..\ArbolesBinarios.pas',
-  Tipos in '..\Tipos.pas',
   QueuesPointer in '..\QueuesPointer.pas',
-  StackPointer in '..\StackPointer.pas';
+  StackPointer in '..\StackPointer.pas',
+  Tipos in '..\Tipos.pas';
 
 {$R *.res}
 

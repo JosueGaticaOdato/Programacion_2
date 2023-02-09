@@ -3,20 +3,18 @@ object Form1: TForm1
   Top = 0
   ActiveControl = btnCargar
   Caption = 'Form1'
-  ClientHeight = 450
-  ClientWidth = 623
+  ClientHeight = 416
+  ClientWidth = 604
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
-  OldCreateOrder = False
   OnCreate = FormCreate
-  PixelsPerInch = 96
   TextHeight = 13
   object btnCargar: TButton
-    Left = 30
+    Left = 8
     Top = 8
     Width = 139
     Height = 33
@@ -31,10 +29,10 @@ object Form1: TForm1
     OnClick = btnCargarClick
   end
   object Memo1: TMemo
-    Left = 192
-    Top = 16
-    Width = 393
-    Height = 337
+    Left = 168
+    Top = 8
+    Width = 417
+    Height = 400
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -13
@@ -47,8 +45,8 @@ object Form1: TForm1
     TabOrder = 1
   end
   object btnMostrar: TButton
-    Left = 30
-    Top = 64
+    Left = 8
+    Top = 47
     Width = 139
     Height = 33
     Caption = 'Mostrar Arbol'
@@ -62,8 +60,8 @@ object Form1: TForm1
     OnClick = btnMostrarClick
   end
   object btnPadre: TButton
-    Left = 30
-    Top = 128
+    Left = 8
+    Top = 86
     Width = 139
     Height = 33
     Caption = 'Indicar padre'
@@ -77,8 +75,8 @@ object Form1: TForm1
     OnClick = btnPadreClick
   end
   object btnHijos: TButton
-    Left = 30
-    Top = 184
+    Left = 8
+    Top = 125
     Width = 139
     Height = 33
     Caption = 'Indicar Hijos'
@@ -86,8 +84,8 @@ object Form1: TForm1
     OnClick = btnHijosClick
   end
   object btnHermanos: TButton
-    Left = 30
-    Top = 240
+    Left = 8
+    Top = 164
     Width = 139
     Height = 33
     Caption = 'Indicar Hermanos'
@@ -95,8 +93,8 @@ object Form1: TForm1
     OnClick = btnHermanosClick
   end
   object btnNivel: TButton
-    Left = 30
-    Top = 289
+    Left = 8
+    Top = 203
     Width = 139
     Height = 33
     Caption = 'Indicar Nivel'
@@ -104,19 +102,50 @@ object Form1: TForm1
     OnClick = btnNivelClick
   end
   object btnAltura: TButton
-    Left = 30
-    Top = 344
+    Left = 8
+    Top = 242
     Width = 139
     Height = 33
     Caption = 'Indicar Altura'
     TabOrder = 7
+    OnClick = btnAlturaClick
   end
   object btnNodosNivel: TButton
-    Left = 30
-    Top = 400
+    Left = 8
+    Top = 281
     Width = 139
     Height = 33
     Caption = 'Nodos con el mismo nivel'
     TabOrder = 8
+    OnClick = btnNodosNivelClick
+  end
+  object Button1: TButton
+    Left = 8
+    Top = 320
+    Width = 60
+    Height = 49
+    Caption = 'Cargar Arbol 2 Distinto'
+    TabOrder = 9
+    WordWrap = True
+    OnClick = Button1Click
+  end
+  object Button2: TButton
+    Left = 87
+    Top = 320
+    Width = 60
+    Height = 49
+    Caption = 'Cargar Arbol 2 Igual'
+    TabOrder = 10
+    WordWrap = True
+    OnClick = Button2Click
+  end
+  object Button3: TButton
+    Left = 8
+    Top = 375
+    Width = 139
+    Height = 33
+    Caption = #191'Son equivalentes?'
+    TabOrder = 11
+    OnClick = Button3Click
   end
 end
