@@ -1,11 +1,11 @@
-program ProyectoEjercicio3;
+program ProyectoEjercicio10;
 
 uses
   Vcl.Forms,
-  Ejercicio3 in 'Ejercicio3.pas' {Form1},
-  TADEjercicio3 in 'TADEjercicio3.pas',
-  Tipos in '..\..\Tipos.pas',
-  ArbolesBinarios in '..\ArbolesBinarios.pas',
+  Ejercicio10 in 'Ejercicio10.pas' {Form1},
+  ArbolesBinariosAVL in '..\ArbolesBinariosAVL.pas',
+  ArbolesBinariosBusqueda in '..\ArbolesBinariosBusqueda.pas',
+  Tipos in '..\Tipos.pas',
   QueuesPointer in '..\QueuesPointer.pas',
   StackPointer in '..\StackPointer.pas';
 

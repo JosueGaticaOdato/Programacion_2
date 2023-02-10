@@ -3,7 +3,7 @@ unit TADEjercicio3;
 interface
 
 uses
-  ArbolesBinarios, Tipos, ListPointer, SysUtils;
+  ArbolesBinarios, Tipos, SysUtils;
 
 const
   tipoClave = Cadena;

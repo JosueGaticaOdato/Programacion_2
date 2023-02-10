@@ -1,13 +1,13 @@
-program ProyectoEjercicio3;
+program ProyectoEjercicio7;
 
 uses
   Vcl.Forms,
-  Ejercicio3 in 'Ejercicio3.pas' {Form1},
-  TADEjercicio3 in 'TADEjercicio3.pas',
-  Tipos in '..\..\Tipos.pas',
+  Ejercicio7 in 'Ejercicio7.pas' {Form1},
+  TADEjercicio7 in 'TADEjercicio7.pas',
   ArbolesBinarios in '..\ArbolesBinarios.pas',
   QueuesPointer in '..\QueuesPointer.pas',
-  StackPointer in '..\StackPointer.pas';
+  StackPointer in '..\StackPointer.pas',
+  Tipos in '..\Tipos.pas';
 
 {$R *.res}
 
