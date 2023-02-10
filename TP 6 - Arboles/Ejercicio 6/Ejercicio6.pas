@@ -75,6 +75,7 @@ begin
   if AB.esArbolDeExpresion then
   begin
     Memo1.Lines.Add('Es arbol de expresion!');
+    memo1.Lines.Add(AB.mostrarArbolDeExpresion);
   end
   else
   begin

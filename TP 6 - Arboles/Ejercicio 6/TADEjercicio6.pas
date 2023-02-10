@@ -23,7 +23,7 @@ type
     function mostrarPostOrden() : string;
     function mostrarAnchura() : string;
     function esArbolDeExpresion(): boolean;
-    function calcularArbolDeExpresion(): String;
+    function mostrarArbolDeExpresion(): String;
   End;
 
   //Operadores = (+,-,*,/);
@@ -66,25 +66,38 @@ begin
   Result := A.Anchura;
 end;
 
+//Procedimiento que me dice si un nodo del arbol es hoja
 function esHoja(aA: Arbol; P: PosicionArbol): boolean;
 begin
   Result := ((aA.HijoIzquierdo(P) = Nulo) and (aA.HijoDerecho(P) = Nulo));
 end;
 
+//Funcion que verifica si el valor dentro de el nodo hoja es valido (entero)
 function esHojaValida(aA: Arbol; P: PosicionArbol): boolean;
+var esLetra, esNumero: boolean;
+ordinal: integer;
 begin
-  Result := VarType(aA.Recuperar(P).Clave) = varInteger;
+  ordinal := Ord(LowerCase(VarToStr(aA.Recuperar(P).Clave))[1]); //Obtengo el ordinal por si es string
+  try
+    esLetra :=(ordinal >= 97) and
+      (ordinal <= 122) ; //Chequeo si es una letra valida
+    esNumero := (VarType(Strtoint(aA.Recuperar(P).Clave)) = varInteger);//Consulto si es numero
+    Result := esLetra or esNumero; //Devuelve si es letra o numero
+  except //Entra en el except cuando no es un numero valido
+    Result := esLetra; //Consulta si es letra
+  end;
 end;
 
+//Funcion que revisa si es un operador aritmetico valido
 function esOperadorValido(aA: Arbol; P: PosicionArbol): boolean;
 var
 i: integer;
 valido: boolean;
 begin
   valido := false;
-  while (i < length(operadores)) and (not valido) do
+  while (i < length(operadores)) and (not valido) do //Mientras no halla confirmado que sea un operador y no llegue al final
   begin
-    if operadores[i] = VarToStr(aA.Recuperar(P).Clave) then
+    if operadores[i] = VarToStr(aA.Recuperar(P).Clave) then //Comparo en mi arreglo de operadores si es valido
     begin
       valido := true;
     end;
@@ -94,21 +107,23 @@ begin
   Result := valido;
 end;
 
+//Funcion principal que me dice si es o no un arbol de expresion
 function Ej6.esArbolDeExpresion: Boolean;
 var
 isAdeExpresion: boolean;
 
+    //Procedimiento que opera con los nodos del arbol
     procedure arbolDeExpresion(aP: PosicionArbol);
     begin
       if (not A.RamaNula(aP)) and (isAdeExpresion) then
       begin
         if esHoja(A,aP) then //Consulto si es hoja
         begin
-          if not esHojaValida(A,aP) then isAdeExpresion := false;
+          if not esHojaValida(A,aP) then isAdeExpresion := false; //Consulto si es una hoja valida (osea, un numero o letra)
         end
         else //Si no es hoja es operador, tengo que comprobar que sea valido
         begin
-          if not esOperadorValido(A,aP) then isAdeExpresion := false;
+          if not esOperadorValido(A,aP) then isAdeExpresion := false; //Consulto si es un operador aritmetico valido
         end;
         arbolDeExpresion(A.HijoIzquierdo(aP));
         arbolDeExpresion(A.HijoDerecho(aP));
@@ -121,9 +136,32 @@ begin
   result := isAdeExpresion;
 end;
 
-function Ej6.calcularArbolDeExpresion: string;
-begin
+//Faltan los parentesis
+function Ej6.mostrarArbolDeExpresion(): String;
+Var
+  S: String;
+  // Proceso que lee en preorden
+     Procedure InOrdenExpresivo(aP: PosicionArbol);
+      Begin
+        If not A.RamaNula(aP) Then
+        begin
+          //S := S + '(';
+          InOrdenExpresivo(A.HijoIzquierdo(aP)); //Primero Izquierda
+          S := S + VarToStr(A.Recuperar(aP).Clave); //Despues raiz
+          InOrdenExpresivo(a.HijoDerecho(aP)); //y sigue derecha
+          //S := S + ')';
+        end;
+      End;
 
-end;
+
+
+// Inicio de la funcion
+Begin
+  S := '';
+  InOrdenExpresivo(A.Root);
+  mostrarArbolDeExpresion := S;
+End;
+
+
 
 end.
