@@ -40,6 +40,14 @@ implementation
 
 {$R *.dfm}
 
+{
+Ejercicio 1
+
+  Desarrollar un algoritmo que dados dos conjuntos de elementos tipo carácter (char)
+  verifique las operaciones de Unión, Intersección, Diferencia y Pertenencia.
+}
+
+//Mostrar contenido de los conjuntos
 procedure TForm1.btnMostrarClick(Sender: TObject);
 begin
   memo1.Lines.Add('Conjunto 1: ');
@@ -48,36 +56,31 @@ begin
   memo1.Lines.Add(C2.mostrarConjunto(C2));
 end;
 
+//Boton que busca si un elemento dado esta en ub conjunto
 procedure TForm1.btnPertenenciaClick(Sender: TObject);
 var C:Ej1;
     Elem:integer;
 begin
-
-  if (checkBoxC1.Checked) and (not checkBoxC2.Checked) then begin
-
-
-    if C1.Pertenencia(C1,editElemento.Text) then begin
+  if checkBoxC1.Checked then
+  begin
+    if C1.Pertenencia(C1,editElemento.Text) then
+    begin
       memo1.Lines.Add('El elemento pertenece al conjunto 1');
     end
     else memo1.Lines.Add('El elemento no pertenece al conjunto 1');
-  end
-  else if (checkBoxC2.Checked) and (not checkBoxC1.Checked) then begin
+  end;
 
-    if C1.Pertenencia(C2,editElemento.Text) then begin
+  if checkBoxC2.Checked then
+  begin
+    if C2.Pertenencia(C2,editElemento.Text) then
+    begin
       memo1.Lines.Add('El elemento pertenece al conjunto 2');
     end
     else memo1.Lines.Add('El elemento no pertenece al conjunto 2');
-  end
-  else if (checkBoxC1.Checked) and (checkBoxC2.Checked) then begin
-
-    if (C1.Pertenencia(C1,editElemento.Text)) and (C2.Pertenencia(C2,editElemento.Text)) then begin
-      memo1.Lines.Add('El elemento pertenece a los dos conjuntos');
-    end
-    else memo1.Lines.Add('El elemento no pertenece a los dos conjuntos');
-  end
-  else memo1.Lines.Add('Debe seleccionar algún conjunto');
+  end;
 end;
 
+//Boton que realiza la Union
 procedure TForm1.btnUnionClick(Sender: TObject);
 var C:Ej1;
 begin
@@ -86,6 +89,7 @@ begin
   memo1.Lines.Add(C.mostrarConjunto(C));
 end;
 
+//Boton que realiza la interseccion
 procedure TForm1.btnInterseccionClick(Sender: TObject);
 var C:Ej1;
 begin
@@ -94,12 +98,14 @@ begin
   memo1.Lines.Add(C.mostrarConjunto(C));
 end;
 
+//Boton que carga los conjuntos
 procedure TForm1.btnCargarClick(Sender: TObject);
 begin
   C1.crearConjunto(tipoClave,cantElem,Min);
   C2.crearConjunto(tipoClave,cantElem,Min);
 end;
 
+//Boton que realiza la diferencia
 procedure TForm1.btnDiferenciaClick(Sender: TObject);
 var C:Ej1;
 begin

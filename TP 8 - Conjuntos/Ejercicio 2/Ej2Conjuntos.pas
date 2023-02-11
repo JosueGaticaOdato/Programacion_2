@@ -32,8 +32,12 @@ implementation
 
 {$R *.dfm}
 
+{
+Ejercicio 2
+Desarrollar un algoritmo que dados tres conjuntos de elementos tipo carácter (char) realice las operaciones de Unión e Intersección.
+}
 
-
+//Boton que carga los tres conjuntos
 procedure TForm1.btnCargarClick(Sender: TObject);
 begin
   C1.cargarConjunto(tipoClave,cantElem);
@@ -41,12 +45,15 @@ begin
   C3.cargarConjunto(tipoClave,cantElem);
 end;
 
+//Boton que muestra la interseccion entre los 3
 procedure TForm1.btnInterseccionClick(Sender: TObject);
 var C:Ej2;
 begin
   C := C1.interseccion3Conjuntos(C1,C2,C3);
   memo1.Lines.Add(C.mostrarConjunto(C));
 end;
+
+//Boton que muestra el contenido de los 3 conjuntos
 procedure TForm1.btnMostrarClick(Sender: TObject);
 begin
   memo1.Lines.Add(C1.mostrarConjunto(C1));
@@ -54,6 +61,7 @@ begin
   memo1.Lines.Add(C1.mostrarConjunto(C3));
 end;
 
+//Boton que realiza la union entre los 3 conjuntos
 procedure TForm1.btnUnionClick(Sender: TObject);
 var C:Ej2;
 begin

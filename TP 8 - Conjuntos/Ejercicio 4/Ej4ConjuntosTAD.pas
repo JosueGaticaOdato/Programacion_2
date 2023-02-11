@@ -9,8 +9,8 @@ const
   tipoClave = Numero;
   cantElem = 3;
   Min = 1;
-  Max = 5;
-  cantElem2 = 15;
+  Max = 10;
+  cantElem2 = 5;
 
 type
   Ej4 = Object
@@ -18,64 +18,61 @@ type
     C:Conjunto;
   public
     procedure crearConjunto(aTClave:tipoDatosClave;aSize:integer);
-    function cargarConjunto(aSize,aMin,aMax:integer) : boolean;
+    procedure cargarConjunto();
+    procedure cargarConjuntoSub();
     function mostrarConjunto(aC:Ej4) : string;
-    function esSubconjunto(aC1,aC2:Ej4) : boolean;
-    function pasarElementos(aC:Conjunto) : Conjunto;
+    function esSubconjunto(C2:Ej4) : boolean;
+    procedure cargarEjemplo(var C2: Ej4);
   End;
 
 implementation
 
-//Dados dos conjuntos de números naturales se pide determinar si uno es
-//subconjunto propio del otro.
-//
-//Determinar la complejidad algorítmica.
-//
-//    Ejemplo: si A = (3, 4, 5) y B = (1, 2, 3, 4, 5, 6, 7, 8, 9) entonces
-//     a A es un subconjunto propio del conjunto B porque todos los
-//      elementos de A están en B pero A <> B.
+//Funcion que determina si es C1 es subconjunto de C2
+function Ej4.esSubconjunto(C2:Ej4) : boolean;
+var
+Inter: Conjunto;
+begin
+  Inter := C.Interseccion(C2.C); //Obtengo la interseccion entre C1 Y C2
+  //Si coincide las claves de C y Inter (osea, que son iguales sus conjuntos), entonces es subconjunto
+  Result := (C.RetornarClaves = Inter.RetornarClaves) and (C.RetornarClaves <> C2.C.RetornarClaves);
+end;
 
-function Ej4.pasarElementos(aC:Conjunto) : Conjunto;
+//Procedimiento que carga el ejemplo
+procedure Ej4.cargarEjemplo(var C2: Ej4);
 var
   I: Integer;
-  cAux:Conjunto;
-  Elem:tipoElemento;
+  X: TipoElemento;
 begin
-  for I := Min to aC.SizeSet do begin
-    Elem := aC.Recuperar(I);
-    cAux.Agregar(Elem);
+  C.Crear(Numero,3);
+  C2.C.Crear(Numero,9);
+  for I := 1 to 9 do
+  begin
+    X.Clave := I;
+    C2.C.Agregar(X);
+    if (I >= 3) and (I <= 5) then C.Agregar(X);
   end;
-  Result := cAux;
+
 end;
 
-function Ej4.esSubconjunto(aC1: Ej4; aC2: Ej4) : boolean;
-var I: Integer;
-    Elem: tipoElemento;
-    Subconjunto: boolean;
-    cAux:Conjunto;
+//Funcion que carga el conjunto de forma random
+procedure Ej4.cargarConjunto();
 begin
-//  cAux.Crear(aC1.C.DatoDeLaClave,aC1.C.SizeSet);
-//  cAux := pasarElementos(aC2);
-  Subconjunto := True;
-  while (Subconjunto) and (not aC2.C.EsVacio) do begin
-    Elem := aC1.C.Recuperar(I);
-    if not aC2.C.Pertenece(Elem) then Subconjunto := False
-    else aC2.C.Borrar(Elem);
-  end;
-  if aC2.C.EsVacio then Subconjunto := False;
-  Result := Subconjunto;
+  C.LlenarClavesRandom(CantElem2,Min,Max);
 end;
 
-function Ej4.cargarConjunto(aSize,aMin,aMax:integer) : boolean;
+//Funcion que carga el conjunto de forma random
+procedure Ej4.cargarConjuntoSub();
 begin
-  if C.LlenarClavesRandom(aSize,aMin,aMax) = OK then Result := True;
+  C.LlenarClavesRandom(cantElem,Min,Max);
 end;
 
+//Funcion que muestra el contenido del conjunto
 function Ej4.mostrarConjunto(aC:Ej4) : string;
 begin
   Result := aC.C.RetornarClaves;
 end;
 
+//Procedmineto que crea el conjunto dado un tamaño y tipo de clave
 procedure Ej4.crearConjunto(aTClave:tipoDatosClave;aSize:integer);
 begin
   C.Crear(aTClave,aSize);

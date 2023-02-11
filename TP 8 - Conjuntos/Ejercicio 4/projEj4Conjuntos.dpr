@@ -4,11 +4,13 @@ uses
   Vcl.Forms,
   Ej4Conjuntos in 'Ej4Conjuntos.pas' {Form1},
   Ej4ConjuntosTAD in 'Ej4ConjuntosTAD.pas',
+  ArbolesBinariosAVL in '..\ArbolesBinariosAVL.pas',
+  Conjuntos in '..\Conjuntos.pas',
   ConjuntosAVL in '..\ConjuntosAVL.pas',
-  ArbolesBinariosAVL in '..\..\TP 7\ArbolesBinariosAVL.pas',
-  QueuesPointer in '..\..\TP 6\QueuesPointer.pas',
-  StackPointer in '..\..\TP 5\StackPointer.pas',
-  Tipos in '..\..\Tipos.pas';
+  ListPointer in '..\ListPointer.pas',
+  QueuesPointer in '..\QueuesPointer.pas',
+  StackPointer in '..\StackPointer.pas',
+  Tipos in '..\Tipos.pas';
 
 {$R *.res}
 

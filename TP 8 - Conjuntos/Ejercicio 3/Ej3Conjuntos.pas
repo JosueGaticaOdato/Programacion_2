@@ -4,7 +4,7 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs,Ej3ConjuntosTAD, Vcl.StdCtrls;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs,Ej3ConjuntosTAD, Vcl.StdCtrls,ConjuntosAVL;
 
 type
   TForm1 = class(TForm)
@@ -30,27 +30,37 @@ implementation
 
 {$R *.dfm}
 
+{
+Ejercicio 3
+
+  Desarrollar un algoritmo que dado un conjunto de elementos tipo carácter (char)
+  cree dos conjuntos, uno con las vocales y otro con las consonantes
+}
+
+//Boton que carga el conjunto de forma aleatoria
 procedure TForm1.btnCargarClick(Sender: TObject);
 begin
   C.cargarConjunto(tipoClave,cantElem);
+  memo1.Lines.Add('Cargado.');
 end;
 
+//Boton que muestra el conjunto
 procedure TForm1.btnMostrarClick(Sender: TObject);
 begin
   memo1.Lines.Add('Conjunto: ');
   memo1.Lines.Add(C.mostrarConjunto(C));
 end;
 
+//Boton que realiza la creacion de conjuntos (consonantes y vocales)
 procedure TForm1.btnVocalesConsonantesClick(Sender: TObject);
-var C1,C2:Ej3;
+var C1,C2:Conjunto;
 begin
-  C1.crearConjunto(tipoClave,cantElem);
-  C2.crearConjunto(tipoClave,cantElem);
-  C.conjuntoVocalesConsonantes(C,C1,C2);
+  C1 := C.vocales;
+  C2 := C.Consonantes;
   memo1.Lines.Add('Conjunto vocales: ');
-  memo1.Lines.Add(C1.mostrarConjunto(C1));
+  memo1.Lines.Add(C1.RetornarClaves);
   memo1.Lines.Add('Conjunto consonantes: ');
-  memo1.Lines.Add(C2.mostrarConjunto(C2));
+  memo1.Lines.Add(C2.RetornarClaves);
 end;
 
 procedure TForm1.FormCreate(Sender: TObject);
