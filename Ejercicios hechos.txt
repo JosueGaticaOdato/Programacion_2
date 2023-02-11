@@ -32,5 +32,5 @@ TP7-Hash:
 1-2-3-4-5-6-7
 
 TP8-Conjuntos:
-Hecho: 1-2-3-4
-Falta: 5-6-7-8
+Hecho: 1-2-3-4-5
+Falta: 6-7-8
