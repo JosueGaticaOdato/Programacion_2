@@ -1,13 +1,13 @@
-program projEj3Hash;
+program ProyectoEjercicio3;
 
 uses
   Vcl.Forms,
-  Ej3Hash in 'Ej3Hash.pas' {Form1},
-  Ej3HashTAD in 'Ej3HashTAD.pas',
+  Ejercicio3 in 'Ejercicio3.pas' {Form1},
+  TADEjercicio3 in 'TADEjercicio3.pas',
+  ListArray in '..\ListArray.pas',
   TadHash in '..\TadHash.pas',
   TadHashZO in '..\TadHashZO.pas',
-  Tipos in '..\..\Tipos.pas',
-  ListArray in '..\..\TP 4\ListArray.pas';
+  Tipos in '..\Tipos.pas';
 
 {$R *.res}
 

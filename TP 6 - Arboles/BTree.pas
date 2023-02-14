@@ -10,7 +10,7 @@ Const
   MinClaves = Orden div 2; // cantidad minima de claves x pagina
   MaxClaves = Orden - 1; // cantidad maxima de claves x pagina
   Nulo = Nil; // Posicion NO valida de una pagina
-  MAX = 2000; // Cantidad Maxima de claves a almacenar
+  MAX = 2000; // Cantidad Maxima de claves a almacenar  2000
   MIN = 1;
 
 Type

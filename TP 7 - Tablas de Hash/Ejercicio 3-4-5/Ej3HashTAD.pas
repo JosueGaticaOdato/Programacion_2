@@ -21,17 +21,18 @@ type
   private
     T: TablaHash;
   public
-    procedure crearArchivo(aFile:string);
-    procedure cargarProducto(aCodigo,aPrecio:longInt;aStock:integer;aFile,aDetalle:string);
-    function eliminarProducto(aCodigo:longInt;aFile:string) : boolean;
-    function modificarProducto(aCodigo, aPrecio:longint; aStock: Integer; aFile,aDetalle: string) : boolean;
+    procedure crearArchivo(archivo: String);
+    procedure cargarProducto(aCodigo,aPrecio:longInt;aStock:integer;archivo,aDetalle:string);
     function mostrarArchivo(aFile:string) : string;
+    {function eliminarProducto(aCodigo:longInt;aFile:string) : boolean;
+    function modificarProducto(aCodigo, aPrecio:longint; aStock: Integer; aFile,aDetalle: string) : boolean;
+
     procedure crearTabla(aTClave: tipoDatosClave; aTHash: tipoFuncionesHash;
       aCantElem, aNPrimo: integer);
     procedure cargarTabla();
     function mostrarTabla(): string;
     function Porcentaje_Ocupacion(): Extended;
-    function Claves_Cargadas_VS_ZO(): Extended;
+    function Claves_Cargadas_VS_ZO(): Extended;}
 
   End;
 
@@ -42,22 +43,72 @@ type
     stock: integer;
     Borrado: boolean;
   End;
-  aProducto = File of recProducto;
 
-var
-  RP: recProducto;
-  AP: aProducto;
+  //Archivo donde tengo los productos
+  aProducto = File of recProducto;
 
 implementation
 
-// Desarrollar un algoritmo que dado un archivo que contendrá los datos de un
-// producto (código, detalle, precio, stock) genere una tabla hash donde la
-// clave será el código y se guardará como dato la posición física del registro
-// para poder realizar accesos directos.
-//
-// Hacer un ABM para poder para cargar manualmente el archivo. El código es un
-// valor de 7 dígitos.
+//Procedimineto que crea el archivo
+procedure Ej3.crearArchivo(archivo: String);
+var
+  RP: recProducto;
+  AP: aProducto;
+begin
+  AssignFile(AP, archivo);
+  if not FileExists(archivo) then begin //Si no existe el archivo
+    //Creo y cierro
+    Rewrite(AP);
+    CloseFile(AP);
+  end;
+end;
 
+//Funcion que carga el producto
+procedure Ej3.cargarProducto(aCodigo,aPrecio:longInt;aStock:integer;archivo,aDetalle:string);
+var
+  RP: recProducto;
+  AP: aProducto;
+begin
+  AssignFile(AP,archivo); //Asigno el archivo a mi variable
+  Reset(AP);
+  while not EOF(AP) do
+  begin
+    Read(AP,RP);
+  end;
+  //Abro en el final
+  RP.Codigo := aCodigo;
+  RP.Detalle := aDetalle;
+  RP.Precio := aPrecio;
+  RP.stock := aStock;
+  RP.Borrado := True;
+  Write(AP,RP);
+  CloseFile(AP);
+end;
+
+//Funcion que muestra el contenido del archivo
+function Ej3.mostrarArchivo(aFile:string) : string;
+var
+  RP: recProducto;
+  AP: aProducto;
+  S: string;
+begin
+  S:='';
+  if FileExists(aFile) then begin
+    Reset(AP);
+    while not EOF(AP) do begin
+      Read(AP,RP);
+      S := S + RP.Codigo.ToString + Esp + RP.Detalle + Esp +
+      RP.Precio.ToString + Esp + RP.stock.ToString + Esp +
+      RP.Borrado.ToString + cCRLF;
+    end;
+    CloseFile(AP);
+    Result := S;
+  end;
+end;
+
+{
+
+//Funcion que busca el codigo del producto y lo modifica
 function Ej3.modificarProducto(aCodigo, aPrecio:longint; aStock: Integer; aFile,aDetalle: string) : boolean;
 begin
   if fileExists(aFile) then begin
@@ -75,6 +126,7 @@ begin
 
 end;
 
+//Funcion que muestra el contenido del archivo
 function Ej3.mostrarArchivo(aFile:string) : string;
 var S: string;
 begin
@@ -92,6 +144,7 @@ begin
   end;
 end;
 
+//Funcion que elimina el producto
 function Ej3.eliminarProducto(aCodigo:longInt;aFile:string) : boolean;
 var Borrado:boolean;
 begin
@@ -111,38 +164,15 @@ begin
   Result := Borrado;
 end;
 
-procedure Ej3.cargarProducto(aCodigo,aPrecio:longInt;aStock:integer;aFile,aDetalle:string);
-begin
-  AssignFile(AP,aFile);
-  if not FileExists(aFile) then begin
-    Rewrite(AP);
-    CloseFile(AP);
-  end;
 
-  Reset(AP);
-  RP.Codigo := aCodigo;
-  RP.Detalle := aDetalle;
-  RP.Precio := aPrecio;
-  RP.stock := aStock;
-  RP.Borrado := True;
-  Write(AP,RP);
-  CloseFile(AP);
-end;
 
-procedure Ej3.crearArchivo(aFile:string);
-begin
-  AssignFile(AP, aFile);
-  if not FileExists(aFile) then begin
-    Rewrite(AP);
-    CloseFile(AP);
-  end;
-end;
-
+//Funcion que muestra el contenido de mi tabla hash
 function Ej3.mostrarTabla: string;
 begin
   Result := T.RetornarClaves;
 end;
 
+//Procedimiento que carga la tabla hash
 procedure Ej3.cargarTabla();
 var
   I: integer;
@@ -152,24 +182,26 @@ begin
   begin
     X.Clave := I;
     T.Insertar(X);
-
   end;
 end;
 
+//Procedimiento que crea la tabla hash
 procedure Ej3.crearTabla(aTClave: tipoDatosClave; aTHash: tipoFuncionesHash;
   aCantElem, aNPrimo: integer);
 begin
   T.Crear(aTClave, aTHash, aCantElem, aNPrimo);
 end;
 
+//Funcion que me devuelve el porcentaje de ocupacion
 function Ej3.Porcentaje_Ocupacion():Extended;
 begin
   Porcentaje_Ocupacion := (T.CantidadClaves DIV T.CantidadOcupados);
 end;
 
+//Funcion que calcula la diferencia que hay entre claves ocuapadas y claves en ZO
 function Ej3.Claves_Cargadas_VS_ZO;
 begin
   Claves_Cargadas_VS_ZO := T.CantidadOcupados DIV T.CantidadClavesZO;
-end;
+end;   }
 
 end.

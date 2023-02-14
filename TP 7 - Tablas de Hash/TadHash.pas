@@ -7,7 +7,7 @@ uses
 
 Const
   MinTable = 0; // Posicion Minima de la Tabla
-  MaxTable = 2000; // Posicion Maxima de la Tabla
+  MaxTable = 2000; // Posicion Maxima de la Tabla 2000
   MaxSizeLC = 100; // Tamaño Maximo Lista de Colisiones
   PosNula = -1; // Posicion Invalida
 

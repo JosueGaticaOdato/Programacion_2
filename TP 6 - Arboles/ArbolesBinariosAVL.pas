@@ -7,7 +7,7 @@ Uses
 
 Const
   MIN = 1;
-  MAX = 10000; // Tamaño maximo del arbol en cantidad de nodos
+  MAX = 10000; // Tamaño maximo del arbol en cantidad de nodos 10000
   Nulo = Nil; // Posicion NO valida del arbol
 
 Type
