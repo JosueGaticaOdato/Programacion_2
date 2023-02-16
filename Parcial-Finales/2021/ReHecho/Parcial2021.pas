@@ -18,9 +18,11 @@ type
     Memo1: TMemo;
     Button2: TButton;
     Button3: TButton;
+    Button4: TButton;
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
+    procedure Button4Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -33,6 +35,64 @@ var
 implementation
 
 {$R *.dfm}
+
+//--------------------- Ejercicio PLUS ------------------
+
+//Determina si un arbol binario esta equilibrado
+
+function obtenerAltura(Var A:Arbol; P:PosicionArbol): integer;
+var
+X: TipoElemento;
+Stack: Pila;
+altura,alturamax: integer;
+begin
+  Stack.Crear(A.DatoDeLaClave,A.CantidadNodos);
+  altura := 0;
+  alturamax := 0;
+  Stack.Apilar(A.Recuperar(P));
+  while not Stack.EsVacia do
+  begin
+    if A.RamaNula(P) then
+    begin
+      if altura > alturamax then
+      begin
+       alturamax := altura;
+      end;
+    end
+    else
+    begin
+      Stack.Apilar(A.Recuperar(A.HijoIzquierdo(P)));
+      Stack.Apilar(A.Recuperar(A.HijoDerecho(P)));
+      inc(altura);
+      Stack.DesApilar;
+    end;
+  end;
+  Result := alturamax;
+end;
+
+{function estaEquilibradoRecursivo(Var A:Arbol): boolean;
+var
+equilibrado: boolean;
+
+    procedure ER(P: PosicionArbol; C: Integer);
+    begin
+      if not A.RamaNula(P) then
+      begin
+        ER(A.HijoIzquierdo(P),C+1);
+        ER(A.HijoDerecho(P),C+1);
+      end
+      else
+      begin
+        equilibrado := ABS(A.A
+      end;
+    end;
+
+begin
+  equilibrado := true;
+  ER(A.Root,0);
+  Result := equilibrado;
+end;   }
+
 
 //--------------------- Ejercicio 4 -------------------
 {
@@ -282,6 +342,19 @@ begin
   C.Crear(Numero,20);
   cargarCola(C);
   memo1.Lines.Add(LongitudMasLarga(C).ToString);
+end;
+
+procedure TForm1.Button4Click(Sender: TObject);
+var
+A: Arbol;
+L1,L2: Lista;
+begin
+  A.Crear(Cadena,20);
+  A.CargarArbol;
+  memo1.Lines.Add(obtenerAltura(A,A.Root).ToString);
+  memo1.Lines.Add(obtenerAltura(A,A.HijoIzquierdo(A.Root)).ToString);
+  memo1.Lines.Add(obtenerAltura(A,A.HijoDerecho(A.Root)).ToString);
+  //memo1.Lines.Add(ord(estaEquilibradoRecursivo(A)).ToString);
 end;
 
 end.
